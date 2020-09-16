@@ -114,7 +114,7 @@ More details please refer to python files in template floder.
 
 ## Loss Factory
 
-We supply a *Loss Factory* for an easier way to tuning the loss function.
+We supply a **Loss Factory** for an easier way to tuning the loss function.
 You can set --loss and --lw parameters to use it.
 
 Here are some examples:
