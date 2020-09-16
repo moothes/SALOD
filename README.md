@@ -2,7 +2,7 @@
 
 A new benchmark for existing saliency object detection models. 
 
-In order to make the comparison as fair as possible, we use same settings for all networks, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Training strategies are different because of various network structures and objective functions. We try our best to tune the optimer for these models to achieve best performance one by one. 
+In order to make the comparison as fair as possible, we use same settings for all networks, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Training strategies are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve best performance one by one. 
 
 There are 14 networks from top conferences (CVPR, ICCV, AAAI) or top journals (TPAMI) these years are available now. Notice that only the network achieve comparable or better performance as reported in their paper, it will be available in this project. 
 
@@ -34,6 +34,9 @@ There are 14 networks from top conferences (CVPR, ICCV, AAAI) or top journals (T
  We only report max-F score here. You can [download] the trained models or official maps to get more results. 
  
  Src indicates saliency maps from official code, while ss and ms mean single-scale and multi-scale training respectively.
+ 
+ **Notice: If you have a new optimizer strategy that can train any network to get a higher score, we would appreciate it.**
+ 
  
 Methods | Source | Backbone  | SOD   | Pascal-S | ECSSD | HKU-IS | DUTS-TE | DUT-OMRON 
  ----   | ---    | -----     | ----- | -------- | ----- | -----  | -----   | -----     
