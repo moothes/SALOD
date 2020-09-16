@@ -29,6 +29,27 @@ There are 14 networks from top conferences (CVPR, ICCV, AAAI) or top journals (T
  *PFA     | CVPR2019 | 320^2 | ------ | ------ | ----- | ----- | ----- | [openaccess](https://openaccess.thecvf.com/content_CVPR_2019/papers/Zhao_Pyramid_Feature_Attention_Network_for_Saliency_Detection_CVPR_2019_paper.pdf) | [Pytorch](https://github.com/dizaiyoufang/pytorch_PFAN)  
  *F3Net   | AAAI2020 | 320^2 | ------ | ------ | ----- | ----- | ----- | [aaai.org](https://aaai.org/ojs/index.php/AAAI/article/view/6916) | [Pytorch](https://github.com/weijun88/F3Net)  
  
+ ## Usage
+ 
+ To train a model:
+ ```
+ # model_name: lower-cased method name. E.g. poolnet, egnet, gcpa, dhsnet or minet.
+ python train.py model_name --gpus=0
+ ```
+ 
+ To test a model:
+ ```
+ # model_name: lower-cased method name. E.g. poolnet, egnet, gcpa, dhsnet or minet.
+ python test.py model_name --gpus=0 --weight=path_to_weight
+ ```
+ 
+ To evaluate generated maps:
+ ```
+ python eval.py --pre_path=path_to_maps
+ ```
+ 
+ 
+ 
  ## Results
  
  We only report max-F score here. You can [download] the trained models or official maps to get more results. 
