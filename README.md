@@ -83,3 +83,27 @@ MINet   | src    | Resnet50  | --    | .867     | .947  | .935   | .884    | .81
 ----    | ss     | Resnet50  | .867  | .873     | .940  | .929   | .881    | .802      
 ----    | ms     | Resnet50  | .871  | .874     | .945  | .935   | .890    | .819      
 
+## New Model
+
+If your want to create a new model, you can copy the template folder and modify it as you want.
+```
+cp -r ./methods/template ./methods/new_name
+```
+More details please refer to python files in template floder.
+
+## Loss Factory
+
+We supply a *Loss Factory* for an easier way to tuning the loss function.
+You can set --loss and --lw parameters to use it.
+
+Here are some examples:
+```
+loss_dict = {'b': BCE, 's': SSIM, 'i': IOU, 'd': DICE, 'e': Edge, 'c': CTLoss}
+
+python train.py ... --loss=bd
+# loss = 1 * bce_loss + 1 * dice_loss
+
+python train.py ... --loss=bs --lw=0.3,0.7
+# loss = 0.3 * bce_loss + 0.7 * ssim_loss
+
+```
