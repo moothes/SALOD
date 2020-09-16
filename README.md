@@ -4,7 +4,7 @@ This project is a new benchmark for existing saliency object detection models.
 
 In order to make the comparison as fair as possible, we use same settings for all networks, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Training strategies are different because of various network structures and objective functions. We try our best to tune the optimer for these models to achieve best performance one by one. 
 
-There are 14 networks from top conferences (CVPR, ICCV, AAAI) or top journals (TPAMI) these years are available now. Notice that only the network achieve its performance as reported in their paper, it will be available in this project. 
+There are 14 networks from top conferences (CVPR, ICCV, AAAI) or top journals (TPAMI) these years are available now. Notice that only the network achieve comparable or better performance as reported in their paper, it will be available in this project. 
 
 ## Methods:
 
