@@ -102,7 +102,7 @@ ITSD    | 25.7    | 19.6   | 5.7      | 29.4 | .913  | .825  | .842 | .042 | .90
 MINet   | 162.4   | 87     | 11.7     | 23.5 | .913  | .851  | .871 | .034 | .906 | .917      
 
 
-## New Model
+## Create New Model
 
 If your want to create a new model, you can copy the template folder and modify it as you want.
 ```
