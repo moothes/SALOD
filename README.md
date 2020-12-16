@@ -68,7 +68,7 @@ In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) 
  
  We only report max-F score here. You can [download] the trained models or official maps to get more results. 
  
- Src indicates results from the saliency maps that provided by author or generated their official code, while ss and ms mean single-scale and multi-scale training strategies respectively.
+ Src indicates results from the saliency maps that provided by author or generated from source code, while ss and ms mean single-scale and multi-scale training strategies respectively.
  
  **Notice: please contact us if you get better results.**
  
