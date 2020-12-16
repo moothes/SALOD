@@ -2,9 +2,9 @@
 
 A new benchmark for SALient Object Detection (SALOD) task. 
 
-In order to make the comparison as fair as possible, we use same settings for all networks, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Training strategies are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve best performance one by one. 
+In order to make the comparison as fair as possible, we use same settings for all networks, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters for optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. 
 
-There are 14 networks from top conferences (CVPR, ICCV, AAAI) or top journals (TPAMI) these years are available now. Notice that only the network achieve comparable or better performance as reported in their paper, it will be available in this project. 
+In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) or top journals (TPAMI) these years are available now. Notice that only if the networks have achieved comparable or better performance are seemed as successfully reproduced and will be available in this project. Some other networks are debugging now, it is welcome for you tuning these networks to obtain better performance and contact us.
 
 ## Methods:
 
