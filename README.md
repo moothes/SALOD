@@ -45,6 +45,12 @@ In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) 
  python test.py model_name --gpus=0 --weight=path_to_weight 
  ```
  
+ To test FPS:
+ ```
+ # model_name: lower-cased method name. E.g. poolnet, egnet, gcpa, dhsnet or minet.
+ python test_fps.py model_name --gpus=0
+ ```
+ 
  To evaluate generated maps:
  ```
  python eval.py --pre_path=path_to_maps
