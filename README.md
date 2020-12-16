@@ -12,7 +12,7 @@ In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) 
 3. A relatively fair comparison with most existing SOD networks. By input the name of network, you can test old networks in this benchmark. Comparisons includes FPS, GFLOPs, model size and so on.
 4. We implement a loss factory that you can change the loss functions for any metwork by passing different parameters.
 
-## Methods:
+## Networks:
 
  Methods | Publish. | Input | Weight | Optim. | LR    | Epoch | Time  | Paper | Src Code
  ----    | -----    | ----- | ------ | ------ | ----- | ----- | ----- | ----- | ------
