@@ -2,9 +2,7 @@
 
 A benchmark for SALient Object Detection (SALOD) task. 
 
-In order to make the comparison as fair as possible, we use same settings for all networks, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters for optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. 
-
-In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) or top journals (TPAMI) these years are available now. Notice that only if the networks have achieved comparable or better performance with original implementations are seemed as successfully reproduction and will be available in this project. Some other networks are debugging now, it is welcome for you tuning these networks to obtain better performance and contact us.
+We reproduce 14 networks using same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters for optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. Some other networks are debugging now, it is welcome for you tuning these networks to obtain better performance and contact us.
 
 ## Properties
 1. **A unify interface for new models.** To develop a new network, you only need to 1) set configs; 2) define network; 3) define loss function.
