@@ -56,9 +56,9 @@ In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) 
  
  We only report max-F score here. You can [download] the trained models or official maps to get more results. 
  
- Src indicates saliency maps from official code, while ss and ms mean single-scale and multi-scale training respectively.
+ Src indicates results from the saliency maps that provided by author or generated their official code, while ss and ms mean single-scale and multi-scale training strategies respectively.
  
- **Notice: If you have a new optimizer strategy that can train any network to get a higher score, we would appreciate it.**
+ **Notice: please contact us if you get better results.**
  
  
 Methods | Source | Backbone  | SOD   | Pascal-S | ECSSD | HKU-IS | DUTS-TE | DUT-OMRON 
