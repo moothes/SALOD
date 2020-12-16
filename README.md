@@ -4,7 +4,13 @@ A new benchmark for SALient Object Detection (SALOD) task.
 
 In order to make the comparison as fair as possible, we use same settings for all networks, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters for optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. 
 
-In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) or top journals (TPAMI) these years are available now. Notice that only if the networks have achieved comparable or better performance are seemed as successfully reproduced and will be available in this project. Some other networks are debugging now, it is welcome for you tuning these networks to obtain better performance and contact us.
+In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) or top journals (TPAMI) these years are available now. Notice that only if the networks have achieved comparable or better performance with original implementations are seemed as successfully reproduction and will be available in this project. Some other networks are debugging now, it is welcome for you tuning these networks to obtain better performance and contact us.
+
+## Properties
+1. A unify interface for new models. To develop a new network, you only need to 1) set configs; 2) define network; 3) define loss function.
+2. Easy to adopt different backbones (Available backbones: ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)
+3. A relatively fair comparison with most existing SOD networks. By input the name of network, you can test old networks in this benchmark. Comparisons includes FPS, GFLOPs, number of parameters and so on.
+4. We implement a loss factory that you can change the loss functions for any metwork by passing different parameters.
 
 ## Methods:
 
@@ -93,13 +99,13 @@ BasNet  | src    | Resnet34  | .851  | .854     | .942  | .928   | .859    | .80
 CPD     | src    | Resnet50  | .860  | .859     | .939  | .925   | .865    | .797      
 ----    | ss     | Resnet50  | .860  | .867     | .937  | .925   | .871    | .798      
 ----    | ms     | Resnet50  | .866  | .871     | .941  | .928   | .876    | .809      
-PoolNet | src    | Resnet50  | .871  | .863     | .944  | --     | .880    | .808      
+PoolNet | src    | Resnet50  | .871  | .863     | .944  | .931   | .880    | .808      
 ----    | ss     | Resnet50  | .865  | .867     | .939  | .931   | .877    | .794      
 ----    | ms     | Resnet50  | .869  | .862     | .943  | .928   | .877    | .806      
-EGNet   | src    | Resnet50  | .880  | .865     | .947  | --     | .889    | .815      
+EGNet   | src    | Resnet50  | .880  | .865     | .947  | .934   | .889    | .815      
 ----    | ss     | Resnet50  | .870  | .863     | .946  | .930   | .879    | .811      
-----    | ms     | Resnet50  | .871  | .869     | .948  | .931   | .887    | .817      
-SCRN    | src    | Resnet50  | --    | .877     | .950  | .934   | .888    | .811      
+----    | ms     | Resnet50  | .871  | .866     | .949  | .930   | .887    | .815      
+SCRN    | src    | Resnet50  | .867  | .877     | .950  | .934   | .888    | .811      
 ----    | ss     | Resnet50  | .878  | .869     | .943  | .932   | .881    | .807      
 ----    | ms     | Resnet50  | .875  | .873     | .944  | .932   | .886    | .812      
 GCPA    | src    | Resnet50  | .876  | .869     | .948  | .938   | .888    | .812      
