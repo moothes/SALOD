@@ -7,11 +7,11 @@ In order to make the comparison as fair as possible, we use same settings for al
 In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) or top journals (TPAMI) these years are available now. Notice that only if the networks have achieved comparable or better performance with original implementations are seemed as successfully reproduction and will be available in this project. Some other networks are debugging now, it is welcome for you tuning these networks to obtain better performance and contact us.
 
 ## Properties
-1. A unify interface for new models. To develop a new network, you only need to 1) set configs; 2) define network; 3) define loss function.
-2. We use the Extend Salient Object Detection (ESOD) dataset, which is a collection of several prevalent datasets, to evaluate SOD networks. 
-3. Easy to adopt different backbones (Available backbones: ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)
-4. Testing all networks on your own device. By input the name of network, you can test old networks in this benchmark. Comparisons includes FPS, GFLOPs, model size and so on.
-5. We implement a loss factory that you can change the loss functions for any metwork by passing different parameters.
+1. **A unify interface for new models.** To develop a new network, you only need to 1) set configs; 2) define network; 3) define loss function.
+2. We use the **Extend Salient Object Detection (ESOD) dataset**, which is a collection of several prevalent datasets, to evaluate SOD networks. 
+3. Easy to adopt different backbones **(Available backbones: ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)**
+4. **Testing all networks on your own device.** By input the name of network, you can test old networks in this benchmark. Comparisons includes FPS, GFLOPs, model size and so on.
+5. We implement a **loss factory** that you can change the loss functions for any metwork by passing different parameters.
 
 ## Networks:
 
