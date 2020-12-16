@@ -40,27 +40,16 @@ In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) 
  
  ## Usage
  
- To train a model:
  ```
  # model_name: lower-cased method name. E.g. poolnet, egnet, gcpa, dhsnet or minet.
- python train.py model_name --gpus=0
- ```
+ python3 train.py model_name --gpus=0
  
- To test a model:
- ```
- # model_name: lower-cased method name. E.g. poolnet, egnet, gcpa, dhsnet or minet.
- python test.py model_name --gpus=0 --weight=path_to_weight 
- ```
+ python3 test.py model_name --gpus=0 --weight=path_to_weight 
  
- To test FPS:
- ```
- # model_name: lower-cased method name. E.g. poolnet, egnet, gcpa, dhsnet or minet.
- python test_fps.py model_name --gpus=0
- ```
+ python3 test_fps.py model_name --gpus=0
  
- To evaluate generated maps:
- ```
- python eval.py --pre_path=path_to_maps
+ #To evaluate generated maps:
+ python3 eval.py --pre_path=path_to_maps
  ```
  
  
