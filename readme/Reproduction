@@ -1,11 +1,10 @@
 # Reproduction
 
+We only report max-F score here. You can [download] the trained models or official maps to get more results. 
  
- We only report max-F score here. You can [download] the trained models or official maps to get more results. 
+Src indicates results from the saliency maps that provided by author or generated from source code, while ss and ms mean single-scale and multi-scale training strategies respectively.
  
- Src indicates results from the saliency maps that provided by author or generated from source code, while ss and ms mean single-scale and multi-scale training strategies respectively.
- 
- **Notice: please contact us if you get better results.**
+**Notice: please contact us if you get better results.**
  
  
 Methods | Source | Backbone  | SOD   | Pascal-S | ECSSD | HKU-IS | DUTS-TE | DUT-OMRON 
