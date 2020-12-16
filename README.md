@@ -1,6 +1,6 @@
 # SALOD
 
-A new benchmark for SALient Object Detection (SALOD) task. 
+A benchmark for SALient Object Detection (SALOD) task. 
 
 In order to make the comparison as fair as possible, we use same settings for all networks, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters for optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. 
 
