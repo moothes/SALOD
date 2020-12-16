@@ -14,7 +14,7 @@ In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) 
 
 ## Methods:
 
- Methods | Publish. | Input | Size   | Optim. | LR    | Epoch | Time  | Paper | Src Code
+ Methods | Publish. | Input | Weight | Optim. | LR    | Epoch | Time  | Paper | Src Code
  ----    | -----    | ----- | ------ | ------ | ----- | ----- | ----- | ----- | ------
  DHSNet  | CVPR2016 | 320^2 | 95M    | Adam   | 2e-5  | 30    | ----- | [openaccess](https://openaccess.thecvf.com/content_cvpr_2016/papers/Liu_DHSNet_Deep_Hierarchical_CVPR_2016_paper.pdf) | [Pytorch](https://github.com/xsxszab/DHSNet-Pytorch)  
  NLDF    | CVPR2017 | 320^2 | 161M   | Adam   | 1e-5  | 30    | ----- | [openaccess](https://openaccess.thecvf.com/content_cvpr_2017/papers/Luo_Non-Local_Deep_Features_CVPR_2017_paper.pdf) | [Pytorch](https://github.com/AceCoooool/NLDF-pytorch)/[TF](https://github.com/zhimingluo/NLDF) 
