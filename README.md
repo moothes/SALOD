@@ -28,8 +28,8 @@ In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) 
  *PAGE    | CVPR2019 | 320^2 | ------ | ------ | ----- | ----- | ----- | [openaccess](https://openaccess.thecvf.com/content_CVPR_2019/papers/Wang_Salient_Object_Detection_With_Pyramid_Attention_and_Salient_Edges_CVPR_2019_paper.pdf) | [TF](https://github.com/wenguanwang/PAGE-Net)  
  *PFA     | CVPR2019 | 320^2 | ------ | ------ | ----- | ----- | ----- | [openaccess](https://openaccess.thecvf.com/content_CVPR_2019/papers/Zhao_Pyramid_Feature_Attention_Network_for_Saliency_Detection_CVPR_2019_paper.pdf) | [Pytorch](https://github.com/dizaiyoufang/pytorch_PFAN)  
  *F3Net   | AAAI2020 | 320^2 | ------ | ------ | ----- | ----- | ----- | [aaai.org](https://aaai.org/ojs/index.php/AAAI/article/view/6916) | [Pytorch](https://github.com/weijun88/F3Net)  
- *PFPN   | AAAI2020 | 320^2 | ------ | ------ | ----- | ----- | ----- |  |  
- *LDF    | CVPR2020 | 320^2 | ------ | ------ | ----- | ----- | ----- |  |  
+ *PFPN   | AAAI2020 | 320^2 | ------ | ------ | ----- | ----- | ----- |  [aaai.org](https://ojs.aaai.org/index.php/AAAI/article/view/6892) | [Pytorch](https://github.com/chenquan-cq/PFPN)
+ *LDF    | CVPR2020 | 320^2 | ------ | ------ | ----- | ----- | ----- |  [openaccess](https://openaccess.thecvf.com/content_CVPR_2020/html/Wei_Label_Decoupling_Framework_for_Salient_Object_Detection_CVPR_2020_paper.html)|  [Pytorch](https://github.com/weijun88/LDF)
  
  ## Usage
  
@@ -106,9 +106,9 @@ GCPA    | src    | Resnet50  | .876  | .869     | .948  | .938   | .888    | .81
 ----    | ss     | Resnet50  | .864  | .869     | .945  | .933   | .886    | .801      
 ----    | ms     | Resnet50  | .867  | .874     | .945  | .936   | .892    | .812      
 ITSD    | src    | Resnet50  | .876  | .872     | .946  | .935   | .885    | .821      
-----    | ss     | Resnet50  | .872  | .866     | .941  | .930   | .879    | .809      
-----    | ms     | Resnet50  | .867  | .871     | .945  | .931   | .885    | .817      
-MINet   | src    | Resnet50  | --    | .867     | .947  | .935   | .884    | .810      
+----    | ss     | Resnet50  | .874  | .870     | .943  | .932   | .878    | .807      
+----    | ms     | Resnet50  | .873  | .875     | .946  | .933   | .887    | .816      
+MINet   | src    | Resnet50  | .879  | .867     | .947  | .935   | .884    | .810      
 ----    | ss     | Resnet50  | .867  | .873     | .940  | .929   | .881    | .802      
 ----    | ms     | Resnet50  | .871  | .874     | .945  | .935   | .890    | .819      
 
