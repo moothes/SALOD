@@ -9,12 +9,12 @@ In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) 
 ## Properties
 1. A unify interface for new models. To develop a new network, you only need to 1) set configs; 2) define network; 3) define loss function.
 2. Easy to adopt different backbones (Available backbones: ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)
-3. A relatively fair comparison with most existing SOD networks. By input the name of network, you can test old networks in this benchmark. Comparisons includes FPS, GFLOPs, number of parameters and so on.
+3. A relatively fair comparison with most existing SOD networks. By input the name of network, you can test old networks in this benchmark. Comparisons includes FPS, GFLOPs, model size and so on.
 4. We implement a loss factory that you can change the loss functions for any metwork by passing different parameters.
 
 ## Methods:
 
- Methods | Publish. | Input | Param. | Optim. | LR    | Epoch | Time  | Paper | Src Code
+ Methods | Publish. | Input | Size   | Optim. | LR    | Epoch | Time  | Paper | Src Code
  ----    | -----    | ----- | ------ | ------ | ----- | ----- | ----- | ----- | ------
  DHSNet  | CVPR2016 | 320^2 | 95M    | Adam   | 2e-5  | 30    | ----- | [openaccess](https://openaccess.thecvf.com/content_cvpr_2016/papers/Liu_DHSNet_Deep_Hierarchical_CVPR_2016_paper.pdf) | [Pytorch](https://github.com/xsxszab/DHSNet-Pytorch)  
  NLDF    | CVPR2017 | 320^2 | 161M   | Adam   | 1e-5  | 30    | ----- | [openaccess](https://openaccess.thecvf.com/content_cvpr_2017/papers/Luo_Non-Local_Deep_Features_CVPR_2017_paper.pdf) | [Pytorch](https://github.com/AceCoooool/NLDF-pytorch)/[TF](https://github.com/zhimingluo/NLDF) 
