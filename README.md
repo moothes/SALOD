@@ -48,7 +48,7 @@ In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) 
  
  python3 test_fps.py model_name --gpus=0
  
- #To evaluate generated maps:
+ # To evaluate generated maps:
  python3 eval.py --pre_path=path_to_maps
  ```
  
