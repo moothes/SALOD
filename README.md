@@ -71,7 +71,7 @@ In our benchmark, there are 14 networks from top conferences (CVPR, ICCV, AAAI) 
  
  Src indicates results from the saliency maps that provided by author or generated from source code, while ss and ms mean single-scale and multi-scale training strategies respectively.
  
- More results please refer to [Reproduction](https://github.com/moothes/SALOD/blob/master/readme/Reproduction.md), [Few-shot](https://github.com/moothes/SALOD/blob/master/readme/Reproduction.md) or [Generazation](https://github.com/moothes/SALOD/blob/master/readme/Reproduction.md).
+ More results please refer to [Reproduction](https://github.com/moothes/SALOD/blob/master/readme/Reproduction.md), [Few-shot](https://github.com/moothes/SALOD/blob/master/readme/Few-shot.md) or [Generazation](https://github.com/moothes/SALOD/blob/master/readme/Generazation.md).
  
  **Notice: please contact us if you get better results.**
  
