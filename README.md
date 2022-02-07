@@ -11,7 +11,7 @@ We re-implement 14 networks using same settings, including input size, data load
 4. **Testing all networks on your own device.** By input the name of network, you can test old networks in this benchmark. Comparisons includes FPS, GFLOPs, model size and so on.
 5. We implement a **loss factory** that you can change the loss functions for any metwork by passing different parameters.
 
-## Networks:
+## Methods:
 
  Methods | Publish. | Input | Weight | Optim. | LR    | Epoch | Paper | Src Code
  ----    | -----    | ----- | ------ | ------ | ----- | ----- | ----- | ------
