@@ -2,16 +2,16 @@
 
 A benchmark for SALient Object Detection (SALOD) task. 
 
-We re-implement 14 networks using same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters for optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. Some other networks are debugging now, it is welcome for you tuning these networks to obtain better performance and contact us.
+We re-implement 14 methods using same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters of optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. Some other networks are debugging now, it is welcome for your contributions on these networks to obtain better performance.
 
 ## Properties
-1. **A unify interface for new models.** To develop a new network, you only need to 1) set configs; 2) define network; 3) define loss function.
-2. We use a new dataset that collects several prevalent datasets to evaluate SOD networks. 
+1. **A unify interface for new models.** To develop a new network, you only need to 1) set configs; 2) define network; 3) define loss function. See methods/template.
+2. We build a new dataset by collecting several prevalent datasets in SOD task. 
 3. Easy to adopt different backbones **(Available backbones: ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)**
-4. **Testing all networks on your own device.** By input the name of network, you can test old networks in this benchmark. Comparisons includes FPS, GFLOPs, model size and so on.
-5. We implement a **loss factory** that you can change the loss functions for any metwork by passing different parameters.
+4. **Testing all networks on your own device.** By input the name of network, you can test all available methods in our benchmark. Comparisons includes FPS, GFLOPs, model size and multiple effectiveness metrics.
+5. We implement a **loss factory** that you can change the loss functions using command line parameters.
 
-## Methods:
+## Available Methods:
 
  Methods | Publish. | Input | Weight | Optim. | LR    | Epoch | Paper | Src Code
  ----    | -----    | ----- | ------ | ------ | ----- | ----- | ----- | ------
@@ -54,7 +54,7 @@ We re-implement 14 networks using same settings, including input size, data load
  
  ## Results
  
- We report benchmark results here. More results please refer to [Reproduction](https://github.com/moothes/SALOD/blob/master/readme/Reproduction.md), [Few-shot](https://github.com/moothes/SALOD/blob/master/readme/Few-shot.md) or [Generalization](https://github.com/moothes/SALOD/blob/master/readme/Generazation.md).
+ We report benchmark results here. More results please refer to [Reproduction](https://github.com/moothes/SALOD/blob/master/readme/Reproduction.md), [Few-shot](https://github.com/moothes/SALOD/blob/master/readme/Few-shot.md) and [Generalization](https://github.com/moothes/SALOD/blob/master/readme/Generazation.md).
  
  **Notice: please contact us if you get better results.**
  
@@ -98,7 +98,7 @@ MINet   | 162.4   | 87     | 11.7     | 23.5 | .913  | .851  | .871 | .034 | .90
 
 ## Create New Model
 
-If your want to create a new model, you can copy the template folder and modify it as you want.
+To create a new model, you can copy the template folder and modify it as you want.
 ```
 cp -r ./methods/template ./methods/new_name
 ```
@@ -106,7 +106,7 @@ More details please refer to python files in template floder.
 
 ## Loss Factory
 
-We supply a **Loss Factory** for an easier way to tune the loss function.
+We supply a **Loss Factory** for an easier way to tune the loss functions.
 You can set --loss and --lw parameters to use it.
 
 Here are some examples:
