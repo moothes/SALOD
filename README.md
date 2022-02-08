@@ -55,7 +55,8 @@ We re-implement 14 methods using same settings, including input size, data loade
  
  ## Results
  
- We report benchmark results here. More results please refer to [Reproduction](https://github.com/moothes/SALOD/blob/master/readme/Reproduction.md), [Few-shot](https://github.com/moothes/SALOD/blob/master/readme/Few-shot.md) and [Generalization](https://github.com/moothes/SALOD/blob/master/readme/Generazation.md).
+ We report benchmark results here.  
+ More results please refer to [Reproduction](https://github.com/moothes/SALOD/blob/master/readme/Reproduction.md), [Few-shot](https://github.com/moothes/SALOD/blob/master/readme/Few-shot.md) and [Generalization](https://github.com/moothes/SALOD/blob/master/readme/Generazation.md).
  
  **Notice: please contact us if you get better results.**
  
