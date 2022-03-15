@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.ndimage import center_of_mass, convolve, distance_transform_edt as bwdist
 
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 
 
@@ -37,7 +37,7 @@ class MetricRecorder:
             results.append(round(d, bit_num))
         return results
 
-
+'''
 class CurveDrawer:
     def __init__(self, row_num, col_num):
         self.fig = plt.figure()
@@ -112,7 +112,7 @@ class CurveDrawer:
 
     def show(self):
         plt.show()
-
+'''
 
 def normalize_pil(pre, gt):
     gt = np.asarray(gt)
