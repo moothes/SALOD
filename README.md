@@ -5,6 +5,8 @@ In this works, we propose a new benchmark for SALient Object Detection (SALOD) m
 
 We re-implement 14 methods using same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters of optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. Some other networks are debugging now, it is welcome for your contributions on these networks to obtain better performance.
 
+Our SALOD dataset can be downloaded from: [Google Drive](https://drive.google.com/file/d/1kxhUoWUAnFhOE_ZoA1www8msG2pKHg3_/view?usp=sharing).
+
 ## Properties
 1. **A unify interface for new models.** To develop a new network, you only need to 1) set configs; 2) define network; 3) define loss function. See methods/template.
 2. We build a new dataset by collecting several prevalent datasets in SOD task. 
