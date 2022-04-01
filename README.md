@@ -117,12 +117,12 @@ Here are some examples:
 ```
 loss_dict = {'b': BCE, 's': SSIM, 'i': IOU, 'd': DICE, 'e': Edge, 'c': CTLoss}
 
-python train.py ... --loss=bd
+python train.py basnet --loss=bd
 # loss = 1 * bce_loss + 1 * dice_loss
 
-python train.py ... --loss=bs --lw=0.3,0.7
+python train.py basnet --loss=bs --lw=0.3,0.7
 # loss = 0.3 * bce_loss + 0.7 * ssim_loss
 
-python train.py ... --loss=bsid --lw=0.3,0.1,0.5,0.2
+python train.py basnet --loss=bsid --lw=0.3,0.1,0.5,0.2
 # loss = 0.3 * bce_loss + 0.1 * ssim_loss + 0.5 * iou_loss + 0.2 * dice_loss
 ```
