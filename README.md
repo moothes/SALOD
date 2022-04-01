@@ -126,3 +126,13 @@ python train.py basnet --loss=bs --lw=0.3,0.7
 python train.py basnet --loss=bsid --lw=0.3,0.1,0.5,0.2
 # loss = 0.3 * bce_loss + 0.1 * ssim_loss + 0.5 * iou_loss + 0.2 * dice_loss
 ```
+
+Thanks for citing our work
+```xml
+@article{salod,
+  title={Benchmarking Deep Models for Salient Object Detection},
+  author={Zhou, Huajun and Lin, Yang and Yang, Lingxiao and Lai, Jianhuang and Xie, Xiaohua},
+  journal={arXiv preprint arXiv:2202.02925},
+  year={2022}
+}
+```
