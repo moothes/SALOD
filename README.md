@@ -11,7 +11,7 @@ Our SALOD dataset can be downloaded from: [Google Drive](https://drive.google.co
 1. **A unify interface for new models.** To develop a new network, you only need to 1) set configs; 2) define network; 3) define loss function. See methods/template.
 2. We build a new dataset by collecting several prevalent datasets in SOD task. 
 3. Easy to adopt different backbones **(Available backbones: ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)**
-4. **Testing all networks on your own device.** By input the name of network, you can test all available methods in our benchmark. Comparisons includes FPS, GFLOPs, model size and multiple effectiveness metrics.
+4. **Testing all networks on your own device.** By input the name of network, you can test all available methods in our benchmark. Comparisons include FPS, GFLOPs, model size and multiple effectiveness metrics.
 5. We implement a **loss factory** that you can change the loss functions using command line parameters.
 
 ## Available Methods:
