@@ -10,6 +10,9 @@ Our SALOD dataset can be downloaded from: [SALOD](https://drive.google.com/file/
 You can download existing SOD datasets from: [SOD](https://drive.google.com/file/d/17X4SiSVuBmqkvQJe_ScVARKPM_vgvCOi/view?usp=sharing), including DUTS-TR,DUTS-TE,ECSSD,SOD,PASCAL-S,HKU-IS,DUT-OMRON.
 Additionally, we will provide COD datasets soon!
 
+We have no plan on providing Baidu Disk links because of its low downloading speed.
+For chinese users who cannot open Google, I recommend you to purchase an SSR service in [Airport](https://52bp.org/airport.html).
+
 ## Properties
 1. **A unify interface for new models.** To develop a new network, you only need to 1) set configs; 2) define network; 3) define loss function. See methods/template.
 2. We build a new dataset by collecting several prevalent datasets in SOD task. 
