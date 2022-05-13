@@ -3,15 +3,17 @@
 Source code of our work: "[Benchmarking Deep Models for Salient Object Detection](https://arxiv.org/abs/2202.02925)".   
 In this works, we propose a new benchmark for SALient Object Detection (SALOD) methods.
 
-We re-implement 14 methods using same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters of optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. Some other networks are debugging now, it is welcome for your contributions on these networks to obtain better performance.
+We re-implement multiple SOD methods using the same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters of optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. Some other networks are debugging now, it is welcome for your contributions on these models.
 
-Our SALOD dataset can be downloaded from: [Google Drive](https://drive.google.com/file/d/1kxhUoWUAnFhOE_ZoA1www8msG2pKHg3_/view?usp=sharing).
+Our SALOD dataset can be downloaded from: [SALOD](https://drive.google.com/file/d/1kxhUoWUAnFhOE_ZoA1www8msG2pKHg3_/view?usp=sharing).   
+Or you can download existing SOD datasets from: [SOD](https://drive.google.com/file/d/17X4SiSVuBmqkvQJe_ScVARKPM_vgvCOi/view?usp=sharing), including DUTS-TR,DUTS-TE,ECSSD,SOD,PASCAL-S,HKU-IS,DUT-OMRON.
+Additionally, we will provide COD datasets soon!
 
 ## Properties
 1. **A unify interface for new models.** To develop a new network, you only need to 1) set configs; 2) define network; 3) define loss function. See methods/template.
 2. We build a new dataset by collecting several prevalent datasets in SOD task. 
 3. Easy to adopt different backbones **(Available backbones: ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)**
-4. **Testing all networks on your own device.** By input the name of network, you can test all available methods in our benchmark. Comparisons include FPS, GFLOPs, model size and multiple effectiveness metrics.
+4. **Testing all models on your own device.** By input the name of network, you can test all available methods in our benchmark. Comparisons include FPS, MACs, model size and multiple effectiveness metrics.
 5. We implement a **loss factory** that you can change the loss functions using command line parameters.
 
 ## Available Methods:
