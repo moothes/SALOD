@@ -10,7 +10,7 @@ Our SALOD dataset can be downloaded from: [SALOD](https://drive.google.com/file/
 You can download existing SOD datasets from: [SOD](https://drive.google.com/file/d/17X4SiSVuBmqkvQJe_ScVARKPM_vgvCOi/view?usp=sharing), including DUTS-TR,DUTS-TE,ECSSD,SOD,PASCAL-S,HKU-IS,DUT-OMRON.
 Additionally, we will provide COD datasets soon!
 
-We have no plan on providing Baidu Disk links because of its low downloading speed.
+We have no plan on providing Baidu Disk links.
 For chinese users who cannot open Google, I recommend you to purchase an SSR service in [Airport](https://52bp.org/airport.html).
 
 ## Properties
