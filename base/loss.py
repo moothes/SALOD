@@ -39,7 +39,7 @@ def _ssim(img1, img2, window, window_size, channel, size_average = True):
         return ssim_map.mean(1).mean(1).mean(1)
 
 def SSIM(preds, target, config, window_size=11):
-    pred = torch.sigmoid(preds['final'])
+    pred = torch.sigmoid(preds)
     
     c = pred.size()[1]
     window = create_window(window_size, c).cuda()
@@ -48,17 +48,22 @@ def SSIM(preds, target, config, window_size=11):
 
 def BCE(preds, target, config):
     bce = nn.BCEWithLogitsLoss()
-    loss = bce(preds['final'], target)
+    loss = bce(preds, target)
     return loss
 
 def CTLoss(preds, target, config):
     bce = nn.BCEWithLogitsLoss(reduction='none')
-    wm = label_edge_prediction(target) * 4 + 1
-    loss = (bce(preds['final'], target) * wm).mean()
+    
+    pred = torch.sigmoid(preds)
+    #wm = torch.abs(target - pred)
+    #wm = (wm - torch.min(wm)) / (torch.max(wm) - torch.min(wm))
+    wm = F.avg_pool2d(label_edge_prediction(target), 3, stride=1, padding=1) * 4 + 1
+    
+    loss = (bce(preds, target) * wm).mean()
     return loss
 
 def IOU(preds, target, config):
-    pred = torch.sigmoid(preds['final'])
+    pred = torch.sigmoid(preds)
 
     inter = torch.sum(target * pred, dim=(1, 2, 3))
     union = torch.sum(target, dim=(1, 2, 3)) + torch.sum(pred, dim=(1, 2, 3)) - inter
@@ -66,7 +71,7 @@ def IOU(preds, target, config):
     return iou_loss
 
 def DICE(preds, target, config):
-    pred = torch.sigmoid(preds['final'])
+    pred = torch.sigmoid(preds)
 
     ab = torch.sum(pred * target, dim=(1, 2, 3))
     a = torch.sum(pred, dim=(1, 2, 3))
@@ -77,11 +82,59 @@ def DICE(preds, target, config):
     
 def Edge(preds, target, config):
     bce = nn.BCEWithLogitsLoss()
-    loss = bce(preds['final'], label_edge_prediction(target))
+    loss = bce(preds, label_edge_prediction(target))
     return loss
 
+def Fscore(preds, target, config):
+    pred = torch.sigmoid(preds)
+    tp = pred * target
+    
+    fs = 1.3 * tp.sum(dim=(1, 2, 3)) / (pred.sum(dim=(1, 2, 3)) + target.sum(dim=(1, 2, 3)) * 0.3)
+    loss = 1 - fs.mean()
+    
+    return loss
+    
+def wFs(preds, target, config):
+    #wm = F.avg_pool2d(label_edge_prediction(target), 3, stride=1, padding=1) * 0.9 + 0.1
+    wm = F.avg_pool2d(label_edge_prediction(target), 3, stride=1, padding=1) * 0.8 + 0.2
+    pred = torch.sigmoid(preds)
+    #wm += torch.abs(target - pred)
+    #print('?')
+    tp = wm * pred * target
+    pred = wm * pred
+    target = wm * target
+    
+    fs = 1.3 * tp.sum(dim=(1, 2, 3)) / (pred.sum(dim=(1, 2, 3)) + target.sum(dim=(1, 2, 3)) * 0.3)
+    loss = 1 - fs.mean()
+    
+    return loss
+    
 
-loss_dict = {'b': BCE, 's': SSIM, 'i': IOU, 'd': DICE, 'e': Edge, 'c': CTLoss}
+def Focal(preds, target, config):
+    bce = nn.BCEWithLogitsLoss(reduction='none')
+    
+    pred = torch.sigmoid(preds)
+    wm = torch.pow(target - pred, 2) * 100
+    #wm = ((wm - torch.min(wm)) / (torch.max(wm) - torch.min(wm))) * 0.8 + 0.2
+    
+    loss = (bce(preds, target) * wm).mean()
+    return loss
+
+def mse(preds, target, config):
+    mse = nn.MSELoss(reduction='none')
+    
+    pred = torch.sigmoid(preds)
+    #wm = torch.abs(target - pred)
+    #kernel = torch.ones((1, 1, 13, 13)).cuda()
+    #wm = F.conv2d(wm, kernel, padding=6)
+    #wm = (wm - torch.min(wm)) / (torch.max(wm) - torch.min(wm))
+    #wm = F.avg_pool2d(label_edge_prediction(target), 3, stride=1, padding=1) * 4 + 1
+    
+    loss = mse(pred, target).mean()
+    return loss
+
+loss_dict = {'b': BCE, 's': SSIM, 'i': IOU, 'd': DICE, 'e': Edge,\
+             'c': CTLoss, 'f': Fscore, 'w': wFs, 'o': Focal, 'm': mse}
 
 #def Loss_factory(config):
 class Loss_factory(nn.Module):
@@ -99,6 +152,14 @@ class Loss_factory(nn.Module):
     def forward(self, preds, target, config):
         loss = 0
         for loss_name, w in zip(self.losses, self.lw):
-            loss += loss_dict[loss_name](preds, target, config) * w
+            
+            if 'sal' in preds.keys():
+                for pred in preds['sal']:
+                    for loss_name, w in zip(self.losses, self.lw):
+                        #print(pred.shape, target.shape)
+                        loss += loss_dict[loss_name](pred, target, config) * w
+            else:
+                loss += loss_dict[loss_name](preds['final'], target, config) * w
+                
         
         return loss
