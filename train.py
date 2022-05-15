@@ -25,6 +25,9 @@ def main():
     
     # Loading model
     config, model, optim, sche, model_loss, saver = load_framework(net_name)
+    config['batch'] = config['batch'] // config['ave_batch']
+    print(sorted(config.items()))
+    
     
     # Loading datasets
     train_loader = get_loader(config)
@@ -47,12 +50,20 @@ def main():
             test_model(model, test_sets, config, epoch)
         
         bar = Bar('{:10}-{:8} | epoch {:2}:'.format(net_name, config['sub'], epoch), max=num_iter)
+        
 
         st = time.time()
         loss_count = 0
         optim.zero_grad()
-        sche.step()
+        #sche.step()
         for i, pack in enumerate(train_loader, start=1):
+            current_iter = (epoch - 1) * num_iter + i
+            total_iter = num_epoch * num_iter
+            #print('iter: ', total_iter, current_iter)
+            
+            sche(optim, current_iter, total_iter, config)
+            
+            
             images, gts = pack
             images, gts= images.float().cuda(), gts.float().cuda()
             
@@ -103,7 +114,8 @@ def main():
                 optim.zero_grad()
                 batch_idx = 0
             
-            Bar.suffix = '{:4}/{:4} | loss: {:1.5f}, time: {}.'.format(i, num_iter, round(float(loss_count / i), 5), round(time.time() - st, 3))
+            lrs = ','.join([format(param['lr'], ".1e") for param in optim.param_groups])
+            Bar.suffix = '{:4}/{:4} | loss: {:1.3f}, LRs: [{}], time: {:1.3f}.'.format(i, num_iter, float(loss_count / i), lrs, time.time() - st)
             bar.next()
 
         bar.finish()

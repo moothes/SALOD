@@ -13,6 +13,8 @@ import cv2
 mean = np.array([0.485, 0.456, 0.406]).reshape([1, 1, 3])
 std = np.array([0.229, 0.224, 0.225]).reshape([1, 1, 3])
 
+
+
 def rgb_loader(path):
     with open(path, 'rb') as f:
         img = Image.open(f)
@@ -27,42 +29,51 @@ def get_image_list(name, config, phase):
     images = []
     gts = []
     #print(name)
-    if name in ('SALOD', 'tough', 'normal'):
+    if name in ('simple', 'tough', 'normal'):
         train_split = 10000
         
-        # Generalization
-        if config['gap']:
-            list_file = 'clean_list.txt'
-            print(list_file)
-            #f = open(os.path.join(config['data_path'], 'SALOD/gaps.txt'), 'r')
-            #f = open(os.path.join(config['data_path'], 'SALOD/new_list.txt'), 'r')
-            #f = open(os.path.join(config['data_path'], 'SALOD/place_list.txt'), 'r')
-            f = open(os.path.join(config['data_path'], 'SALOD/{}'.format(list_file)), 'r')
-            if phase == 'train':
-                img_list = f.readlines()[-train_split:]
-            else:
-                if name == 'normal':
-                    img_list = f.readlines()[train_split:-train_split]
-                else:
-                    img_list = f.readlines()[:train_split]
-                    
-            for i in range(len(img_list)):
-                img_list[i] = img_list[i].split(' ')[0]
-                #print(img_list[i])
-                    
-        # Benchmark + few_shot
+        print('Objectness shifting experiment.')
+        # Objectness
+        list_file = 'clean_list.txt'
+        #print(list_file)
+        #f = open(os.path.join(config['data_path'], 'SALOD/gaps.txt'), 'r')
+        #f = open(os.path.join(config['data_path'], 'SALOD/new_list.txt'), 'r')
+        #f = open(os.path.join(config['data_path'], 'SALOD/place_list.txt'), 'r')
+        f = open(os.path.join(config['data_path'], 'SALOD/{}'.format(list_file)), 'r')
+        if name == 'simple':
+            img_list = f.readlines()[-train_split:]
+        elif name == 'normal':
+            img_list = f.readlines()[train_split:-train_split]
         else:
-            if phase == 'train':
-                f = open(os.path.join(config['data_path'], 'SALOD/train_10k.txt'), 'r')    #open('{}/train_10k.txt'.format(config['data_path']), 'r')
-                img_list = f.readlines()[:config['train_split']]
-            else:
-                f = open(os.path.join(config['data_path'], 'SALOD/test.txt'), 'r')   #open('{}/test.txt'.format(config['data_path']), 'r')
-                img_list = f.readlines()
+            img_list = f.readlines()[:train_split]
                 
-        images = [os.path.join(config['data_path'], 'SALOD/image', line.strip() + '.jpg') for line in img_list]
+        for i in range(len(img_list)):
+            img_list[i] = img_list[i].split(' ')[0]
+            #print(img_list[i])
+                
+        images = [os.path.join(config['data_path'], 'SALOD/images', line.strip() + '.jpg') for line in img_list]
         gts = [os.path.join(config['data_path'], 'SALOD/mask', line.strip() + '.png') for line in img_list]
+        
+        # Benchmark + few_shot
+    elif name == 'SALOD':
+        '''
+        if phase == 'train':
+            f = open(os.path.join(config['data_path'], 'SALOD/train.txt'), 'r')
+            img_list = f.readlines()[:config['train_split']]
+        else:
+            f = open(os.path.join(config['data_path'], 'SALOD/test.txt'), 'r')
+            img_list = f.readlines()
+        '''
+        
+        f = open(os.path.join(config['data_path'], 'SALOD/{}.txt'.format(phase)), 'r')
+        img_list = f.readlines()
+        
+        
+        images = [os.path.join(config['data_path'], name, 'images', line.strip() + '.jpg') for line in img_list]
+        gts = [os.path.join(config['data_path'], name, 'mask', line.strip() + '.png') for line in img_list]
     else:
         image_root = os.path.join(config['data_path'], name, 'images')
+        '''
         if name == 'DUTS-TR' and phase == 'train':
             tag = 'segmentations' #'crf2' # 'pseudo'
         elif name == 'MSB-TR' and phase == 'train':
@@ -71,7 +82,9 @@ def get_image_list(name, config, phase):
         else:
             tag = 'segmentations'
         print(tag)
-        gt_root = os.path.join(config['data_path'], name, tag)
+        '''
+        
+        gt_root = os.path.join(config['data_path'], name, 'segmentations')
         #print(gt_root)
         
         images = sorted([os.path.join(image_root, f) for f in os.listdir(image_root) if f.endswith('.jpg')])
@@ -102,6 +115,18 @@ def rotate(img, gt):
     gt = gt.rotate(angle)
     return img, gt
 
+
+def RandomCrop(image, mask):
+    H, W = image.size
+    randw = np.random.randint(W/8)
+    randh = np.random.randint(H/8)
+    offseth = 0 if randh == 0 else np.random.randint(randh)
+    offsetw = 0 if randw == 0 else np.random.randint(randw)
+    p0, p1, p2, p3 = offseth, H+offseth-randh, offsetw, W+offsetw-randw
+    #return image[p0:p1, p2:p3, :], mask[p0:p1, p2:p3]
+    return image.crop((p0, p2, p1, p3)), mask.crop((p0, p2, p1, p3))
+
+
 class Train_Dataset(data.Dataset):
     def __init__(self, name, config):
         self.config = config
@@ -112,9 +137,12 @@ class Train_Dataset(data.Dataset):
         image = Image.open(self.images[index]).convert('RGB')
         gt = Image.open(self.gts[index]).convert('L')
         
+        #print('orig: ', image.size, gt.size)
         if self.config['data_aug']:
-            image, gt = rotate(image, gt)
-            image = random_light(image)
+            #image, gt = rotate(image, gt)
+            #image = random_light(image)
+            image, gt = RandomCrop(image, gt)
+        #print('croped: ', image.size, gt.size)
         
         img_size = self.config['size']
         image = image.resize((img_size, img_size))

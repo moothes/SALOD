@@ -59,11 +59,11 @@ def main():
     config, model, _, _, _, saver = load_framework(net_name)
 
     test_sets = {}
-    test_sets['ESOD'] = Test_Dataset(name='ESOD', config=config)
+    test_sets['SALOD'] = Test_Dataset(name='SALOD', config=config)
     
     input = torch.randn(1, 3, config['size'], config['size']).cuda()
-    flops, params = profile(model, inputs=(input, ))
-    print('FLOPs: {:.2f}, Params: {:.2f}.'.format(flops / 1e9, params / 1e6))
+    macs, params = profile(model, inputs=(input, ))
+    print('MACs: {:.2f} G, Params: {:.2f} M.'.format(macs / 1e9, params / 1e6))
     
     #if not config['cpu']:
     model = model.cuda()
