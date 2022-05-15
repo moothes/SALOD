@@ -16,13 +16,13 @@ def Loss(preds, slc_gt, args):
     
     edge_loss = []
     for ix in up_edge:
-        edge_loss.append(bce2d_new(ix, ctr_gt, reduction='sum'))
+        edge_loss.append(bce2d_new(ix, ctr_gt, reduction='mean'))
     edge_loss = sum(edge_loss)
     
     sal_loss1 = []
     #sal_loss2 = []
     for ix in up_sal:
-        sal_loss1.append(F.binary_cross_entropy_with_logits(ix, slc_gt, reduction='sum'))
+        sal_loss1.append(F.binary_cross_entropy_with_logits(ix, slc_gt, reduction='mean'))
 
     #for ix in up_sal_f:
     #    sal_loss2.append(F.binary_cross_entropy_with_logits(ix, slc_gt, reduction='sum'))

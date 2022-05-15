@@ -283,10 +283,8 @@ class Network(nn.Module):
         self.upsample_add = upsample_add
         self.upsample = cus_sample
 
-        if config['backbone'] == 'vgg':
-            self.inter_feat = (32, 64, 64, 64, 64)
-        elif config['backbone'] == 'resnet':
-            self.inter_feat = (64, 64, 64, 64, 64)
+        self.inter_feat = (64, 64, 64, 64, 64)
+        if config['backbone'] == 'resnet':
             self.upconv0 = BasicConv2d(32, 32, kernel_size=3, stride=1, padding=1)
         
         self.trans = AIM(iC_list=feat, oC_list=self.inter_feat)
@@ -323,6 +321,7 @@ class Network(nn.Module):
         out_data_4 = self.upsample_add(out_data_8, in_data_4)
         out_data_4 = self.upconv2(self.sim4(out_data_4) + out_data_4)  # 256
 
+        #print(out_data_4.size(), in_data_2.size())
         out_data_2 = self.upsample_add(out_data_4, in_data_2)
         out_data_2 = self.upconv1(self.sim2(out_data_2) + out_data_2)  # 64
 
@@ -331,5 +330,6 @@ class Network(nn.Module):
         out_data = self.classifier(out_data_2)
 
         out_dict = {}
+        out_dict['sal'] = [out_data]
         out_dict['final'] = out_data
         return out_dict

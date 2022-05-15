@@ -164,7 +164,7 @@ class ConcatOutput(nn.Module):
 
 class decoder(nn.Module):
     # Stacked Cross Refinement Network
-    def __init__(self, backbone, feat):
+    def __init__(self, feat):
         super(decoder, self).__init__()
         
         channel = 32
@@ -231,8 +231,9 @@ class decoder(nn.Module):
         pred_e = F.upsample(pred_e, size=size, mode='bilinear', align_corners=True)
 
         out_dict = {}
-        out_dict['final'] = pred_s
+        out_dict['sal'] = [pred_s]
         out_dict['edge'] = pred_e
+        out_dict['final'] = pred_s
         return out_dict
 
 
@@ -242,7 +243,7 @@ class Network(nn.Module):
     def __init__(self, config, encoder, fl):
         super(Network, self).__init__()
         self.encoder = encoder
-        self.decoder = decoder(config['backbone'], fl[1:])
+        self.decoder = decoder(fl[1:])
 
     def forward(self, x, phase='test'):
         size = x.size()[2:]

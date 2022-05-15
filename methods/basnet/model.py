@@ -350,5 +350,5 @@ class Network(nn.Module):
 
         out_dict = {}
         out_dict['final'] = dout
-        out_dict['sal'] = [d1, d2, d3, d4, d5, d6, db]
+        out_dict['sal'] = [dout, d1, d2, d3, d4, d5, d6, db]
         return out_dict

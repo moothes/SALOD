@@ -13,8 +13,10 @@ def Loss(preds, target, config):
     fnl_loss = 0
     #print(preds.keys())
     for pred, w in zip(preds['sal'], ws):
-        scale = config['size'] // pred.size()[-1]
-        tar = F.max_pool2d(target, scale, scale)
+        #scale = config['size'] // pred.size()[-1]
+        #tar = F.max_pool2d(target, scale, scale)
+        tar = F.interpolate(target, size=pred.size()[-2:], mode='bilinear', align_corners=True)
+        tar = tar.gt(0.5).float()
         #print(pred.size())
         fnl_loss += bce(pred, tar).mean() * w
 

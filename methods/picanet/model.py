@@ -85,21 +85,22 @@ class DecoderCell(nn.Module):
 class PicanetG(nn.Module):
     def __init__(self, size, in_channel):
         super(PicanetG, self).__init__()
-        self.renet = Renet(size, in_channel, 100)
+        
+        self.renet = Renet(size, in_channel, size * size)
         self.in_channel = in_channel
 
     def forward(self, *input):
         x = input[0]
         size = x.size()
         #print(size)
+        s = size[-1]
         
         kernel = self.renet(x)
         kernel = F.softmax(kernel, 1)
+        x = F.unfold(x, [s//2, s//2], dilation=[2, 2])
         #print(x.size(), kernel.size())
-        x = F.unfold(x, [5, 5], dilation=[2, 2])
-        #print(x.size(), kernel.size())
-        x = x.reshape(size[0], size[1], 100)
-        kernel = kernel.reshape(size[0], 100, -1)
+        x = x.reshape(size[0], size[1], s*s)
+        kernel = kernel.reshape(size[0], s*s, -1)
         #print(x.size(), kernel.size())
         x = torch.matmul(x, kernel)
         #print(x.size())
@@ -197,15 +198,18 @@ class Decoder(nn.Module):
         
         module = config['module']
         self.decoder = nn.ModuleList()
-        size = [10, 10, 20, 40, 80, 160]
+        if config['backbone'] == 'resnet':
+            size = 10
+        else:
+            size = 20
         for i in range(5):
             assert module[i] == 'G' or module[i] == 'L'
             self.decoder.append(
-                DecoderCell(size=size[i],
+                DecoderCell(size=size,
                             in_channel=feat[5 - i],
                             out_channel=feat[4 - i],
                             mode=module[i]))
-        self.decoder.append(DecoderCell(size=size[5],
+        self.decoder.append(DecoderCell(size=size,
                                         in_channel=64,
                                         out_channel=1,
                                         mode='C'))

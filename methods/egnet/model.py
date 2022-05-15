@@ -145,6 +145,8 @@ class decoder(nn.Module):
         #conv2merge = self.encoder(x)        
         if self.base_model_cfg == 'resnet':            
             conv2merge = self.convert(conv2merge)
+        else: 
+            conv2merge = conv2merge[1:]
         up_edge, edge_feature, up_sal, sal_feature = self.merge1(conv2merge, x_size)
         up_sal_final = self.merge2(edge_feature, sal_feature, x_size)
         return up_edge, up_sal, up_sal_final
@@ -194,17 +196,15 @@ def weights_init(m):
             m.bias.data.zero_()
 
 def Network(config, encoder, feat):
-    if config['backbone'] == 'vgg':
-        model = TUN_bone(config['backbone'], *extra_layer(config['backbone'], vgg()))
-    elif config['backbone'] == 'resnet':
-        model = TUN_bone(config['backbone'], *extra_layer(config['backbone'], resnet()))
+    #if config['backbone'] == 'vgg':
+    #    model = TUN_bone(config['backbone'], *extra_layer(config['backbone'], vgg()))
+    #elif config['backbone'] == 'resnet':
+    #    model = TUN_bone(config['backbone'], *extra_layer(config['backbone'], resnet()))
         
+    model = TUN_bone(config['backbone'], *extra_layer(config['backbone'], encoder))
+    '''
     model.apply(weights_init)
-    #pre_st = model.encoder.load_state_dict(torch.load('../PretrainModel/resnet50.pth'))
     pre_st = torch.load('../PretrainModel/resnet50.pth')
-    #pre_st = torch.load('../PretrainModel/resnet50_caffe.pth')
-    #model.eval()
-    
     ex_st = model.encoder.state_dict()
     for k, v in pre_st.items():
         if k in ex_st.keys():
@@ -213,6 +213,7 @@ def Network(config, encoder, feat):
     #ex_st.update(state_dict)
     model.encoder.load_state_dict(ex_st)
     model.eval()
+    '''
     return model
 
 if __name__ == '__main__':

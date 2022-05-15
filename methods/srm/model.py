@@ -168,26 +168,26 @@ class Stage2(nn.Module):
 
 class PPM(nn.Module):
 
-    def __init__(self):
+    def __init__(self, channel):
         super().__init__()
         self.block1 = nn.Sequential(  # 1*1 bin
-            nn.AvgPool2d(24, stride=24),
-            nn.Conv2d(1024, 512, 1),
+            nn.AvgPool2d(20, stride=20),
+            nn.Conv2d(channel, 512, 1),
         )
 
         self.block2 = nn.Sequential(  # 2*2 bins
-            nn.AvgPool2d(12, stride=12),
-            nn.Conv2d(1024, 512, 1)
+            nn.AvgPool2d(10, stride=10),
+            nn.Conv2d(channel, 512, 1)
         )
 
         self.block3 = nn.Sequential(  # 3*3 bins
             nn.AvgPool2d(8, stride=8),
-            nn.Conv2d(1024, 512, 1)
+            nn.Conv2d(channel, 512, 1)
         )
 
         self.block4 = nn.Sequential(  # 6*6 bins
             nn.AvgPool2d(4, stride=4),
-            nn.Conv2d(1024, 512, 1)
+            nn.Conv2d(channel, 512, 1)
         )
 
     def forward(self, x):  # x shape: 24*24
@@ -208,25 +208,31 @@ class Network(nn.Module):
     def __init__(self, config, encoder, feat):
         super(Network, self).__init__()
         
-        self.stage1 = encoder
-        self.conv6 = nn.Conv2d(2048, 256, 3, padding=1)
+        self.config = config
+        self.encoder = encoder
+        self.conv6 = nn.Conv2d(feat[-1], 256, 3, padding=1)
         self.conv7 = nn.Conv2d(256, 1, 3, padding=1)
         
-        self.stage2 = resnet(True)
-        self.ppm = PPM()
-        self.conv1 = nn.Conv2d(3072, 256, 3, padding=1)
+        if config['backbone'] == 'resnet':
+            self.stage2 = encoder#resnet(True)        
+        elif config['backbone'] == 'vgg':
+            self.stage2 = encoder#vgg(True)
+        self.ppm = PPM(feat[-2])
+        self.conv1 = nn.Conv2d(feat[-2]+2048, 256, 3, padding=1)
         self.conv2 = nn.Conv2d(256, 64, 3, padding=1)
         self.conv61 = nn.Conv2d(65, 256, 3, padding=1)
         self.conv71 = nn.Conv2d(256, 1, 3, padding=1)
 
     def forward(self, x, phase='test'):
         x_size = x.size()[2:]
-        _, _, _, _, feature1 = self.stage1(x)
+        _, _, _, _, feature1 = self.encoder(x)
         feature1 = self.conv7(F.relu(self.conv6(feature1)))
         output1 = F.interpolate(feature1, size=x_size, mode='bilinear', align_corners=True)
+        #if self.config['backbone'] == 'resnet':
         feature1 = F.interpolate(feature1, scale_factor=2, mode='bilinear', align_corners=True)
         
         _, _, _, feature2, _ = self.stage2(x)
+        #print(feature2.shape)
         feature2 = self.ppm(feature2)
         feature2 = self.conv1(feature2)
         feature2 = self.conv2(feature2)

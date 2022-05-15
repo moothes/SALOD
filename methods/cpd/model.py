@@ -205,7 +205,7 @@ class Network(nn.Module):
         res2 = self.upsample(detection_map)
     
         out_dict = {}
-        out_dict['sal'] = res1
+        out_dict['sal'] = [res1, res2]
         out_dict['final'] = res2
 
         return out_dict

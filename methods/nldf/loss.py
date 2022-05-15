@@ -22,12 +22,14 @@ class GradLayer(nn.Module):
         return torch.pow(x1, 2) + torch.pow(x2, 2)
 
 
-def Loss(X, batchs, config):
-    pred = X['final'].sigmoid_()
+def Loss(preds, target, config):
+    loss = 0
+    for pred in preds['sal']:
+        pred = pred.sigmoid_()
 
-    loss = F.binary_cross_entropy(pred, batchs)
-    area_loss = 1 - 2 * ((pred * batchs).sum() + 1) / (pred.sum() + batchs.sum() + 1)
-    loss += area_loss
+        loss += F.binary_cross_entropy(pred, target)
+        area_loss = 1 - 2 * ((pred * target).sum() + 1) / (pred.sum() + target.sum() + 1)
+        loss += area_loss
     
     return loss
     

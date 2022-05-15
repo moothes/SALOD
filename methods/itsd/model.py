@@ -40,7 +40,7 @@ def decode_conv(layer, c):
     for i in range(4 - layer):
         yield nn.Conv2d(c, c, 3, padding=1)
         yield nn.ReLU(inplace=True)
-        yield nn.Upsample(scale_factor=2, mode='bilinear' if i == 2 else 'nearest')
+        yield nn.Upsample(scale_factor=2, mode='bilinear')
 
     yield nn.Conv2d(c, 8, 3, padding=1)
     yield nn.ReLU(inplace=True)

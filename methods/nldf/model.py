@@ -79,6 +79,7 @@ class Network(nn.Module):
         score = self.conv_g(a) + self.conv_l(out)
         score = nn.functional.interpolate(score, scale_factor=2, mode='bilinear')
         out_dict = {}
+        out_dict['sal'] = [score]
         out_dict['final'] = score
         #prob = torch.sigmoid(score)
         return out_dict

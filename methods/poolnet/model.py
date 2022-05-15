@@ -8,7 +8,7 @@ from torch.autograd import Variable
 import numpy as np
 
 #from .deeplab_resnet import resnet50_locate
-from .vgg import vgg16_locate
+#from .vgg import vgg16_locate
 
 from base.encoder.resnet import resnet
 
@@ -63,8 +63,8 @@ class Bottleneck(nn.Module):
         super(Bottleneck, self).__init__()
         self.conv1 = nn.Conv2d(inplanes, planes, kernel_size=1, stride=stride, bias=False) # change
         self.bn1 = nn.BatchNorm2d(planes,affine = affine_par)
-        for i in self.bn1.parameters():
-            i.requires_grad = False
+        #for i in self.bn1.parameters():
+        #    i.requires_grad = False
         padding = 1
         if dilation_ == 2:
             padding = 2
@@ -73,12 +73,12 @@ class Bottleneck(nn.Module):
         self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=1, # change
                                padding=padding, bias=False, dilation = dilation_)
         self.bn2 = nn.BatchNorm2d(planes,affine = affine_par)
-        for i in self.bn2.parameters():
-            i.requires_grad = False
+        #for i in self.bn2.parameters():
+        #    i.requires_grad = False
         self.conv3 = nn.Conv2d(planes, planes * 4, kernel_size=1, bias=False)
         self.bn3 = nn.BatchNorm2d(planes * 4, affine = affine_par)
-        for i in self.bn3.parameters():
-            i.requires_grad = False
+        #for i in self.bn3.parameters():
+        #    i.requires_grad = False
         self.relu = nn.ReLU(inplace=True)
         self.downsample = downsample
         self.stride = stride
@@ -105,81 +105,11 @@ class Bottleneck(nn.Module):
 
         return out
 
-class ResNet(nn.Module):
-    def __init__(self, block, layers):
-        self.inplanes = 64
-        super(ResNet, self).__init__()
-        self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3,
-                               bias=False)
-        self.bn1 = nn.BatchNorm2d(64,affine = affine_par)
-        for i in self.bn1.parameters():
-            i.requires_grad = False
-        self.relu = nn.ReLU(inplace=True)
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1, ceil_mode=True) # change
-        self.layer1 = self._make_layer(block, 64, layers[0])
-        self.layer2 = self._make_layer(block, 128, layers[1], stride=2)
-        self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
-        self.layer4 = self._make_layer(block, 512, layers[3], stride=1, dilation__ = 2)
-
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
-                m.weight.data.normal_(0, 0.01)
-            elif isinstance(m, nn.BatchNorm2d):
-                m.weight.data.fill_(1)
-                m.bias.data.zero_()
-
-    def _make_layer(self, block, planes, blocks, stride=1,dilation__ = 1):
-        downsample = None
-        if stride != 1 or self.inplanes != planes * block.expansion or dilation__ == 2 or dilation__ == 4:
-            downsample = nn.Sequential(
-                nn.Conv2d(self.inplanes, planes * block.expansion,
-                          kernel_size=1, stride=stride, bias=False),
-                nn.BatchNorm2d(planes * block.expansion,affine = affine_par),
-            )
-        for i in downsample._modules['1'].parameters():
-            i.requires_grad = False
-        layers = []
-        layers.append(block(self.inplanes, planes, stride,dilation_=dilation__, downsample = downsample ))
-        self.inplanes = planes * block.expansion
-        for i in range(1, blocks):
-            layers.append(block(self.inplanes, planes,dilation_=dilation__))
-
-        return nn.Sequential(*layers)
-
-    def forward(self, x):
-        tmp_x = []
-        x = self.conv1(x)
-        x = self.bn1(x)
-        x = self.relu(x)
-        tmp_x.append(x)
-        x = self.maxpool(x)
-
-        x = self.layer1(x)
-        tmp_x.append(x)
-        x = self.layer2(x)
-        tmp_x.append(x)
-        x = self.layer3(x)
-        tmp_x.append(x)
-        x = self.layer4(x)
-        tmp_x.append(x)
-
-        return tmp_x
-
-
 class ResNet_locate(nn.Module):
     def __init__(self, block, layers):
         super(ResNet_locate,self).__init__()
-        self.resnet = resnet(pretrained=False)
+        self.resnet = resnet(pretrained=True)
         
-        
-        for m in self.resnet.modules():
-            if isinstance(m, nn.BatchNorm2d):
-                m.weight.data.fill_(1)
-                m.bias.data.zero_()
-                for i in m.parameters():
-                    i.requires_grad = False
-                
         self.in_planes = 512
         self.out_planes = [512, 256, 256, 128]
 
@@ -194,6 +124,7 @@ class ResNet_locate(nn.Module):
             infos.append(nn.Sequential(nn.Conv2d(self.in_planes, ii, 3, 1, 1, bias=False), nn.ReLU(inplace=True)))
         self.infos = nn.ModuleList(infos)
 
+        '''
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
@@ -201,6 +132,7 @@ class ResNet_locate(nn.Module):
             elif isinstance(m, nn.BatchNorm2d):
                 m.weight.data.fill_(1)
                 m.bias.data.zero_()
+        '''
 
     def load_pretrained_model(self, model):
         self.resnet.load_state_dict(model, strict=False)
@@ -224,6 +156,49 @@ class ResNet_locate(nn.Module):
 def resnet50_locate():
     model = ResNet_locate(Bottleneck, [3, 4, 6, 3])
     return model
+
+
+class base_locate(nn.Module):
+    def __init__(self, encoder, backbone):
+        super(base_locate,self).__init__()
+        self.base = encoder
+        self.in_planes = 512
+        if backbone == 'vgg':
+            self.out_planes = [512, 256, 128]
+            self.ppms_pre = None
+        elif backbone == 'resnet':
+            self.out_planes = [512, 256, 256, 128]
+            self.ppms_pre = nn.Conv2d(2048, self.in_planes, 1, 1, bias=False)
+
+        ppms, infos = [], []
+        for ii in [1, 3, 5]:
+            ppms.append(nn.Sequential(nn.AdaptiveAvgPool2d(ii), nn.Conv2d(self.in_planes, self.in_planes, 1, 1, bias=False), nn.ReLU(inplace=True)))
+        self.ppms = nn.ModuleList(ppms)
+
+        self.ppm_cat = nn.Sequential(nn.Conv2d(self.in_planes * 4, self.in_planes, 3, 1, 1, bias=False), nn.ReLU(inplace=True))
+        for ii in self.out_planes:
+            infos.append(nn.Sequential(nn.Conv2d(self.in_planes, ii, 3, 1, 1, bias=False), nn.ReLU(inplace=True)))
+        self.infos = nn.ModuleList(infos)
+
+    def forward(self, x):
+        x_size = x.size()[2:]
+        xs = self.base(x)
+
+        if self.ppms_pre is None:
+            xs_1 = xs[-1]
+        else:
+            xs_1 = self.ppms_pre(xs[-1])
+        xls = [xs_1]
+        
+        for k in range(len(self.ppms)):
+            xls.append(F.interpolate(self.ppms[k](xs_1), xs_1.size()[2:], mode='bilinear', align_corners=True))
+        xls = self.ppm_cat(torch.cat(xls, dim=1))
+        infos = []
+        for k in range(len(self.infos)):
+            infos.append(self.infos[k](F.interpolate(xls, xs[len(self.infos) - 1 - k].size()[2:], mode='bilinear', align_corners=True)))
+
+        return xs, infos
+
 
 class ConvertLayer(nn.Module):
     def __init__(self, list_k):
@@ -267,7 +242,11 @@ class DeepPoolLayer(nn.Module):
             resl = F.interpolate(resl, x2.size()[2:], mode='bilinear', align_corners=True)
         resl = self.conv_sum(resl)
         if self.need_fuse:
-            resl = self.conv_sum_c(torch.add(torch.add(resl, x2), x3))
+            #print(resl.size(), x2.size(), x3.size())
+            resl = torch.add(resl, x2)
+            resl = F.interpolate(resl, x3.size()[2:], mode='bilinear', align_corners=True)
+            resl = self.conv_sum_c(torch.add(resl, x3))
+            #resl = self.conv_sum_c(torch.add(torch.add(resl, x2), x3))
         return resl
 
 class ScoreLayer(nn.Module):
@@ -312,6 +291,8 @@ class PoolNet(nn.Module):
         conv2merge, infos = self.base(x)
         if self.base_model_cfg == 'resnet':
             conv2merge = self.convert(conv2merge)
+        else:
+            conv2merge = conv2merge[1:]
         conv2merge = conv2merge[::-1]
 
         edge_merge = []
@@ -324,24 +305,27 @@ class PoolNet(nn.Module):
         merge = self.deep_pool[-1](merge)
         merge = self.score(merge, x_size)
         out_dict = {}
+        out_dict['sal'] = [merge]
         out_dict['final'] = merge
         return out_dict
 
 def Network(config, encoder, ft):
-    if config['backbone'] == 'vgg16':
-        model = PoolNet(config['backbone'], *extra_layer(config['backbone'], vgg16_locate()))
-    elif config['backbone'] == 'resnet':
-        model = PoolNet(config['backbone'], *extra_layer(config['backbone'], resnet50_locate()))
+    #if config['backbone'] == 'vgg16':
+    #    model = PoolNet(config['backbone'], *extra_layer(config['backbone'], vgg16_locate()))
+    #elif config['backbone'] == 'resnet':
+    #    model = PoolNet(config['backbone'], *extra_layer(config['backbone'], resnet50_locate()))
+    temp = base_locate(encoder, config['backbone'])
+    model = PoolNet(config['backbone'], *extra_layer(config['backbone'], temp))
     
-    model.apply(weights_init)
-    pre = torch.load('../PretrainModel/resnet50.pth')
-    exist = model.base.resnet.state_dict()
-    for k,v in pre.items():
-        if k in exist.keys():
-            exist[k] = v
-    model.base.resnet.load_state_dict(exist)
+    #model.apply(weights_init)
+    #pre = torch.load('../PretrainModel/resnet50.pth')
+    #exist = model.base.resnet.state_dict()
+    #for k,v in pre.items():
+    #    if k in exist.keys():
+    #        exist[k] = v
+    #model.base.resnet.load_state_dict(exist)
     
-    model.eval()
+    #model.eval()
     #model.load_state_dict(torch.load('../PretrainModel/resnet50_caffe.pth'))
     #model.base.load_pretrained_model(torch.load('../PretrainModel/resnet50_caffe.pth'))
     #model.apply(weights_init)

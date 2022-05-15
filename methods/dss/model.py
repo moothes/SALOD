@@ -145,8 +145,8 @@ class DSS(nn.Module):
         out_dict = {}
         
         out_dict['sal'] = back
-        out_dict['final'] = back[-1]
-        #out_dict['final'] = torch.cat([back[i] for i in [1, 2, 3, 6]], dim=1).mean(dim=1, keepdim=True)
+        #out_dict['final'] = back[-1]
+        out_dict['final'] = torch.cat([back[i] for i in [1, 2, 3, 6]], dim=1).mean(dim=1, keepdim=True)
         #for i in back: prob.append(torch.sigmoid(i))
         return out_dict
 

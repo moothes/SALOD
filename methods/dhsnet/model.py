@@ -65,14 +65,16 @@ class Network(nn.Module):
         super(Network, self).__init__()
 
         self.encoder = encoder
+        self.backbone = config['backbone']
         
-        self.atten = nn.Conv2d(2048, 1, 3, padding=1)
+        self.atten = nn.Conv2d(feat[-1], 1, 3, padding=1)
         self.layer1 = RCL(feat[-2])  # RCL module 1
         self.layer2 = RCL(feat[-3])  # RCL module 2
         self.layer3 = RCL(feat[-4])  # RCL module 3
         self.layer4 = RCL(feat[-5])  # RCL module 4
 
     def forward(self, x, phase='test'):
+        x_size = x.size()[2:]
         c1, c2, c3, c4, x = self.encoder(x)
         
         x1 = self.atten(x)
@@ -84,10 +86,10 @@ class Network(nn.Module):
         x4 = self.layer3(c2, x3)
         x4 = F.interpolate(x4, scale_factor=2, mode='bilinear')
         x5 = self.layer4(c1, x4)
-        x5 = F.interpolate(x5, scale_factor=2, mode='bilinear')
+        x5 = F.interpolate(x5, size=x_size, mode='bilinear')
         
         out_dict = {}
-        out_dict['sal'] = [x1, x2, x3, x4, x5]
+        out_dict['sal'] = [x5] #[x1, x2, x3, x4, x5]
         out_dict['final'] = x5
         return out_dict
 

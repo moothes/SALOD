@@ -142,7 +142,7 @@ class Network(nn.Module):
         
         out_dict = {}
         out_dict['final'] = output
-        out_dict['sal'] = [output1, output2, output3, output4, output5]
+        out_dict['sal'] = [output, output1, output2, output3, output4, output5]
         #out_dict['final'] = self.get_pred(output)
         #out_dict['sal_pred'] = [self.get_pred(output) for output in [output1, output2, output3, output4, output5]]
         #[self.get_pred(output1), self.get_pred(output2), self.get_pred(output3), self.get_pred(output4), self.get_pred(output5)]
