@@ -5,10 +5,16 @@ In this works, we propose a new SALient Object Detection (SALOD) benchmark.
 
 We re-implement multiple SOD methods using the same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters of optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. Some other networks are debugging now, it is welcome for your contributions on these models.
 
+## Update
+**1. New models: F3Net (AAAI 2020), LDF (CVPR 2020), GateNet (ECCV 2020), PFSNet (AAAI 20221), CTDNet (ACM MM 2021). More models for SOD and COD tasks are coming soon.**  
+**2. New dataset: training our models on COD task is available now.**  
+**3. Training strategy update. We notice that training strategy is very important for achieving SOTA performance. A new strategy factory is added to /base/strategy.py.**
+
+
 ## Datasets
 Our SALOD dataset can be downloaded from: [SALOD](https://drive.google.com/file/d/1kxhUoWUAnFhOE_ZoA1www8msG2pKHg3_/view?usp=sharing).   
 You can download existing SOD datasets from: [SOD](https://drive.google.com/file/d/17X4SiSVuBmqkvQJe_ScVARKPM_vgvCOi/view?usp=sharing), including DUTS-TR,DUTS-TE,ECSSD,SOD,PASCAL-S,HKU-IS,DUT-OMRON.  
-Additionally, we will provide COD datasets soon!
+COD datasets from: [COD](https://drive.google.com/file/d/1zUgaGxr9PeDcfLfBisV2q8QXL6Tp1QzC/view?usp=sharing), including COD-TR (COD-TR + CAMO-TR), COD-TE, CAMO-TE, NC4K.
 
 We have no plan on providing Baidu Disk links.
 For chinese users who cannot open Google, I recommend you to purchase an SSR service in [Airport](https://52bp.org/airport.html).
@@ -48,7 +54,7 @@ For chinese users who cannot open Google, I recommend you to purchase an SSR ser
  
  ```
  # model_name: lower-cased method name. E.g. poolnet, egnet, gcpa, dhsnet or minet.
- python3 train.py model_name --gpus=0
+ python3 train.py model_name --gpus=0 --trset=[DUTS-TR,SALOD,COD-TR]
  
  python3 test.py model_name --gpus=0 --weight=path_to_weight 
  
