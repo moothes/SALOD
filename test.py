@@ -43,13 +43,12 @@ def test_model(model, test_sets, config, epoch=None, saver=None):
         for j in range(titer):
             image, gt, name = test_set.load_data(j)
             Y = model(image.cuda())
-            preds = Y['final'].sigmoid_().cpu().data.numpy()
-            pred = preds[0, 0] / (np.max(preds) + 1e-8)
+            pred = Y['final'][0, 0].sigmoid_().cpu().data.numpy()
             out_shape = gt.shape
             
             pred = np.array(Image.fromarray(pred).resize((out_shape[::-1])))
             
-            pred, gt = normalize_pil(pred, gt)
+            pred = np.round(pred * 255) / 255.
             MR.update(pre=pred, gt=gt)
             
             # save predictions
