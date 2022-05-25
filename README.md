@@ -5,7 +5,13 @@ In this works, we propose a new SALient Object Detection (SALOD) benchmark.
 
 We re-implement 19 SOD methods using the same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters of optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. Some other networks are debugging now, it is welcome for your contributions on these models.
 
-## Update 2022/05/15
+# Update 
+## 2022/05/25  
+Fix a bug in evaluation.  
+In the previous versions, we found that images with large salient regions get 0 ave-F scores, and thus we obtain lower ave-F scores than the scores reported in their original paper.    
+Now, we fix this bug by adding a round function before evaluating.
+
+## 2022/05/15 
 **1. New models: F3Net (AAAI 2020), LDF (CVPR 2020), GateNet (ECCV 2020), PFSNet (AAAI 20221), CTDNet (ACM MM 2021). More models for SOD and COD tasks are coming soon.**  
 **2. New dataset: training on COD task is available now.**  
 **3. Training strategy update. We notice that training strategy is very important for achieving SOTA performance. A new strategy factory is added to /base/strategy.py.**
