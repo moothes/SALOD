@@ -27,7 +27,7 @@ For chinese users who cannot open Google, I recommend you to purchase an SSR ser
 
 ## Properties
 1. **A unify interface for new models.** To develop a new network, you only need to 1) set configs; 2) define network; 3) define loss function. See methods/template.
-2. Easy to adopt different backbones **(Available backbones: ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)**
+2. Easy to adopt different backbones **(Available backbones: ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)[[Download]](https://drive.google.com/drive/folders/1Rxo2e38Tj_xUtLhCa_04S1YnYtWaEYgs?usp=sharing)**
 3. **Testing all models on your own device.** By input the name of network, you can test all available methods in our benchmark. Comparisons include FPS, MACs, model size and multiple effectiveness metrics.
 4. We implement a **loss factory** that you can change the loss functions using command line parameters.
 
