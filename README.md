@@ -5,15 +5,17 @@ In this works, we propose a new SALient Object Detection (SALOD) benchmark.
 
 We re-implement 19 SOD methods using the same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters of optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. Some other networks are debugging now, it is welcome for your contributions on these models.
 
+**You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
+
 # Update 
 ## 2022/05/25  
 **Fix a bug in evaluation.**  
-In the previous versions, we found that images with large salient regions get 0 ave-F scores, and thus we obtain lower ave-F scores than the scores reported in their original paper.    
+In the previous versions, we found that images with large salient regions get 0 ave-F scores, and thus we obtain lower ave-F scores than their original paper.    
 Now, we fix this bug by adding a round function before evaluating.
 
 ## 2022/05/15 
 1. New models: F3Net (AAAI 2020), LDF (CVPR 2020), GateNet (ECCV 2020), PFSNet (AAAI 20221), CTDNet (ACM MM 2021). More models for SOD and COD tasks are coming soon.  
-2. New dataset: training on COD task is available now.**
+2. New dataset: training on COD task is available now.
 3. Training strategy update. We notice that training strategy is very important for achieving SOTA performance. A new strategy factory is added to /base/strategy.py.
 
 
@@ -28,7 +30,7 @@ For chinese users who cannot open Google, I recommend you to purchase an SSR ser
 ## Properties
 1. **A unify interface for new models.** To develop a new network, you only need to 1) set configs; 2) define network; 3) define loss function. See methods/template.
 2. Easy to adopt different backbones **(Available backbones: ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)[[Weight]](https://drive.google.com/drive/folders/1Rxo2e38Tj_xUtLhCa_04S1YnYtWaEYgs?usp=sharing)**
-3. **Testing all models on your own device.** By input the name of network, you can test all available methods in our benchmark. Comparisons include FPS, MACs, model size and multiple effectiveness metrics.
+3. **Testing all models on your own device.** You can test all available methods in our benchmark, including FPS, MACs, model size and multiple effectiveness metrics.
 4. We implement a **loss factory** that you can change the loss functions using command line parameters.
 
 ## Available Methods:
