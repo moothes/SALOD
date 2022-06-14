@@ -22,6 +22,7 @@ You may achieve better results than in our figure by using some **tricks**, for 
 # Update 
 ## 2022/06/14  
 Add performance trend figure.  
+New model: EDN (TIP 2022).
 
 ## 2022/05/25  
 **Fix a bug in evaluation.**  
