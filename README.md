@@ -12,8 +12,8 @@ Here we show the performance trend of the max-F score on HKU-IS dataset. Light b
 
 You may achieve better results than in our figure by using some **tricks**, for example:  
 1. ```--strategy=sche_f3net``` for the latest training strategy as original F3Net, LDF, PFSNet and CTDNet;
-2. ```--multi``` for multi-scale training
-3. ```--data_aug``` for random croping
+2. ```--multi``` for multi-scale training;
+3. ```--data_aug``` for random croping;
 4. 0.6 * BCE_loss + 1 * IOU_loss for training like CTDNet.
 
 ![Result](https://github.com/moothes/SALOD/blob/master/trend.png)
