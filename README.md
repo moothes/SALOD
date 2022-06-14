@@ -7,7 +7,12 @@ We re-implement 19 SOD methods using the same settings, including input size, da
 
 **You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
 
+
+
 # Update 
+## 2022/06/14  
+Add performance trend figure.  
+
 ## 2022/05/25  
 **Fix a bug in evaluation.**  
 In the previous versions, we found that images with large salient regions get 0 ave-F scores, and thus we obtain lower ave-F scores than their original paper.    
