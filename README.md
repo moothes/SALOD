@@ -8,7 +8,7 @@ We re-implement 19 SOD methods using the same settings, including input size, da
 **You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
 
 ## Trend
-Here we show the performance trend of the max-F score on HKU-IS dataset. Light blue line is the results of their original implementations, while the deep blue line is the results in our benchmark with consistent settings.  
+Here we show the performance trend of the max-F score on HKU-IS dataset. The yellow line is the results of their original implementations, while the blue line is the results in our benchmark with consistent settings.  
 
 You may achieve better results than in our figure by using some **tricks**, for example:  
 1. ```--strategy=sche_f3net``` for the latest training strategy as original F3Net, LDF, PFSNet and CTDNet;
