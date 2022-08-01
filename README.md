@@ -72,10 +72,14 @@ For chinese users who cannot open Google, I recommend you to purchase an SSR ser
  GateNet | ECCV 2020 | 320^2 | 503M    | SGD    | 2e-3  | 30    |  [springer](https://link.springer.com/chapter/10.1007/978-3-030-58536-5_3)|  [Pytorch](https://github.com/Xiaoqi-Zhao-DLUT/GateNet-RGB-Saliency)
  PFSNet  | AAAI 2021    | 320^2 | 122M    | SGD    | 2e-3  | 30    |  [AAAI.org](https://ojs.aaai.org/index.php/AAAI/article/view/16331)|  [Pytorch](https://github.com/iCVTEAM/PFSNet)
  CTDNet  | ACM MM 2021 | 320^2 | 97M    | SGD    | 2e-3  | 30    |  [ACM](https://dl.acm.org/doi/abs/10.1145/3474085.3475494?casa_token=eKn8q7l2hJEAAAAA%3A4YGBXBpC6cCcFdpekxbaZncgBEru_mi69kNixfZSPeFRhD2gkeKpXIZyuiIW1bH80IuNV9ANmBw)|  [Pytorch](https://github.com/zhaozhirui/CTDNet)
+ EDN  | TIP 2022 | 320^2 | --    | --    | --  | --    |  [TIP](https://ieeexplore.ieee.org/abstract/document/9756227/)|  [Pytorch](https://github.com/yuhuan-wu/EDN)
  `Tuning`  | -----    | ----- | ------ | ------ | ----- | ----- | ----- | -----
  *PAGE    | CVPR2019 | 320^2 | ------ | ------ | ----- | ----- | [openaccess](https://openaccess.thecvf.com/content_CVPR_2019/papers/Wang_Salient_Object_Detection_With_Pyramid_Attention_and_Salient_Edges_CVPR_2019_paper.pdf) | [TF](https://github.com/wenguanwang/PAGE-Net)  
  *PFA     | CVPR2019 | 320^2 | ------ | ------ | ----- | ----- | [openaccess](https://openaccess.thecvf.com/content_CVPR_2019/papers/Zhao_Pyramid_Feature_Attention_Network_for_Saliency_Detection_CVPR_2019_paper.pdf) | [Pytorch](https://github.com/dizaiyoufang/pytorch_PFAN) 
  *PFPN   | AAAI2020 | 320^2 | ------ | ------ | ----- | ----- |  [aaai.org](https://ojs.aaai.org/index.php/AAAI/article/view/6892) | [Pytorch](https://github.com/chenquan-cq/PFPN)
+ 
+ 
+ https://github.com/yuhuan-wu/EDN
  
  ## Usage
  
