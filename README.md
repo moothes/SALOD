@@ -144,7 +144,7 @@ To create a new model, you can copy the template folder and modify it as you wan
 ```
 cp -r ./methods/template ./methods/new_name
 ```
-More details please refer to python files in template floder.
+More details please refer to python files in template folder.
 
 ## Loss Factory
 
