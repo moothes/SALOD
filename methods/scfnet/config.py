@@ -5,7 +5,7 @@ from base.config import base_config, cfg_convert
 
 
 def get_config():
-    strategy = 'base_adam'
+    strategy = 'sche_scfnet'
     parser = base_config(strategy)
     # Add custom params here
     # parser.add_argument('--size', default=320, type=int, help='Input size')
@@ -16,5 +16,6 @@ def get_config():
     print('Training {} network with {} backbone using Gpu: {}'.format(config['model_name'], config['backbone'], config['gpus']))
     
     # Config post-process
+    config['ave_batch'] = 16
     
     return config
