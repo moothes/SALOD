@@ -20,8 +20,8 @@ You may achieve better results than in our figure by using some **tricks**, for 
 
 
 # Update 
-## 2022/06/14  
-Update the trend figure.
+## 2022/08/09  
+Update the trend figure.  
 New model: SCFNet (ECCV 2022).
 
 ## 2022/06/14  
