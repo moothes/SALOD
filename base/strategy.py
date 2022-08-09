@@ -1,5 +1,6 @@
 import importlib
 from torch import nn
+import math
 
 from torch.nn import functional as F
 from torch.optim import *
@@ -9,7 +10,7 @@ import torch.optim.lr_scheduler as sche
 # Base SGD
 base_sgd_config = {
     'optim': 'SGD',
-    'lr': 2e-3,
+    'lr': 5e-2,
     'batch': 8,
     'epoch': 30,
     }
@@ -54,6 +55,44 @@ def sche_f3net(optimizer, current_iter, total_iter, config):
     factor = (1 - abs(current_iter / total_iter * 2 - 1))
     optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
     optimizer.param_groups[1]['lr'] = factor * config['lr']
+
+# F3Net
+sche_test_config = {
+    'optim': 'SGD',
+    'lr': 2e-2,
+    'batch': 32,
+    'epoch': 40,
+    }
+def sche_test(optimizer, current_iter, total_iter, config):
+    factor = (1 - abs(current_iter / total_iter * 2 - 1))
+    optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
+    optimizer.param_groups[1]['lr'] = factor * config['lr']
+
+
+# New test
+sche_scfnet_config = {
+    'optim': 'SGD',
+    'lr': 6.4e-2,
+    'batch': 128,
+    'epoch': 69,
+    'warmup': 5,
+}
+def sche_scfnet(optimizer, current_iter, total_iter, config):
+    min_lr = 6.4e-4
+    max_lr = 6.4e-2
+    mum_step = config['iter_per_epoch'] * config['warmup']
+    # Warmup
+    if config['cur_epoch'] < (config['warmup']+1):
+        #factor = current_iter / (mum_step + 1e-8)
+        lr = min_lr + abs(max_lr - min_lr) / (mum_step + 1e-8) * current_iter
+    else:
+        T_max = total_iter-mum_step
+        cur_iter = current_iter-mum_step
+        lr = (1 + math.cos(math.pi * cur_iter / T_max)) / (1 + math.cos(math.pi * (cur_iter - 1) / T_max)) * abs(optimizer.param_groups[1]['lr'] - min_lr) + min_lr
+    
+    optimizer.param_groups[0]['lr'] = lr * 0.1
+    optimizer.param_groups[1]['lr'] = lr
+    
 
 
 # New test
