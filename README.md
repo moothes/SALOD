@@ -19,7 +19,7 @@ All models are trained with the following setting:
 ![Result](https://github.com/moothes/SALOD/blob/master/trend.png)
 
 
-# Update 
+# Update Log
 ## 2022/08/09  
 Update the trend figure.  
 New model: SCFNet (ECCV 2022).
