@@ -84,7 +84,6 @@ For chinese users who cannot open Google, I recommend you to purchase an SSR ser
  *PFPN   | AAAI2020 | 320^2 | ------ | ------ | ----- | ----- |  [aaai.org](https://ojs.aaai.org/index.php/AAAI/article/view/6892) | [Pytorch](https://github.com/chenquan-cq/PFPN)
  
  
- https://github.com/yuhuan-wu/EDN
  
  ## Usage
  
