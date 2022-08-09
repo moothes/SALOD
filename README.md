@@ -8,13 +8,13 @@ We re-implement 20 SOD methods using the same settings, including input size, da
 **You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
 
 ## Trend
-Here we show the performance trend of the max-F score on HKU-IS dataset. The yellow line is the results of their original implementations, while the blue line is the results in our benchmark with consistent settings.  
-
-You may achieve better results than in our figure by using some **tricks**, for example:  
+Here we show the performance trend of the ave-F score on ECSSD dataset.  
+Results of PICANet, ITSD, EGNet and EDN will coming soon.   
+All models are trained with the following setting:  
 1. ```--strategy=sche_f3net``` for the latest training strategy as original F3Net, LDF, PFSNet and CTDNet;
 2. ```--multi``` for multi-scale training;
-3. ```--data_aug``` for random croping;
-4. 0.6 * BCE_loss + 1 * IOU_loss for training like CTDNet.
+3. ```--data_aug``` for random croping;  
+4. 1 * BCE_loss + 1 * IOU_loss as loss.
 
 ![Result](https://github.com/moothes/SALOD/blob/master/trend.png)
 
