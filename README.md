@@ -21,6 +21,10 @@ You may achieve better results than in our figure by using some **tricks**, for 
 
 # Update 
 ## 2022/06/14  
+Update the trend figure.
+New model: SCFNet (ECCV 2022).
+
+## 2022/06/14  
 Add performance trend figure.  
 New model: EDN (TIP 2022).
 
@@ -73,10 +77,11 @@ For chinese users who cannot open Google, I recommend you to purchase an SSR ser
  PFSNet  | AAAI 2021    | 320^2 | 122M    | SGD    | 2e-3  | 30    |  [AAAI.org](https://ojs.aaai.org/index.php/AAAI/article/view/16331)|  [Pytorch](https://github.com/iCVTEAM/PFSNet)
  CTDNet  | ACM MM 2021 | 320^2 | 97M    | SGD    | 2e-3  | 30    |  [ACM](https://dl.acm.org/doi/abs/10.1145/3474085.3475494?casa_token=eKn8q7l2hJEAAAAA%3A4YGBXBpC6cCcFdpekxbaZncgBEru_mi69kNixfZSPeFRhD2gkeKpXIZyuiIW1bH80IuNV9ANmBw)|  [Pytorch](https://github.com/zhaozhirui/CTDNet)
  EDN  | TIP 2022 | 320^2 | --    | --    | --  | --    |  [TIP](https://ieeexplore.ieee.org/abstract/document/9756227/)|  [Pytorch](https://github.com/yuhuan-wu/EDN)
+ SCFNet | ECCV 2022 | 320^2 | --    | --    | --  | --    |  [Arxiv](https://arxiv.org/abs/2208.02178)|  [Pytorch](https://github.com/zhangjinCV/KD-SCFNet)
  `Tuning`  | -----    | ----- | ------ | ------ | ----- | ----- | ----- | -----
  *PAGE    | CVPR2019 | 320^2 | ------ | ------ | ----- | ----- | [openaccess](https://openaccess.thecvf.com/content_CVPR_2019/papers/Wang_Salient_Object_Detection_With_Pyramid_Attention_and_Salient_Edges_CVPR_2019_paper.pdf) | [TF](https://github.com/wenguanwang/PAGE-Net)  
  *PFA     | CVPR2019 | 320^2 | ------ | ------ | ----- | ----- | [openaccess](https://openaccess.thecvf.com/content_CVPR_2019/papers/Zhao_Pyramid_Feature_Attention_Network_for_Saliency_Detection_CVPR_2019_paper.pdf) | [Pytorch](https://github.com/dizaiyoufang/pytorch_PFAN) 
- *PFPN   | AAAI2020 | 320^2 | ------ | ------ | ----- | ----- |  [aaai.org](https://ojs.aaai.org/index.php/AAAI/article/view/6892) | [Pytorch](https://github.com/chenquan-cq/PFPN)
+ *PFPN   | AAAI2020 | 320^2 | ------ | ------ | ----- | ----- |  [aaai.org](https://ojs.aaai.org/index.php/AAAI/article/view/6892) | [Paddle](https://github.com/chenquan-cq/PFPN)
  
  
  https://github.com/yuhuan-wu/EDN
