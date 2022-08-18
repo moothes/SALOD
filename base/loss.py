@@ -80,6 +80,28 @@ def DICE(preds, target, config):
     dice_loss = 1 - (2 * (ab + 1) / (a + b + 1)).mean()
     return dice_loss
     
+# boundary dice loss and PBSM
+def boundary_dice_loss(pred, mask, epoch):
+    size = max(1, (13 - ((epoch + 1) // 10) * 2))  # PBSM
+    pred = F.sigmoid(pred)
+    n    = pred.shape[0]
+    mask_boundary = F.max_pool2d(1 - mask, kernel_size=3, stride=1, padding=1)
+    mask_boundary -= 1 - mask
+
+    pred_boundary = F.max_pool2d(1 - pred, kernel_size=3, stride=1, padding=1)
+    pred_boundary -= 1 - pred
+    mask_boundary = F.max_pool2d(mask_boundary, kernel_size=size, stride=1, padding=(size-1)//2)
+    pred_boundary = F.max_pool2d(pred_boundary, kernel_size=size, stride=1, padding=(size-1)//2)
+    mask_boundary = torch.reshape(mask_boundary, shape=(n, -1))
+    pred_boundary = torch.reshape(pred_boundary, shape=(n, -1))
+
+    intersection  = (pred_boundary * mask_boundary).sum(axis=(1))
+    unior         = (pred_boundary + mask_boundary).sum(axis=(1))
+    dice          = (2 * intersection + 1) / (unior + 1)
+    dice          = torch.mean(1 - dice)
+    return dice
+
+    
 def Edge(preds, target, config):
     bce = nn.BCEWithLogitsLoss()
     loss = bce(preds, label_edge_prediction(target))
@@ -132,34 +154,52 @@ def mse(preds, target, config):
     
     loss = mse(pred, target).mean()
     return loss
+    
+    
 
-loss_dict = {'b': BCE, 's': SSIM, 'i': IOU, 'd': DICE, 'e': Edge,\
+loss_dict = {'b': BCE, 's': SSIM, 'i': IOU, 'd': DICE, 'e': Edge, 'a': boundary_dice_loss,\
              'c': CTLoss, 'f': Fscore, 'w': wFs, 'o': Focal, 'm': mse}
 
-#def Loss_factory(config):
-class Loss_factory(nn.Module):
-    def __init__(self, config):
-        super(Loss_factory, self).__init__()
-        if config['lw'] == '':
-            lw = [1, ] * len(config['loss'])
-        else:
-            lw = [float(w) for w in config['lw'].split(',')]
-        assert len(config['loss']) == len(lw), 'Length of loss and loss_weight should be equal.'
+class loss_worker(nn.Module):
+    def __init__(self, losses, lws):
+        super(loss_worker, self).__init__()
         
-        self.losses = config['loss']
-        self.lw = lw
+        loss_formula = []
+        
+        assert len(losses) == len(lws)
+        self.loss_casket = []
+        for loss_tag, lw in zip(losses, lws):
+            self.loss_casket.append([loss_dict[loss_tag], lw])
+            loss_formula.append(loss_tag + '*' + str(lw))
+            
+        self.loss_print = '+'.join(loss_formula)
+    
+    def forward(self, preds, target, config):
+        loss = 0
+        for pred in preds:
+            for loss_term in self.loss_casket:
+                ls, lw = loss_term
+                tar = nn.functional.interpolate(target, size=pred.size()[2:], mode='bilinear')
+                loss += ls(pred, tar, config) * lw
+        return loss
+
+class Loss_factory(nn.Module):
+    def __init__(self, loss_config):
+        super(Loss_factory, self).__init__()
+        
+        self.loss_cluster = {}
+        for out_name, loss_casket in loss_config.items():
+            self.loss_cluster[out_name] = loss_worker(loss_casket[0], loss_casket[1:])
+            print('{} loss for output \"{}\".'.format(self.loss_cluster[out_name].loss_print, out_name))
         
     def forward(self, preds, target, config):
         loss = 0
-        for loss_name, w in zip(self.losses, self.lw):
-            
-            if 'sal' in preds.keys():
-                for pred in preds['sal']:
-                    for loss_name, w in zip(self.losses, self.lw):
-                        #print(pred.shape, target.shape)
-                        loss += loss_dict[loss_name](pred, target, config) * w
-            else:
-                loss += loss_dict[loss_name](preds['final'], target, config) * w
-                
+        for out_tag, worker in self.loss_cluster.items():
+            if out_tag in preds.keys():
+                if out_tag == 'edge':
+                    tar = label_edge_prediction(target)
+                else:
+                    tar = target
+                loss += worker(preds[out_tag], tar, config)
         
         return loss

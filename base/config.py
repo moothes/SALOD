@@ -4,69 +4,40 @@ import os
 from util import *
 
 def base_config(strategy):
-    '''
-    if cfg_dict == None:
-        cfg_dict = {
-            'optim': 'SGD',
-            'schedule': 'Pyramid',
-            'lr': 0.05,
-            'batch': 32,
-            'ave_batch': 1,
-            'epoch': 40,
-            'step_size': '20',
-            'gamma': 0.1,
-        }
-    '''
-
     parser = argparse.ArgumentParser()
 
-    # Training schedule
-    parser.add_argument('model_name', default='', help='Training model')
-    parser.add_argument('--strategy', default=strategy, help='Training strategy')
-    #parser.add_argument('--optim', default=cfg_dict['optim'], help='set the optimizer of model [Adam or SGD]')
-    #parser.add_argument('--schedule', default=cfg_dict['schedule'], help='set the scheduler')
-    #parser.add_argument('--lr', default=cfg_dict['lr'], type=float, help='set base learning rate')
-    #parser.add_argument('--batch', default=cfg_dict['batch'], type=int, help='Batch Size for dataloader')
-    #parser.add_argument('--epoch', default=cfg_dict['epoch'], type=int, help='Training epoch')
-    #parser.add_argument('--step_size', default=cfg_dict['step_size'], type=str, help='Lr decrease steps')
-    #parser.add_argument('--gamma', default=cfg_dict['gamma'], type=float)
-    parser.add_argument('--ave_batch', default=1, type=int, help='Number of batches for Backpropagation')
-    
+    parser.add_argument('model_name', default='', help='Model name')
     parser.add_argument('--backbone', default='resnet', help='Set the backbone of the model')
+    parser.add_argument('--gpus', default='0', type=str, help='Set the gpu devices')
+    
+    # Training schedule
+    parser.add_argument('--strategy', default=strategy, help='Training strategy, see base/strategy.py')
+    parser.add_argument('--ave_batch', default=1, type=int, help='Number of batches for each backpropagation')
     parser.add_argument('--clip_gradient', default=0, type=float, help='Max gradient')
-    parser.add_argument('--test_batch', default=1, type=int, help='Batch Size for Testing')
     parser.add_argument('--weight_decay', default=0.0005, type=float)
-    parser.add_argument('--consist', action='store_true')
     parser.add_argument('--sub', default='base', help='Job name')
-    
-    parser.add_argument('--cpu', action='store_true')
-    parser.add_argument('--gpus', default='0', type=str, help='Set the cuda devices')
-    
-    
-    parser.add_argument('--data_aug', action='store_true')
-    parser.add_argument('--multi', action='store_true')
+    parser.add_argument('--data_aug', action='store_false', help='Data augmentation, only random crop')
+    parser.add_argument('--multi', action='store_false', help='Multi-scale training')
     
     # Data setting
     parser.add_argument('--size', default=320, type=int, help='Input size')
-    parser.add_argument('--trset', default='SALOD', help='Set the traing set') # SALOD, DUTS-TE, simple
+    parser.add_argument('--trset', default='DUTS-TR', help='Set the traing set') # DUTS-TR, COD-TR, SALOD, simple
     parser.add_argument('--vals', default='all', help='Set the testing sets')
-    parser.add_argument('--data_path', default='../dataset', help='The name of network')
-    parser.add_argument('--save_path', default='./result/', help='Save path of network')
-    parser.add_argument('--weight_path', default='./weight/', help='Weight path of network')
-    
+    parser.add_argument('--data_path', default='../dataset', help='Dataset path')
+    parser.add_argument('--save_path', default='./result/', help='Save path')
+    parser.add_argument('--weight_path', default='./weight/', help='Weight path')
     parser.add_argument('--debug', action='store_true')
-    parser.add_argument('--show_param', action='store_true')
 
-    # testing
-    parser.add_argument('--weight', default='', help='Trained weight path')
-    parser.add_argument('--save', action='store_true')
+    # Testing
+    parser.add_argument('--weight', default='', help='Loading weight file')
+    parser.add_argument('--save', action='store_true', help='Whether save result')
+    parser.add_argument('--test_batch', default=1, type=int, help='Batch Size for Testing')
+    parser.add_argument('--show_param', action='store_true')
     
-    # Use for SALOD dataset
-    parser.add_argument('--train_split', default=10000, type=int, help='Use for ESOD dataset')
+    # For SALOD dataset
+    parser.add_argument('--train_split', default=10000, type=int, help='Use for SALOD dataset')
     
-    
-    # Construct loss by loss_factory. More details in methods\base\loss.py.
-    # loss: 'b': BCE, 's': SSIM, 'i': IOU, 'd': DICE, 'e': Edge, 'c': CTLoss
+    # Construct loss by loss_factory. More details in base/loss.py.
     parser.add_argument('--loss', default='', type=str, help='Losses for networks')
     parser.add_argument('--lw', default='', type=str, help='Weights for losses')
     
@@ -84,9 +55,6 @@ def cfg_convert(config):
             config['vals'] = ['COD-TE', 'NC4K', 'CAMO-TE']
     else:
         config['vals'] = config['vals'].split(',')
-    
-    #if config['step_size'] != '':
-    #    config['step_size'] = [int(ss) for ss in config['step_size'].split(',')]
 
     save_path = os.path.join(config['save_path'], config['model_name'], config['backbone'], config['sub'])
     check_path(save_path)
