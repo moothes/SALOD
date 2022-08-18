@@ -7,6 +7,8 @@ We re-implement 20 SOD methods using the same settings, including input size, da
 
 **You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
 
+Available backbones: ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)[[Weights]](https://drive.google.com/drive/folders/1Rxo2e38Tj_xUtLhCa_04S1YnYtWaEYgs?usp=sharing)** 
+
 ## Trend
 Here we show the performance trend of the ave-F score on ECSSD dataset.   
 The weights of these models can be downloaded from: [Baidu Disk](https://pan.baidu.com/s/1ByHuao32_2fUSXV7nNNMIA)(cs6u)  
@@ -79,12 +81,6 @@ COD datasets from: [COD](https://drive.google.com/file/d/1zUgaGxr9PeDcfLfBisV2q8
 
 We have no plan on providing Baidu Disk links.
 For chinese users who cannot open Google, I recommend you to purchase an SSR service in [Airport](https://52bp.org/airport.html).
-
-## Properties
-1. **A unified interface for new models.** To develop a new model, you only need to 1) set configs; 2) define network; 3) define loss function. See methods/template.
-2. Setting different backbones through ```--backbone```. **(Available backbones: ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)[[Weight]](https://drive.google.com/drive/folders/1Rxo2e38Tj_xUtLhCa_04S1YnYtWaEYgs?usp=sharing)**
-3. **Testing all models on your own device.** You can test all available methods in our benchmark, including FPS, MACs, model size and multiple effectiveness metrics.
-4. We implement a **loss factory** that you can change the loss functions through ```--loss``` and ```--lw```.
 
  
  ## Usage
