@@ -9,7 +9,7 @@ Available backbones: (ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet
 
 **You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
 
-## Trend
+## Results
 Here we show the performance trend of the ave-F score on ECSSD dataset.   
 The weights of these models can be downloaded from: [Baidu Disk](https://pan.baidu.com/s/1ByHuao32_2fUSXV7nNNMIA)(cs6u)  
 Results of PICANet and EDN will coming soon.   
@@ -46,6 +46,10 @@ CTDNet  | 24.6   | 10.2   | 64.2 | .830  | .065  | .922 | .035 | .905 | .030  | 
 
 
 # Update Log
+## 2022/08/09  
+Remove loss.py for each method. The loss functions are defined in config.py now.  
+Weights are uploaded to Baidu Disk.
+
 ## 2022/08/09  
 Update the trend figure.  
 New model: SCFNet (ECCV 2022).
