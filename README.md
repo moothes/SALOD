@@ -12,12 +12,35 @@ Available backbones: (ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet
 ## Trend
 Here we show the performance trend of the ave-F score on ECSSD dataset.   
 The weights of these models can be downloaded from: [Baidu Disk](https://pan.baidu.com/s/1ByHuao32_2fUSXV7nNNMIA)(cs6u)  
-Results of PICANet, ITSD, EGNet and EDN will coming soon.   
+Results of PICANet and EDN will coming soon.   
 All models are trained with the following setting:  
 1. ```--strategy=sche_f3net``` for the latest training strategy as original F3Net, LDF, PFSNet and CTDNet;
 2. ```--multi``` for multi-scale training;
 3. ```--data_aug``` for random croping;  
 4. 1 * BCE_loss + 1 * IOU_loss as loss.
+
+### ResNet50-based:
+Methods | #Para. | GMACs  | FPS  | PASCAL-S |   -  | ECSSD  |  -   | HKU-IS |  -   | DUTS-TE |  -   | DUT-OMRON |    -   
+ ----   | ---    | -----  | ---- | ----- | ----- | ---- | ---- | ---- | ----- | ---- | -----| ---- | -----            
+Methods | #Para. | GMACs  | FPS  | ave-F | MAE   | ave-F| MAE  | ave-F| MAE   | ave-F| MAE  | ave-F| MAE   
+DHSNet  | 24.2   | 13.8   | 49.2 | .822  | .064  | .919 | .036 | .902 | .031  | .826 | .039 | .756 | .056      
+Amulet  | 79.8   | 1093.8 | 35.1 | .816  | .070  | .911 | .041 | .895 | .034  | .813 | .042 | .741 | .058 
+NLDF    | 41.1   | 115.1  | 30.5 | .821  | .064  | .916 | .036 | .898 | .032  | .819 | .040 | .745 | .060 
+SRM     | 61.2   | 20.2   | 34.3 | .809  | .072  | .898 | .045 | .877 | .040  | .794 | .047 | .731 | .062  
+DSS     | 134.3  | 35.3   | 27.3 | .790  | .085  | .889 | .050 | .877 | .041  | .766 | .054 | .729 | .064 
+BASNet  | 95.5   | 47.2   | 32.8 | .818  | .072  | .914 | .037 | .908 | .031  | .832 | .043 | .774 | .058  
+CPD     | 47.9   | 14.7   | 22.7 | .837  | .062  | .923 | .035 | .909 | .031  | .841 | .037 | .776 | .053  
+PoolNet | 68.3   | 66.9   | 33.9 | .833  | .062  | .924 | .033 | .906 | .030  | .836 | .037 | .765 | .057 
+EGNet   | 111.7  | 222.8  | 10.2 | .828  | .063  | .917 | .036 | .902 | .031  | .836 | .039 | .762 | .059  
+SCRN    | 25.2   | 12.5   | 19.3 | .835  | .061  | .923 | .034 | .907 | .031  | .842 | .037 | .771 | .057  
+F3Net   | 25.5   | 13.6   | 39.2 | .819  | .068  | .917 | .038 | .903 | .032  | .821 | .042 | .757 | .058  
+GCPA    | 67.1   | 54.3   | 37.8 | .832  | .066  | .925 | .033 | .910 | .030  | .841 | .040 | .773 | .059  
+ITSD    | 25.7   | 19.6   | 29.4 | .812  | .073  | .913 | .039 | .902 | .033  | .820 | .048 | .765 | .065  
+MINet   | 162.4  | 87     | 23.5 | .834  | .062  | .924 | .035 | .909 | .029  | .843 | .037 | .769 | .054  
+LDF     | 25.2   | 12.8   | 37.5 | .831  | .061  | .921 | .035 | .903 | .030  | .835 | .038 | .763 | .056  
+GateNet | 128.6  | 96     | 25.9 | .825  | .069  | .920 | .036 | .908 | .031  | .834 | .040 | .770 | .057  
+PFSNet  | 31.2   | 37.5   | 21.7 | .838  | .060  | .926 | .033 | .910 | .029  | .845 | .036 | .770 | .055  
+CTDNet  | 24.6   | 10.2   | 64.2 | .830  | .065  | .922 | .035 | .905 | .030  | .833 | .039 | .773 | .054  
 
 ![Result](https://github.com/moothes/SALOD/blob/master/trend.png)
 
@@ -97,53 +120,6 @@ For chinese users who cannot open Google, I recommend you to purchase an SSR ser
  python3 eval.py --pre_path=path_to_maps
  ```
  
- 
- 
- ## Results
- 
- We report benchmark results here.  
- More results please refer to [Reproduction](https://github.com/moothes/SALOD/blob/master/readme/Reproduction.md), [Few-shot](https://github.com/moothes/SALOD/blob/master/readme/Few-shot.md) and [Generalization](https://github.com/moothes/SALOD/blob/master/readme/Generazation.md).
- 
- **Notice: please contact us if you get better results.**
- 
-### VGG16-based:
-Methods | #Param. | GFLOPs | Tr. Time | FPS  | max-F | ave-F | Fbw  | MAE  | SM   | EM    | Weight
- ----   | ---     | -----  | -----    | ---- | ----- | ----- | ---- | ---- | ---- | ----- | ----     
-DHSNet  | 15.4    | 52.5   | 7.5      | 69.8 | .884  | .815  | .812 | .049 | .880 | .893  |      
-Amulet  | 33.2    | 1362   | 12.5     | 35.1 | .855  | .790  | .772 | .061 | .854 | .876  |    
-NLDF    | 24.6    | 136    | 9.7      | 46.3 | .886  | .824  | .828 | .045 | .881 | .898  |   
-SRM     | 37.9    | 73.1   | 7.9      | 63.1 | .857  | .779  | .769 | .060 | .859 | .874  |   
-PicaNet | 26.3    | 74.2   | 40.5*    | 8.8  | .889  | .819  | .823 | .046 | .884 | .899  |  
-DSS     | 62.2    | 99.4   | 11.3     | 30.3 | .891  | .827  | .826 | .046 | .888 | .899  |    
-BASNet  | 80.5    | 114.3  | 16.9     | 32.6 | .906  | .853  | .869 | .036 | .899 | .915  |   
-CPD     | 29.2    | 85.9   | 10.5     | 36.3 | .886  | .815  | .792 | .052 | .885 | .888  |   
-PoolNet | 52.5    | 236.2  | 26.4     | 23.1 | .902  | .850  | .852 | .039 | .898 | .913  |   
-EGNet   | 101     | 178.8  | 19.2     | 16.3 | .909  | .853  | .859 | .037 | .904 | .914  |   
-SCRN    | 16.3    | 47.2   | 9.3      | 24.8 | .896  | .820  | .822 | .046 | .891 | .894  |    
-GCPA    | 42.8    | 197.1  | 17.5     | 29.3 | .903  | .836  | .845 | .041 | .898 | .907  |    
-ITSD    | 16.9    | 76.3   | 15.2*    | 30.6 | .905  | .820  | .834 | .045 | .901 | .896  |  
-MINet   | 47.8    | 162    | 21.8     | 23.4 | .900  | .839  | .852 | .039 | .895 | .909  |    
-
-
-### ResNet50-based:
-Methods | #Param. | GFLOPs | Tr. Time | FPS  | max-F | ave-F | Fbw  | MAE  | SM   | EM    | Weight
- ----   | ---     | -----  | -----    | ---- | ----- | ----- | ---- | ---- | ---- | ----- | ----     
-DHSNet  | 24.2    | 13.8   | 3.9      | 49.2 | .909  | .830  | .848 | .039 | .905 | .905  |      
-Amulet  | 79.8    | 1093.8 | 6.3      | 35.1 | .895  | .822  | .835 | .042 | .894 | .900  |    
-NLDF    | 41.1    | 115.1  | 9.2      | 30.5 | .903  | .837  | .855 | .038 | .898 | .910  |   
-SRM     | 61.2    | 20.2   | 5.5      | 34.3 | .882  | .803  | .812 | .047 | .885 | .891  |   
-PicaNet | 106.1   | 36.9   | 18.5*    | 14.8 | .904  | .823  | .843 | .041 | .902 | .902  |  
-DSS     | 134.3   | 35.3   | 6.6      | 27.3 | .894  | .821  | .826 | .045 | .893 | .898  |    
-BASNet  | 95.5    | 47.2   | 12.2     | 32.8 | .917  | .861  | .884 | .032 | .909 | .921  |   
-CPD     | 47.9    | 14.7   | 7.7      | 22.7 | .906  | .842  | .836 | .040 | .904 | .908  |   
-PoolNet | 68.3    | 66.9   | 10.2     | 33.9 | .912  | .843  | .861 | .036 | .907 | .912  |   
-EGNet   | 111.7   | 222.8  | 25.7     | 10.2 | .917  | .851  | .867 | .036 | .912 | .914  |   
-SCRN    | 25.2    | 12.5   | 5.5      | 19.3 | .910  | .838  | .845 | .040 | .906 | .905  |    
-GCPA    | 67.1    | 54.3   | 6.8      | 37.8 | .916  | .841  | .866 | .035 | .912 | .912  |    
-ITSD    | 25.7    | 19.6   | 5.7      | 29.4 | .913  | .825  | .842 | .042 | .907 | .899  |  
-MINet   | 162.4   | 87     | 11.7     | 23.5 | .913  | .851  | .871 | .034 | .906 | .917  |    
-
-
 ## Create New Model
 
 To create a new model, you can copy the template folder and modify it as you want.
