@@ -46,27 +46,25 @@ CTDNet  | 24.6   | 10.2   | 64.2 | .830  | .065  | .922 | .035 | .905 | .030  | 
 
 
 # Update Log
-## 2022/08/09  
-Remove loss.py for each method. The loss functions are defined in config.py now.  
-Weights are uploaded to Baidu Disk.
+2022/08/09:  
+* Remove loss.py for each method. The loss functions are defined in config.py now.  
+* Weights are uploaded to Baidu Disk.
 
-## 2022/08/09  
-Update the trend figure.  
-New model: SCFNet (ECCV 2022).
+2022/08/09:  
+* Update the trend figure.  
+* New model: SCFNet (ECCV 2022).
 
-## 2022/06/14  
-Add performance trend figure.  
-New model: EDN (TIP 2022).
+2022/06/14: 
+* Add performance trend figure.  
+* New model: EDN (TIP 2022).
 
-## 2022/05/25  
-**Fix a bug in evaluation.**  
-In the previous versions, we found that images with large salient regions get 0 ave-F scores, and thus we obtain lower ave-F scores than their original paper.    
-Now, we fix this bug by adding a round function before evaluating.
+2022/05/25:    
+* In the previous versions, we found that images with large salient regions get 0 ave-F scores, and thus we obtain lower ave-F scores than their original paper. Now, we fix this bug by adding a round function before evaluating.
 
-## 2022/05/15 
-1. New models: F3Net (AAAI 2020), LDF (CVPR 2020), GateNet (ECCV 2020), PFSNet (AAAI 20221), CTDNet (ACM MM 2021). More models for SOD and COD tasks are coming soon.  
-2. New dataset: training on COD task is available now.
-3. Training strategy update. We notice that training strategy is very important for achieving SOTA performance. A new strategy factory is added to /base/strategy.py.
+2022/05/15: 
+* New models: F3Net (AAAI 2020), LDF (CVPR 2020), GateNet (ECCV 2020), PFSNet (AAAI 20221), CTDNet (ACM MM 2021). More models for SOD and COD tasks are coming soon. 
+* New dataset: training on COD task is available now.
+* Training strategy update. We notice that training strategy is very important for achieving SOTA performance. A new strategy factory is added to /base/strategy.py.
 
 
 ## Available Methods:
