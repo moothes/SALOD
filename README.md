@@ -5,7 +5,7 @@ In this works, we propose a new SALient Object Detection (SALOD) benchmark.
 
 We re-implement 20 SOD methods using the same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Hyperparameters of optimizer are different because of various network structures and objective functions. We try our best to tune the optimizer for these models to achieve the best performance one-by-one. Some other networks are debugging now, it is welcome for your contributions on these models.
 
-Available backbones: ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)[[Weights]](https://drive.google.com/drive/folders/1Rxo2e38Tj_xUtLhCa_04S1YnYtWaEYgs?usp=sharing)** 
+Available backbones: (ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)[[Weights]](https://drive.google.com/drive/folders/1Rxo2e38Tj_xUtLhCa_04S1YnYtWaEYgs?usp=sharing)  
 
 **You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
 
