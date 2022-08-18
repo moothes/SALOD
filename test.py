@@ -1,29 +1,18 @@
 import sys
 import importlib
-from data import Test_Dataset
-#from data_esod import ESOD_Test
 import torch
 import time
-from progress.bar import Bar
 import os
-from collections import OrderedDict
 import cv2
 from PIL import Image
-from util import *
 import numpy as np
+from collections import OrderedDict
+from progress.bar import Bar
 
-from base.framework_factory import load_framework
+from util import *
 from metric import *
-#from framework_factory import load_framework
-
-def eval(pred, gt):
-    mae = eval_mae(pred, gt)
-    fm = eval_f(pred * 255, gt * 255)
-    em = eval_e(pred, gt)
-    sm = eval_s(pred, gt)
-    fbw = eval_fbw(pred, gt)
-    
-    return mae, fm, em, sm, fbw
+from data import Test_Dataset
+from base.framework_factory import load_framework   
 
 def test_model(model, test_sets, config, epoch=None, saver=None):
     model.eval()
@@ -38,18 +27,25 @@ def test_model(model, test_sets, config, epoch=None, saver=None):
         
         titer = test_set.size
         MR = MetricRecorder(titer)
+        scores = []
         
         test_bar = Bar('Dataset {:10}:'.format(set_name), max=titer)
         for j in range(titer):
             image, gt, name = test_set.load_data(j)
             Y = model(image.cuda())
             pred = Y['final'][0, 0].sigmoid_().cpu().data.numpy()
+            
             out_shape = gt.shape
             
-            pred = np.array(Image.fromarray(pred).resize((out_shape[::-1])))
+            #pred = np.array(Image.fromarray(pred).resize((out_shape[::-1]), resample=0))
+            pred = cv2.resize(pred, (out_shape[::-1]), interpolation=cv2.INTER_LINEAR)
             
-            pred = np.round(pred * 255) / 255.
+            pred, gt = normalize_pil(pred, gt)
+            pred = np.clip(np.round(pred * 255) / 255., 0, 1)
             MR.update(pre=pred, gt=gt)
+            
+            #scores.append(get_scores(pred, gt))
+            #print(get_scores(pred, gt))
             
             # save predictions
             if config['save']:
@@ -65,9 +61,12 @@ def test_model(model, test_sets, config, epoch=None, saver=None):
             Bar.suffix = '{}/{}'.format(j, titer)
             test_bar.next()
         
+        #scores = np.array(scores)
+        #print(np.mean(scores, axis=0))
+        
         mae, (maxf, meanf, *_), sm, em, wfm = MR.show(bit_num=3)
         #print('  MAE: {}, Max-F: {}, Maen-F: {}, SM: {}, EM: {}, Fbw: {}.'.format(mae, maxf, meanf, sm, em, wfm))
-        print('  Max-F: {}, Maen-F: {}, Fbw: {}, MAE: {}, SM: {}, EM: {}.'.format(maxf, meanf, wfm, mae, sm, em))
+        print('  Max-F: {:.3f}, Maen-F: {:.3f}, Fbw: {:.3f}, MAE: {:.3f}, SM: {:.3f}, EM: {:.3f}.'.format(maxf, meanf, wfm, mae, sm, em))
         
     print('Test using time: {}.'.format(round(time.time() - st, 3)))
 

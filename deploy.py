@@ -36,7 +36,6 @@ def detect_img(img_path, model, config):
     im.save(save_name)
     return pred
 
-# 迭代处理图片
 def recursion(base_path, model, config):
     sub_list = os.listdir(base_path)
     for sub_name in sub_list:
@@ -46,10 +45,6 @@ def recursion(base_path, model, config):
         elif sub_path.split('.')[-1] in ('png', 'jpg'):
             detect_img(sub_path, model, config)
 
-#img_fold = '/media/data2/meiling/STMD/dataset/H36M-MultiView-test/'
-#img_fold = '/media/data2/meiling/STMD/SYSU_Group/train/32/c1/addition/'
-#img_fold = '/media/data2/meiling/STMD/SYSU_Group/train/32/'
-#img_fold = '../dataset/ESOD/image/'
 img_fold = './photo/'
 def main():
     if len(sys.argv) > 1:
@@ -58,17 +53,9 @@ def main():
         print('Need model name!')
         return
     
-    
     config, model, _, _, _, saver = load_framework(net_name)
     
     saved_model = torch.load(config['weight'], map_location='cpu')
-    #new_name = {}
-    #for k, v in saved_model.items():
-    #    if k.startswith('model'):
-    #        new_name[k[6:]] = v
-    #    else:
-    #        new_name[k] = v
-    #model.load_state_dict(new_name)
     model.load_state_dict(saved_model)
     model.eval()
     model = model.cuda()

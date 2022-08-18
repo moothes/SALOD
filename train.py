@@ -3,7 +3,6 @@ import os
 import time
 import random
 
-#from thop import profile
 from progress.bar import Bar
 from collections import OrderedDict
 from util import *
@@ -28,7 +27,6 @@ def main():
     config['batch'] = config['batch'] // config['ave_batch']
     print(sorted(config.items()))
     
-    
     # Loading datasets
     train_loader = get_loader(config)
     test_sets = OrderedDict()
@@ -51,7 +49,8 @@ def main():
         
         bar = Bar('{:10}-{:8} | epoch {:2}:'.format(net_name, config['sub'], epoch), max=num_iter)
         
-
+        config['cur_epoch'] = epoch
+        config['iter_per_epoch'] = num_iter
         st = time.time()
         loss_count = 0
         optim.zero_grad()
@@ -70,7 +69,7 @@ def main():
             if config['multi']:
                 if net_name == 'picanet':
                     # picanet only support 320*320 input now!
-                    # picanet doesn't support multi-scale training, so we crop images to same sizes to simulate it.
+                    # picanet doesn't support multi-scale training, so we crop images to same sizes as a alternative.
                     input_size = config['size']
                     images = F.upsample(images, size=(input_size, input_size), mode='bilinear', align_corners=True)
                     gts = F.upsample(gts, size=(input_size, input_size), mode='nearest')
@@ -86,21 +85,12 @@ def main():
                     images = F.upsample(images, size=(input_size, input_size), mode='bilinear', align_corners=True)
                     gts = F.upsample(gts, size=(input_size, input_size), mode='nearest')
                 else:
-                    scales = [-1, 0, 1] 
-                    #scales = [-2, -1, 0, 1, 2] 
+                    scales = [-2, -1, 0, 1, 2]
                     input_size = config['size']
                     input_size += int(np.random.choice(scales, 1) * 64)
-                    #input_size += int(np.random.choice(scales, 1) * 32)
                     images = F.upsample(images, size=(input_size, input_size), mode='bilinear', align_corners=True)
                     gts = F.upsample(gts, size=(input_size, input_size), mode='nearest')
                     
-            if config['consist']:
-                flipped_img = torch.flip(images, dims=[2])
-                flipped_gt = torch.flip(gts, dims=[2])
-            
-                images = torch.cat([images, flipped_img], dim=0)
-                gts = torch.cat([gts, flipped_gt], dim=0)
-            
             Y = model(images, 'train')
             loss = model_loss(Y, gts, config) / ave_batch
             loss_count += loss.data
@@ -120,7 +110,7 @@ def main():
 
         bar.finish()
         
-        if trset in ('DUTS-TR', 'MSB-TR'):
+        if trset in ('DUTS-TR', 'MSB-TR', 'COD-TR'):
             test_model(model, test_sets, config, epoch)
             
     if trset != 'DUTS-TR':
