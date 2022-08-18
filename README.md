@@ -8,7 +8,8 @@ We re-implement 20 SOD methods using the same settings, including input size, da
 **You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
 
 ## Trend
-Here we show the performance trend of the ave-F score on ECSSD dataset. The weights of these models can be downloaded from: [Baidu Disk](https://pan.baidu.com/s/1ByHuao32_2fUSXV7nNNMIA)(cs6u)  
+Here we show the performance trend of the ave-F score on ECSSD dataset.   
+The weights of these models can be downloaded from: [Baidu Disk](https://pan.baidu.com/s/1ByHuao32_2fUSXV7nNNMIA)(cs6u)  
 Results of PICANet, ITSD, EGNet and EDN will coming soon.   
 All models are trained with the following setting:  
 1. ```--strategy=sche_f3net``` for the latest training strategy as original F3Net, LDF, PFSNet and CTDNet;
