@@ -103,10 +103,6 @@ CTDNet  | 24.6   | 10.2   | 64.2 | .830  | .065  | .922 | .035 | .905 | .030  | 
 Our SALOD dataset can be downloaded from: [SALOD](https://drive.google.com/file/d/1kxhUoWUAnFhOE_ZoA1www8msG2pKHg3_/view?usp=sharing).   
 Original SOD datasets from: [SOD](https://drive.google.com/file/d/17X4SiSVuBmqkvQJe_ScVARKPM_vgvCOi/view?usp=sharing), including DUTS-TR,DUTS-TE,ECSSD,SOD,PASCAL-S,HKU-IS,DUT-OMRON.  
 COD datasets from: [COD](https://drive.google.com/file/d/1zUgaGxr9PeDcfLfBisV2q8QXL6Tp1QzC/view?usp=sharing), including COD-TR (COD-TR + CAMO-TR), COD-TE, CAMO-TE, NC4K.
-
-We have no plan on providing Baidu Disk links.
-For chinese users who cannot open Google, I recommend you to purchase an SSR service in [Airport](https://52bp.org/airport.html).
-
  
  ## Usage
  
