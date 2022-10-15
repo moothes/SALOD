@@ -1,7 +1,6 @@
-# SALOD
 
-Source code of our work: "[Benchmarking Deep Models for Salient Object Detection](https://arxiv.org/abs/2202.02925)".   
-In this works, we propose a new SALient Object Detection (SALOD) benchmark.
+# SALOD
+Welcome to The Alchemist's Hut. Here is the SALOD benchmark ([paper link](https://arxiv.org/abs/2202.02925)) for the SOD and COD (in the near future) tasks.  
 
 We have re-implemented over 20 SOD methods using the same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Some other networks are debugging now, it is welcome for your contributions on these models.
 
