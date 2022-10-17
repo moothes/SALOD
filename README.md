@@ -10,6 +10,11 @@ Available backbones: (ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet
 
 **You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
 
+## Datasets
+Our SALOD dataset can be downloaded from: [SALOD](https://drive.google.com/file/d/1kxhUoWUAnFhOE_ZoA1www8msG2pKHg3_/view?usp=sharing).   
+Original SOD datasets from: [SOD](https://drive.google.com/file/d/17X4SiSVuBmqkvQJe_ScVARKPM_vgvCOi/view?usp=sharing), including DUTS-TR,DUTS-TE,ECSSD,SOD,PASCAL-S,HKU-IS,DUT-OMRON.  
+COD datasets from: [COD](https://drive.google.com/file/d/1zUgaGxr9PeDcfLfBisV2q8QXL6Tp1QzC/view?usp=sharing), including COD-TR (COD-TR + CAMO-TR), COD-TE, CAMO-TE, NC4K.
+ 
 ## Results
 Here we show the performance trend of the ave-F score on ECSSD dataset.   
 The weights of these models can be downloaded from: [Baidu Disk](https://pan.baidu.com/s/1ByHuao32_2fUSXV7nNNMIA)(cs6u)  
@@ -46,32 +51,6 @@ CTDNet  | 24.6   | 10.2   | 64.2 | .830  | .065  | .922 | .035 | .905 | .030  | 
 ![Result](https://github.com/moothes/SALOD/blob/master/trend.png)
 
 
-# Update Log
-2022/10/17:  
-* Use ```timm``` library for more backbones.
-* Code update.
-
-2022/08/09:  
-* Remove loss.py for each method. The loss functions are defined in config.py now.  
-* Weights are uploaded to Baidu Disk.
-
-2022/08/09:  
-* Update the trend figure.  
-* New model: SCFNet (ECCV 2022).
-
-2022/06/14: 
-* Add performance trend figure.  
-* New model: EDN (TIP 2022).
-
-2022/05/25:    
-* In the previous versions, we found that images with large salient regions get 0 ave-F scores, and thus we obtain lower ave-F scores than their original paper. Now, we fix this bug by adding a round function before evaluating.
-
-2022/05/15: 
-* New models: F3Net (AAAI 2020), LDF (CVPR 2020), GateNet (ECCV 2020), PFSNet (AAAI 20221), CTDNet (ACM MM 2021). More models for SOD and COD tasks are coming soon. 
-* New dataset: training on COD task is available now.
-* Training strategy update. We notice that training strategy is very important for achieving SOTA performance. A new strategy factory is added to /base/strategy.py.
-
-
 ## Available Methods:
 
  Methods | Publish. | Paper | Src Code
@@ -104,11 +83,6 @@ CTDNet  | 24.6   | 10.2   | 64.2 | .830  | .065  | .922 | .035 | .905 | .030  | 
  
  
 
-## Datasets
-Our SALOD dataset can be downloaded from: [SALOD](https://drive.google.com/file/d/1kxhUoWUAnFhOE_ZoA1www8msG2pKHg3_/view?usp=sharing).   
-Original SOD datasets from: [SOD](https://drive.google.com/file/d/17X4SiSVuBmqkvQJe_ScVARKPM_vgvCOi/view?usp=sharing), including DUTS-TR,DUTS-TE,ECSSD,SOD,PASCAL-S,HKU-IS,DUT-OMRON.  
-COD datasets from: [COD](https://drive.google.com/file/d/1zUgaGxr9PeDcfLfBisV2q8QXL6Tp1QzC/view?usp=sharing), including COD-TR (COD-TR + CAMO-TR), COD-TE, CAMO-TE, NC4K.
- 
  ## Usage
  
  ```
@@ -149,6 +123,31 @@ python train.py basnet --loss=bs --lw=0.3,0.7
 python train.py basnet --loss=bsid --lw=0.3,0.1,0.5,0.2
 # loss = 0.3 * bce_loss + 0.1 * ssim_loss + 0.5 * iou_loss + 0.2 * dice_loss
 ```
+
+# Update Log
+2022/10/17:  
+* Use ```timm``` library for more backbones.
+* Code update.
+
+2022/08/09:  
+* Remove loss.py for each method. The loss functions are defined in config.py now.  
+* Weights are uploaded to Baidu Disk.
+
+2022/08/09:  
+* Update the trend figure.  
+* New model: SCFNet (ECCV 2022).
+
+2022/06/14: 
+* Add performance trend figure.  
+* New model: EDN (TIP 2022).
+
+2022/05/25:    
+* In the previous versions, we found that images with large salient regions get 0 ave-F scores, and thus we obtain lower ave-F scores than their original paper. Now, we fix this bug by adding a round function before evaluating.
+
+2022/05/15: 
+* New models: F3Net (AAAI 2020), LDF (CVPR 2020), GateNet (ECCV 2020), PFSNet (AAAI 20221), CTDNet (ACM MM 2021). More models for SOD and COD tasks are coming soon. 
+* New dataset: training on COD task is available now.
+* Training strategy update. We notice that training strategy is very important for achieving SOTA performance. A new strategy factory is added to /base/strategy.py.
 
 Thanks for citing our work
 ```xml
