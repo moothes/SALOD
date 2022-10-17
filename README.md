@@ -47,6 +47,10 @@ CTDNet  | 24.6   | 10.2   | 64.2 | .830  | .065  | .922 | .035 | .905 | .030  | 
 
 
 # Update Log
+2022/10/17:  
+* Use ```timm``` library for more backbones.
+* Code update.
+
 2022/08/09:  
 * Remove loss.py for each method. The loss functions are defined in config.py now.  
 * Weights are uploaded to Baidu Disk.
