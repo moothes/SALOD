@@ -3,6 +3,7 @@ import os
 import time
 import random
 
+#from thop import profile
 from progress.bar import Bar
 from collections import OrderedDict
 from util import *
@@ -24,8 +25,11 @@ def main():
     
     # Loading model
     config, model, optim, sche, model_loss, saver = load_framework(net_name)
-    config['batch'] = config['batch'] // config['ave_batch']
+    ave_batch = config['agg_batch'] // config['batch']
+    # agg_batch: batch size for backwarding.
+    # batch: batch size when loading to gpus. Decided by the GPU memory.
     print(sorted(config.items()))
+    
     
     # Loading datasets
     train_loader = get_loader(config)
@@ -33,14 +37,23 @@ def main():
     for set_name in config['vals']:
         test_sets[set_name] = Test_Dataset(name=set_name, config=config)
     
+    start_epoch = 1
+    if config['resume']:
+        saved_model = torch.load(config['weight'], map_location='cpu')
+        if config['num_gpu'] > 1:
+            model.module.load_state_dict(saved_model)
+        else:
+            model.load_state_dict(saved_model)
+            
+        start_epoch = int(config['weight'].split('_')[-1].split('.')[0]) + 1
+    
     debug = config['debug']
     num_epoch = config['epoch']
     num_iter = len(train_loader)
-    ave_batch = config['ave_batch']
+    #ave_batch = config['ave_batch']
     trset = config['trset']
-    batch_idx = 0
     model.zero_grad()
-    for epoch in range(1, num_epoch + 1):
+    for epoch in range(start_epoch, num_epoch + 1):
         model.train()
         torch.cuda.empty_cache()
         
@@ -52,8 +65,9 @@ def main():
         config['cur_epoch'] = epoch
         config['iter_per_epoch'] = num_iter
         st = time.time()
-        loss_count = 0
         optim.zero_grad()
+        loss_count = 0
+        batch_idx = 0
         #sche.step()
         for i, pack in enumerate(train_loader, start=1):
             current_iter = (epoch - 1) * num_iter + i
@@ -69,7 +83,7 @@ def main():
             if config['multi']:
                 if net_name == 'picanet':
                     # picanet only support 320*320 input now!
-                    # picanet doesn't support multi-scale training, so we crop images to same sizes as a alternative.
+                    # picanet doesn't support multi-scale training, so we crop images to same sizes to simulate it.
                     input_size = config['size']
                     images = F.upsample(images, size=(input_size, input_size), mode='bilinear', align_corners=True)
                     gts = F.upsample(gts, size=(input_size, input_size), mode='nearest')
@@ -85,9 +99,11 @@ def main():
                     images = F.upsample(images, size=(input_size, input_size), mode='bilinear', align_corners=True)
                     gts = F.upsample(gts, size=(input_size, input_size), mode='nearest')
                 else:
-                    scales = [-2, -1, 0, 1, 2]
+                    #scales = [-1, 0, 1] 
+                    scales = [-2, -1, 0, 1, 2] 
                     input_size = config['size']
                     input_size += int(np.random.choice(scales, 1) * 64)
+                    #input_size += int(np.random.choice(scales, 1) * 32)
                     images = F.upsample(images, size=(input_size, input_size), mode='bilinear', align_corners=True)
                     gts = F.upsample(gts, size=(input_size, input_size), mode='nearest')
                     
@@ -109,9 +125,13 @@ def main():
             bar.next()
 
         bar.finish()
+        weight_path = os.path.join(config['weight_path'], '{}_{}_{}_{}.pth'.format(config['model_name'], config['backbone'], config['sub'], epoch))
+        torch.save(model.state_dict(), weight_path)
         
-        if trset in ('DUTS-TR', 'MSB-TR', 'COD-TR'):
+        
+        if trset in ('DUTS-TR', 'MSB-TR', 'COD-TR') and epoch > num_epoch - 10:
             test_model(model, test_sets, config, epoch)
+        #test_model(model, test_sets, config, epoch)
             
     if trset != 'DUTS-TR':
         test_model(model, test_sets, config, epoch)

@@ -10,7 +10,7 @@ import numpy as np
 #from .deeplab_resnet import resnet50_locate
 #from .vgg import vgg16_locate
 
-from base.encoder.resnet import resnet
+from base.encoder.resnet import resnet50
 
 
 
@@ -108,7 +108,7 @@ class Bottleneck(nn.Module):
 class ResNet_locate(nn.Module):
     def __init__(self, block, layers):
         super(ResNet_locate,self).__init__()
-        self.resnet = resnet(pretrained=True)
+        self.resnet = resnet50(pretrained=True)
         
         self.in_planes = 512
         self.out_planes = [512, 256, 256, 128]
@@ -166,7 +166,7 @@ class base_locate(nn.Module):
         if backbone == 'vgg':
             self.out_planes = [512, 256, 128]
             self.ppms_pre = None
-        elif backbone == 'resnet':
+        elif backbone == 'r50':
             self.out_planes = [512, 256, 256, 128]
             self.ppms_pre = nn.Conv2d(2048, self.in_planes, 1, 1, bias=False)
 
@@ -263,7 +263,7 @@ class ScoreLayer(nn.Module):
 def extra_layer(base_model_cfg):
     if base_model_cfg == 'vgg':
         config = config_vgg
-    elif base_model_cfg == 'resnet':
+    elif base_model_cfg == 'r50':
         config = config_resnet
     convert_layers, deep_pool_layers, score_layers = [], [], []
     convert_layers = ConvertLayer(config['convert'])
@@ -283,13 +283,13 @@ class PoolNet(nn.Module):
         #self.base = base
         self.deep_pool = nn.ModuleList(deep_pool_layers)
         self.score = score_layers
-        if self.base_model_cfg == 'resnet':
+        if self.base_model_cfg == 'r50':
             self.convert = convert_layers
 
     def forward(self, conv2merge, infos, x_size):
         #x_size = x.size()
         #conv2merge, infos = self.base(x)
-        if self.base_model_cfg == 'resnet':
+        if self.base_model_cfg == 'r50':
             conv2merge = self.convert(conv2merge)
         else:
             conv2merge = conv2merge[1:]
@@ -319,7 +319,7 @@ class Network(nn.Module):
         if config['backbone'] == 'vgg':
             self.out_planes = [512, 256, 128]
             self.ppms_pre = None
-        elif config['backbone'] == 'resnet':
+        elif config['backbone'] == 'r50':
             self.out_planes = [512, 256, 256, 128]
             self.ppms_pre = nn.Conv2d(2048, self.in_planes, 1, 1, bias=False)
 
@@ -381,7 +381,7 @@ def Network_orig(config, encoder, ft):
 def build_model(base_model_cfg='vgg'):
     if base_model_cfg == 'vgg':
         return PoolNet(base_model_cfg, *extra_layer(base_model_cfg, vgg16_locate()))
-    elif base_model_cfg == 'resnet':
+    elif base_model_cfg == 'r50':
         return PoolNet(base_model_cfg, *extra_layer(base_model_cfg, resnet50_locate()))
 
 def weights_init(m):

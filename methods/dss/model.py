@@ -3,14 +3,14 @@ from torch import nn
 from torch.nn import init
 
 from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet
+from base.encoder.resnet import resnet50
 
 # vgg choice
 base = {'dss': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M']}
 # extend vgg choice --- follow the paper, you can change it
 extra = {'vgg': [(64, 128, 3, [8, 16, 32, 64]), (128, 128, 3, [4, 8, 16, 32]), (256, 256, 5, [8, 16]),
                  (512, 256, 5, [4, 8]), (512, 512, 5, []), (512, 512, 7, [])], 
-         'resnet': [(64, 128, 3, [8, 16, 32, 64]), (256, 128, 3, [4, 8, 16, 32]), (512, 256, 5, [8, 16]),
+         'r50': [(64, 128, 3, [8, 16, 32, 64]), (256, 128, 3, [4, 8, 16, 32]), (512, 256, 5, [8, 16]),
                  (1024, 256, 5, [4, 8]), (2048, 512, 5, []), (2048, 512, 7, [])]}
 connect = {'dss': [[2, 3, 4, 5], [2, 3, 4, 5], [4, 5], [4, 5], [], []]}
 
@@ -93,13 +93,13 @@ class FusionLayer(nn.Module):
 # extra part
 def extra_layer(vgg, backbone):
     feat_layers, concat_layers, scale = [], [], 1
-    scale = 2 if backbone == 'resnet' else 1
+    scale = 2 if backbone == 'r50' else 1
     cfg = extra[backbone]
     for k, v in enumerate(cfg):
         # side output (paper: figure 3)
         feat_layers += [FeatLayer(v[0], v[1], v[2])]
         # feature map before sigmoid
-        concat_layers += [ConcatLayer(v[3], scale, k != 0 or backbone == 'resnet')]
+        concat_layers += [ConcatLayer(v[3], scale, k != 0 or backbone == 'r50')]
         scale *= 2
     return vgg, feat_layers, concat_layers
 
@@ -141,6 +141,9 @@ class DSS(nn.Module):
         else:
             # version1: mean fusion
             back.append(torch.cat(back, dim=1).mean(dim=1, keepdim=True))
+        
+        for yss in y:
+            print(yss.shape)
         
         out_dict = {}
         

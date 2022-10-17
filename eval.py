@@ -14,7 +14,7 @@ import numpy as np
 
 import argparse
 
-from metric import *
+from base.metric import *
 
 def main():
     parser = argparse.ArgumentParser()

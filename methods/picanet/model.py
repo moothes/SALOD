@@ -4,7 +4,7 @@ from torch.nn import functional as F
 from torch.autograd import Variable
 
 from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet
+from base.encoder.resnet import resnet50
 
 
 def make_layers(cfg, in_channels):
@@ -160,7 +160,7 @@ class Renet(nn.Module):
                                 bidirectional=True)  # each row
         self.horizontal = nn.LSTM(input_size=512, hidden_size=256, batch_first=True,
                                   bidirectional=True)  # each column
-        self.conv = nn.Conv2d(512, out_channel, 1)
+        self.conv = nn.Conv2d(512, out_channel, 3, 2, 1)
 
     def forward(self, *input):
         x = input[0]

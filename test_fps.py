@@ -1,5 +1,7 @@
 import sys
 import importlib
+from data import Test_Dataset
+#from data_esod import ESOD_Test
 
 import torch
 import time
@@ -11,10 +13,9 @@ from PIL import Image
 from util import *
 import numpy as np
 
-from metric import *
-from thop import profile
-from data import Test_Dataset
 from base.framework_factory import load_framework
+from base.metric import *
+from thop import profile
 #from framework_factory import load_framework
 
 

@@ -4,7 +4,7 @@ from torch.nn import functional as F
 from torch.autograd import Variable
 
 from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet
+from base.encoder.resnet import resnet50
 
 
 ###ECCV2020 Suppress and Balance: A Simple Gated Network for Salient Object Detection

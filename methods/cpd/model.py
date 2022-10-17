@@ -11,7 +11,7 @@ import scipy.stats as st
 #from ResNet import B2_ResNet
 
 from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet, Bottleneck
+from base.encoder.resnet import resnet50, Bottleneck
 
 
 
@@ -159,7 +159,7 @@ class Network(nn.Module):
         
         self.encoder = encoder
         feat = fl[-3:]
-        if config['backbone'] == 'resnet':
+        if config['backbone'] == 'r50':
             self.encoder.inplanes = 512
             self.cv1 = self.encoder._make_layer(Bottleneck, 256, 6, stride=2)
             self.cv2 = self.encoder._make_layer(Bottleneck, 512, 3, stride=2)

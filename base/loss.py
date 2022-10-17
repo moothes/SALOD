@@ -81,8 +81,8 @@ def DICE(preds, target, config):
     return dice_loss
     
 # boundary dice loss and PBSM
-def boundary_dice_loss(pred, mask, epoch):
-    size = max(1, (13 - ((epoch + 1) // 10) * 2))  # PBSM
+def boundary_dice_loss(pred, mask, config):
+    size = max(1, (13 - ((config['cur_epoch'] + 1) // 10) * 2))  # PBSM
     pred = F.sigmoid(pred)
     n    = pred.shape[0]
     mask_boundary = F.max_pool2d(1 - mask, kernel_size=3, stride=1, padding=1)
@@ -120,8 +120,6 @@ def wFs(preds, target, config):
     #wm = F.avg_pool2d(label_edge_prediction(target), 3, stride=1, padding=1) * 0.9 + 0.1
     wm = F.avg_pool2d(label_edge_prediction(target), 3, stride=1, padding=1) * 0.8 + 0.2
     pred = torch.sigmoid(preds)
-    #wm += torch.abs(target - pred)
-    #print('?')
     tp = wm * pred * target
     pred = wm * pred
     target = wm * target

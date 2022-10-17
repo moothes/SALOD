@@ -3,8 +3,8 @@ from torch import nn
 from torch.nn import init
 import torch.nn.functional as F
 
-from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet
+#from base.encoder.vgg import vgg
+#from base.encoder.resnet import resnet
 
 
 base = {'352': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M']}
@@ -46,7 +46,7 @@ class Network(nn.Module):
         
         self.feat = nn.ModuleList(feat_layers)
         self.pool = nn.ModuleList(pool_layers)
-        self.glob = nn.Sequential(nn.Conv2d(fl[-1], 128, 5), nn.ReLU(inplace=True), nn.Conv2d(128, 128, 3),
+        self.glob = nn.Sequential(nn.Conv2d(fl[-1], 128, 3), nn.ReLU(inplace=True), nn.Conv2d(128, 128, 3),
                                   nn.ReLU(inplace=True), nn.AdaptiveAvgPool2d((1, 1)))
         self.conv_g = nn.Conv2d(128, 1, 1)
         self.conv_l = nn.Conv2d(640, 1, 1)
@@ -59,7 +59,7 @@ class Network(nn.Module):
                 if k in self.pos:
                     sources.append(self.feat[num](x))
                     num = num + 1
-        elif self.config['backbone'] == 'resnet':
+        elif self.config['backbone'] == 'r50':
             ens = self.encoder(x)
             sources = [b(f) for f, b in zip(ens, self.feat)]
             x = ens[-1]

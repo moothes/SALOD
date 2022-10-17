@@ -4,7 +4,7 @@ from torch.nn import functional as F
 from torch.autograd import Variable
 
 from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet, Bottleneck
+from base.encoder.resnet import resnet50, Bottleneck
 
 import math
 import torch
@@ -205,7 +205,7 @@ class Network(nn.Module):
             feat.append(256)
             enc_channels=feat
             dec_channels=[32, 64, 128, 128, 256, 256, 256]
-        elif config['backbone'] == 'resnet50':
+        elif config['backbone'] == 'r50':
             feat.append(1024)
             feat.append(1024)
             enc_channels=feat
@@ -233,7 +233,7 @@ class Network(nn.Module):
             ConvBNReLU(enc_channels[-2], enc_channels[-1]),
                                        ConvBNReLU(enc_channels[-1], enc_channels[-1], residual=False),
                                       )
-        elif 'resnet' in arch:
+        elif 'r50' in arch:
             self.inplanes = enc_channels[-3]
             self.base_width = 64
             self.conv6 = nn.Sequential(

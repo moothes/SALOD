@@ -3,9 +3,6 @@ from torch import nn, autograd, optim, Tensor, cuda
 from torch.nn import functional as F
 from torch.autograd import Variable
 
-from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet
-
 '''
 class Network(nn.Module):
     def __init__(self, config, encoder, feat):

@@ -4,7 +4,7 @@ from torchvision import models
 import torch.nn.functional as F
 
 from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet, BasicBlock
+from base.encoder.resnet import resnet50, BasicBlock
 
 
 class RefUnet(nn.Module):
@@ -110,7 +110,7 @@ class Network(nn.Module):
         self.encoder = encoder
         if config['backbone'] == 'vgg':
             pass
-        elif config['backbone'] == 'resnet':
+        elif config['backbone'] == 'r50':
             
             self.post1 = nn.Conv2d(feat[0],64,3,padding=1) # 16
             self.post2 = nn.Conv2d(feat[1],128,3,padding=1) # 16
@@ -253,7 +253,7 @@ class Network(nn.Module):
         hx = x
 
         ## -------------Encoder-------------
-        if self.config['backbone'] == 'resnet':
+        if self.config['backbone'] == 'r50':
             h1, h2, h3, h4, _ = self.encoder(hx)
             
             h1 = self.post1(h1)

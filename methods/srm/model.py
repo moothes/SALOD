@@ -4,7 +4,7 @@ from torch.nn import functional as F
 from torch.autograd import Variable
 
 from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet
+from base.encoder.resnet import resnet50
 
 
 class Bottleneck(nn.Module):
@@ -217,10 +217,10 @@ class Network(nn.Module):
         self.conv6 = nn.Conv2d(feat[-1], 256, 3, padding=1)
         self.conv7 = nn.Conv2d(256, 1, 3, padding=1)
         
-        if config['backbone'] == 'resnet':
-            self.stage2 = encoder#resnet(True)        
+        if config['backbone'] == 'r50':
+            self.stage2 = resnet50(True)        
         elif config['backbone'] == 'vgg':
-            self.stage2 = encoder#vgg(True)
+            self.stage2 = vgg(True)
         self.ppm = PPM(feat[-2])
         self.conv1 = nn.Conv2d(feat[-2]+2048, 256, 3, padding=1)
         self.conv2 = nn.Conv2d(256, 64, 3, padding=1)

@@ -4,7 +4,7 @@ from torch.nn import functional as F
 from torch.autograd import Variable
 
 from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet
+from base.encoder.resnet import resnet50
 
 '''
 class Network(nn.Module):
@@ -164,6 +164,7 @@ class Network(nn.Module):
         del s1,s2,s3,s4,s5,z          
         torch.cuda.empty_cache()
         OutDict = {}
+        OutDict['sal'] = [p1, ]
         OutDict['final'] = p1
         return OutDict
 

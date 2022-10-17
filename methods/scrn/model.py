@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet
+from base.encoder.resnet import resnet50
 
 
 

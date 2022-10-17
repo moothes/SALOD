@@ -6,8 +6,8 @@ import math
 from torch.autograd import Variable
 import numpy as np
 
-from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet
+#from base.encoder.vgg import vgg
+#from base.encoder.resnet import resnet
 
 config_vgg = {'convert': [[128,256,512,512,512],[64,128,256,512,512]], 'merge1': [[128, 256, 128, 3,1], [256, 512, 256, 3, 1], [512, 0, 512, 5, 2], [512, 0, 512, 5, 2],[512, 0, 512, 7, 3]], 'merge2': [[128], [256, 512, 512, 512]]}  # no convert layer, no conv6
 config_resnet = {'convert': [[64,256,512,1024,2048],[128,256,512,512,512]], 'deep_pool': [[512, 512, 256, 256, 128], [512, 256, 256, 128, 128], [False, True, True, True, False], [True, True, True, True, False]], 'score': 256, 'edgeinfo':[[16, 16, 16, 16], 128, [16,8,4,2]],'edgeinfoc':[64,128], 'block': [[512, [16]], [256, [16]], [256, [16]], [128, [16]]], 'fuse': [[16, 16, 16, 16], True], 'fuse_ratio': [[16,1], [8,1], [4,1], [2,1]],  'merge1': [[128, 256, 128, 3,1], [256, 512, 256, 3, 1], [512, 0, 512, 5, 2], [512, 0, 512, 5, 2],[512, 0, 512, 7, 3]], 'merge2': [[128], [256, 512, 512, 512]]}
@@ -118,11 +118,13 @@ class MergeLayer2(nn.Module):
 # extra part
 def extra_layer(base_model_cfg):
     if base_model_cfg == 'vgg':
-        config = config_vgg
-    elif base_model_cfg == 'resnet':
-        config = config_resnet
-    merge1_layers = MergeLayer1(config['merge1'])
-    merge2_layers = MergeLayer2(config['merge2'])
+        bb_config = config_vgg
+    elif base_model_cfg == 'resnet50':
+        bb_config = config_resnet
+    else:
+        print(base_model_cfg)
+    merge1_layers = MergeLayer1(bb_config['merge1'])
+    merge2_layers = MergeLayer2(bb_config['merge2'])
 
     return merge1_layers, merge2_layers
 
@@ -135,7 +137,7 @@ class decoder(nn.Module):
             self.merge1 = merge1_layers
             self.merge2 = merge2_layers
 
-        elif self.base_model_cfg == 'resnet':
+        elif self.base_model_cfg == 'resnet50':
             self.convert = ConvertLayer(config_resnet['convert'])
             self.merge1 = merge1_layers
             self.merge2 = merge2_layers
@@ -143,7 +145,7 @@ class decoder(nn.Module):
     def forward(self, conv2merge, x_size):
         #x_size = x.size()[2:]
         #conv2merge = self.encoder(x)        
-        if self.base_model_cfg == 'resnet':            
+        if self.base_model_cfg == 'resnet50':            
             conv2merge = self.convert(conv2merge)
         else: 
             conv2merge = conv2merge[1:]
@@ -167,7 +169,7 @@ class Network(nn.Module):
             #self.merge1 = merge1_layers
             #self.merge2 = merge2_layers
 
-        elif base_model_cfg == 'resnet':
+        elif base_model_cfg == 'resnet50':
             #self.convert = ConvertLayer(config_resnet['convert'])
             self.encoder = encoder
             self.decoder = decoder(base_model_cfg, merge1_layers, merge2_layers)

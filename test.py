@@ -1,25 +1,23 @@
 import sys
 import importlib
+from data import Test_Dataset
+#from data_esod import ESOD_Test
 import torch
 import time
+from progress.bar import Bar
 import os
+from collections import OrderedDict
 import cv2
 from PIL import Image
-import numpy as np
-from collections import OrderedDict
-from progress.bar import Bar
-
 from util import *
-from metric import *
-from data import Test_Dataset
-from base.framework_factory import load_framework   
+import numpy as np
 
-def test_model(model, test_sets, config, epoch=None, saver=None):
+from base.framework_factory import load_framework
+from base.metric import *
+
+
+def test_model(model, test_sets, config, saver=None):
     model.eval()
-    if epoch is not None:
-        weight_path = os.path.join(config['weight_path'], '{}_{}_{}.pth'.format(config['model_name'], config['sub'], epoch))
-        torch.save(model.state_dict(), weight_path)
-    
     st = time.time()
     for set_name, test_set in test_sets.items():
         save_folder = os.path.join(config['save_path'], set_name)

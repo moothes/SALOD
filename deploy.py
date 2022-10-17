@@ -36,6 +36,7 @@ def detect_img(img_path, model, config):
     im.save(save_name)
     return pred
 
+# 迭代处理图片
 def recursion(base_path, model, config):
     sub_list = os.listdir(base_path)
     for sub_name in sub_list:
@@ -56,6 +57,13 @@ def main():
     config, model, _, _, _, saver = load_framework(net_name)
     
     saved_model = torch.load(config['weight'], map_location='cpu')
+    #new_name = {}
+    #for k, v in saved_model.items():
+    #    if k.startswith('model'):
+    #        new_name[k[6:]] = v
+    #    else:
+    #        new_name[k] = v
+    #model.load_state_dict(new_name)
     model.load_state_dict(saved_model)
     model.eval()
     model = model.cuda()

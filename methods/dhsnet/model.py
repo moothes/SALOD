@@ -1,16 +1,6 @@
 import torch
-from torch import nn, autograd, optim, Tensor, cuda
+from torch import nn
 from torch.nn import functional as F
-from torch.autograd import Variable
-
-from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet
-
-
-import torch
-import torch.nn as nn
-import torchvision
-
 
 def gen_conv(In, Out):
     yield nn.Conv2d(In, Out, 3, padding=1)
@@ -58,8 +48,6 @@ class RCL(nn.Module):
         out = self.conv4(out)
         return out
 
-
-
 class Network(nn.Module):
     def __init__(self, config, encoder, feat):
         super(Network, self).__init__()
@@ -92,5 +80,3 @@ class Network(nn.Module):
         out_dict['sal'] = [x5] #[x1, x2, x3, x4, x5]
         out_dict['final'] = x5
         return out_dict
-
-

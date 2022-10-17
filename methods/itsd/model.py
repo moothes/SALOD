@@ -3,8 +3,8 @@ from torch import nn, autograd, optim, Tensor, cuda
 from torch.nn import functional as F
 from torch.autograd import Variable
 
-from base.encoder.vgg import vgg
-from base.encoder.resnet import resnet
+#from base.encoder.vgg import vgg
+#from base.encoder.resnet import resnet
 
 
 NUM = [3, 2, 2, 1, 1]
@@ -178,6 +178,7 @@ class baseU(nn.Module):
             slc_maps.append(slc_map)
             ctr_maps.append(ctr_map)
 
+        #final = slc_maps[-1]
         final = self.final(slcs[1:], phase)
         slc_maps.append(final)
 

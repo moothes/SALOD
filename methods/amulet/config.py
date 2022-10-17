@@ -6,16 +6,16 @@ from util import *
 
 
 def get_config():
-    strategy = 'base_adam'
+    strategy = 'sche_f3net' # 'sche_test'
     parser = base_config(strategy)
-    # Add costume args
     
-    params = parser.parse_args()
-    config = vars(params)
-    cfg_convert(config)
-    print('Training {} network with {} backbone using Gpu: {}'.format(config['model_name'], config['backbone'], config['gpus']))
+    # Add model-specific parameters here
+    # parser.add_argument('--param', default='some_params')
     
-    config['ave_batch'] = 2
+    config = cfg_convert(parser)
+    
+    # In here, 'batch' means how many samples can be fed to the GPU in one iteration. It only decided by the GPU memory and model consumption. The actual batch size is defined in 'strategy' as 'agg_batch'.
+    config['batch'] = 8
     if config['loss'] == '':
         config['loss'] = {'sal': ['bi', 1, 1]}
 
