@@ -50,6 +50,9 @@ CTDNet  | 24.6   | 10.2   | 64.2 | .830  | .065  | .922 | .035 | .905 | .030  | 
 
 ![Result](https://github.com/moothes/SALOD/blob/master/trend.png)
 
+## Benchmarking results
+[weights](https://pan.baidu.com/s/1KXFU09nBElHqP9ffdHWtNw) code: pqn6
+
 
 ## Available Methods:
 
