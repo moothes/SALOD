@@ -154,6 +154,7 @@ python train.py basnet --loss=bsid --lw=0.3,0.1,0.5,0.2
 2022/10/17:  
 * Use ```timm``` library for more backbones.
 * Code update.
+* Benchmark results update.
 
 2022/08/09:  
 * Remove loss.py for each method. The loss functions are defined in config.py now.  
