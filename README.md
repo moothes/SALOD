@@ -25,7 +25,36 @@ All models are trained with the following setting:
 3. ```--data_aug``` for random croping;  
 4. 1 * BCE_loss + 1 * IOU_loss as loss.
 
-### ResNet50-based:
+## Benchmarking results
+Following the above settings, we list the benchmark results here.
+All weights can be downloaded from [Baidu disk](https://pan.baidu.com/s/1KXFU09nBElHqP9ffdHWtNw) [pqn6].
+
+
+Methods | #Para. | GMACs  | FPS  | max-F | ave-F | Fbw  | MAE  | SM   | em    
+ ----   | ---    | -----  | ---- | ----- | ----- | ---- | ---- | ---- | -----  
+DHSNet  | 24.2   | 13.8   | 49.2 | .909  | .871  | .863 | .037 | .905 | .925      
+Amulet  | 79.8   | 1093.8 | 35.1 | .897  | .856  | .846 | .042 | .896 | .919   
+NLDF    | 41.1   | 115.1  | 30.5 | .908  | .868  | .859 | .038 | .903 | .930  
+SRM     | 61.2   | 20.2   | 34.3 | .893  | .851  | .841 | .042 | .892 | .925    
+DSS     | 134.3  | 35.3   | 27.3 | .906  | .868  | .859 | .038 | .901 | .933 
+PiCaNet | 106.1  | 36.9   | 14.8 | .900  | .864  | .852 | .043 | .896 | .924  
+BASNet  | 95.5   | 47.2   | 32.8 | .911  | .872  | .863 | .040 | .905 | .925  
+CPD     | 47.9   | 14.7   | 22.7 | .913  | .884  | .874 | .034 | .911 | .938 
+PoolNet | 68.3   | 66.9   | 33.9 | .916  | .882  | .875 | .035 | .911 | .938  
+EGNet   | 111.7  | 222.8  | 10.2 | .913  | .884  | .875 | .036 | .908 | .936  
+SCRN    | 25.2   | 12.5   | 19.3 | .916  | .881  | .872 | .035 | .910 | .935 
+F3Net   | 25.5   | 13.6   | 39.2 | .911  | .878  | .869 | .036 | .908 | .932  
+GCPA    | 67.1   | 54.3   | 37.8 | .914  | .884  | .874 | .036 | .910 | .937   
+ITSD    | 25.7   | 19.6   | 29.4 | .918  | .880  | .873 | .037 | .910 | .932   
+MINet   | 162.4  | 87     | 23.5 | .912  | .874  | .866 | .038 | .908 | .931 
+LDF     | 25.2   | 12.8   | 37.5 | .913  | .879  | .873 | .035 | .909 | .938  
+GateNet | 128.6  | 96     | 25.9 | .912  | .882  | .870 | .037 | .906 | .934 
+PFSNet  | 31.2   | 37.5   | 21.7 | .912  | .879  | .865 | .038 | .904 | .931 
+CTDNet  | 24.6   | 10.2   | 64.2 | .918  | .887  | .880 | .033 | .913 | .940  
+EDN     | 35.1   | 16.1   | 27.4 | .916  | .883  | .875 | .036 | .910 | .934  
+SCFNet  | 26.1   | 10.9   | 73.7 | .914  | .893  | .886 | .032 | .909 | .945  
+
+# Conventional SOD results
 Methods | #Para. | GMACs  | FPS  | PASCAL-S |   -  | ECSSD  |  -   | HKU-IS |  -   | DUTS-TE |  -   | DUT-OMRON |    -   
  ----   | ---    | -----  | ---- | ----- | ----- | ---- | ---- | ---- | ----- | ---- | -----| ---- | -----            
 Methods | #Para. | GMACs  | FPS  | ave-F | MAE   | ave-F| MAE  | ave-F| MAE   | ave-F| MAE  | ave-F| MAE   
@@ -47,11 +76,6 @@ LDF     | 25.2   | 12.8   | 37.5 | .831  | .061  | .921 | .035 | .903 | .030  | 
 GateNet | 128.6  | 96     | 25.9 | .825  | .069  | .920 | .036 | .908 | .031  | .834 | .040 | .770 | .057  
 PFSNet  | 31.2   | 37.5   | 21.7 | .838  | .060  | .926 | .033 | .910 | .029  | .845 | .036 | .770 | .055  
 CTDNet  | 24.6   | 10.2   | 64.2 | .830  | .065  | .922 | .035 | .905 | .030  | .833 | .039 | .773 | .054  
-
-![Result](https://github.com/moothes/SALOD/blob/master/trend.png)
-
-## Benchmarking results
-[weights](https://pan.baidu.com/s/1KXFU09nBElHqP9ffdHWtNw) code: pqn6
 
 
 ## Available Methods:
