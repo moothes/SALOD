@@ -16,9 +16,6 @@ Original SOD datasets from: [SOD](https://drive.google.com/file/d/17X4SiSVuBmqkv
 COD datasets from: [COD](https://drive.google.com/file/d/1zUgaGxr9PeDcfLfBisV2q8QXL6Tp1QzC/view?usp=sharing), including COD-TR (COD-TR + CAMO-TR), COD-TE, CAMO-TE, NC4K.
  
 ## Results
-Here we show the performance trend of the ave-F score on ECSSD dataset.   
-The weights of these models can be downloaded from: [Baidu Disk](https://pan.baidu.com/s/1ByHuao32_2fUSXV7nNNMIA)(cs6u)  
-Results of PICANet and EDN will coming soon.   
 All models are trained with the following setting:  
 1. ```--strategy=sche_f3net``` for the latest training strategy as original F3Net, LDF, PFSNet and CTDNet;
 2. ```--multi``` for multi-scale training;
@@ -28,7 +25,6 @@ All models are trained with the following setting:
 ## Benchmarking results
 Following the above settings, we list the benchmark results here.
 All weights can be downloaded from [Baidu disk](https://pan.baidu.com/s/1KXFU09nBElHqP9ffdHWtNw) [pqn6].
-
 
 Methods | #Para. | GMACs  | FPS  | max-F | ave-F | Fbw  | MAE  | SM   | em    
  ----   | ---    | -----  | ---- | ----- | ----- | ---- | ---- | ---- | -----  
@@ -54,7 +50,10 @@ CTDNet  | 24.6   | 10.2   | 64.2 | .918  | .887  | .880 | .033 | .913 | .940
 EDN     | 35.1   | 16.1   | 27.4 | .916  | .883  | .875 | .036 | .910 | .934  
 SCFNet  | 26.1   | 10.9   | 73.7 | .914  | .893  | .886 | .032 | .909 | .945  
 
+
 # Conventional SOD results
+The weights of these models can be downloaded from: [Baidu Disk](https://pan.baidu.com/s/1ByHuao32_2fUSXV7nNNMIA)(cs6u)    
+
 Methods | #Para. | GMACs  | FPS  | PASCAL-S |   -  | ECSSD  |  -   | HKU-IS |  -   | DUTS-TE |  -   | DUT-OMRON |    -   
  ----   | ---    | -----  | ---- | ----- | ----- | ---- | ---- | ---- | ----- | ---- | -----| ---- | -----            
 Methods | #Para. | GMACs  | FPS  | ave-F | MAE   | ave-F| MAE  | ave-F| MAE   | ave-F| MAE  | ave-F| MAE   
