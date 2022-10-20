@@ -4,8 +4,6 @@ Welcome to The Alchemist's Hut. Here is the SALOD benchmark ([paper link](https:
 
 We have re-implemented over 20 SOD methods using the same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Some other networks are debugging now, it is welcome for your contributions on these models.
 
-Available backbones: (ResNet-50, VGG-16, MobileNet-v2, EfficientNet-B0, GhostNet, Res2Net)[[Weights]](https://drive.google.com/drive/folders/1Rxo2e38Tj_xUtLhCa_04S1YnYtWaEYgs?usp=sharing)  
-
 *Our new unsupervised SOD method [A2S-v2 framework](https://github.com/moothes/A2S-v2) is public available now!*
 
 **You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
