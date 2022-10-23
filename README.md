@@ -79,7 +79,7 @@ CTDNet  | 24.6   | 10.2   | 64.2 | .830  | .065  | .922 | .035 | .905 | .030  | 
 
  Methods | Publish. | Paper | Src Code
  ----    | -----    | ----- | ------ 
- SCFNet | ECCV 2022 | [Arxiv](https://arxiv.org/abs/2208.02178)|  [Paddle](https://github.com/zhangjinCV/KD-SCFNet)
+ SCFNet | ECCV 2022? | [Arxiv](https://arxiv.org/abs/2208.02178)|  [Paddle](https://github.com/zhangjinCV/KD-SCFNet)
  EDN  | TIP 2022 | [TIP](https://ieeexplore.ieee.org/abstract/document/9756227/)|  [Pytorch](https://github.com/yuhuan-wu/EDN)
  CTDNet  | ACM MM 2021 | [ACM](https://dl.acm.org/doi/abs/10.1145/3474085.3475494?casa_token=eKn8q7l2hJEAAAAA%3A4YGBXBpC6cCcFdpekxbaZncgBEru_mi69kNixfZSPeFRhD2gkeKpXIZyuiIW1bH80IuNV9ANmBw)|  [Pytorch](https://github.com/zhaozhirui/CTDNet)
  PFSNet  | AAAI 2021 | [AAAI.org](https://ojs.aaai.org/index.php/AAAI/article/view/16331)|  [Pytorch](https://github.com/iCVTEAM/PFSNet)
@@ -160,7 +160,7 @@ python train.py basnet --loss=bsid --lw=0.3,0.1,0.5,0.2
 
 2022/08/09:  
 * Update the trend figure.  
-* New model: SCFNet (ECCV 2022).
+* New model: SCFNet (ECCV 2022?).
 
 2022/06/14: 
 * Add performance trend figure.  
