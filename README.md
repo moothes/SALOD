@@ -82,8 +82,8 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.816</td><td>.070</td>
 <td>.911</td><td>.041</td>
 <td>.895</td><td>.034</td>
-<td>.813</td><td>.742</td>
-<td>.041</td><td>.058</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
  </tr>
  <tr>
 <td>NLDF</td>
