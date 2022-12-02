@@ -8,12 +8,12 @@ We have re-implemented over 20 SOD methods using the same settings, including in
 
 **You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
 
-## Datasets
+# Datasets
 Our SALOD dataset can be downloaded from: [SALOD](https://drive.google.com/file/d/1kxhUoWUAnFhOE_ZoA1www8msG2pKHg3_/view?usp=sharing).   
 Original SOD datasets from: [SOD](https://drive.google.com/file/d/17X4SiSVuBmqkvQJe_ScVARKPM_vgvCOi/view?usp=sharing), including DUTS-TR,DUTS-TE,ECSSD,SOD,PASCAL-S,HKU-IS,DUT-OMRON.  
 COD datasets from: [COD](https://drive.google.com/file/d/1zUgaGxr9PeDcfLfBisV2q8QXL6Tp1QzC/view?usp=sharing), including COD-TR (COD-TR + CAMO-TR), COD-TE, CAMO-TE, NC4K.
  
-## Results
+# Results
 All models are trained with the following setting:  
 1. ```--strategy=sche_f3net``` for the latest training strategy as original F3Net, LDF, PFSNet and CTDNet;
 2. ```--multi``` for multi-scale training;
@@ -50,7 +50,7 @@ EDN     | 35.1   | 16.1   | 27.4 | .916  | .883  | .875 | .036 | .910 | .934
 SCFNet  | 26.1   | 10.9   | 73.7 | .914  | .893  | .886 | .032 | .909 | .945  
 
 
-# Conventional SOD results
+## Conventional SOD results
 The weights of these models can be downloaded from: [Baidu Disk](https://pan.baidu.com/s/1ByHuao32_2fUSXV7nNNMIA)(cs6u)    
 
 <table>
@@ -224,7 +224,7 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 </table>
 
 
-## Available Methods:
+# Available Methods:
 
  Methods | Publish. | Paper | Src Code
  ----    | -----    | ----- | ------ 
@@ -256,7 +256,7 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
  
  
 
- ## Usage
+ # Usage
  
  ```
  # model_name: lower-cased method name. E.g. poolnet, egnet, gcpa, dhsnet or minet.
@@ -270,7 +270,7 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
  python3 eval.py --pre_path=path_to_maps
  ```
  
-## Create New Model
+# Create New Model
 
 To create a new model, you can copy the template folder and modify it as you want.
 ```
@@ -278,7 +278,7 @@ cp -r ./methods/template ./methods/new_name
 ```
 More details please refer to python files in template folder.
 
-## Loss Factory
+# Loss Factory
 
 We supply a **Loss Factory** for an easier way to tune the loss functions.
 You can set --loss and --lw parameters to use it.
