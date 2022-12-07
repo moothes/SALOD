@@ -51,6 +51,7 @@ SCFNet  | 26.1   | 10.9   | 73.7 | .914  | .893  | .886 | .032 | .909 | .945
 
 
 ## Conventional SOD results
+The orig. means the results of official saliency predictions, while ours are the re-implemented results in our benchmark.
 The weights of these models can be downloaded from: [Baidu Disk](https://pan.baidu.com/s/1ByHuao32_2fUSXV7nNNMIA)(cs6u)    
 
 <table>
