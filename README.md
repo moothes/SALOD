@@ -487,6 +487,9 @@ python train.py basnet --loss=bsid --lw=0.3,0.1,0.5,0.2
 ```
 
 # Update Log
+2022/12/07:  
+* Update conventional SOD results and weights.
+
 2022/10/17:  
 * Use ```timm``` library for more backbones.
 * Code update.
