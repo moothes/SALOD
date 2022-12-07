@@ -56,6 +56,7 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <table>
  <tr>
 <td width=60 rowspan=2>Method</td>
+<td width=60 rowspan=2>Src</td>
 <td width=100 colspan=2>PASCAL-S</td>
 <td width=100 colspan=2>ECSSD</td>
 <td width=100 colspan=2>HKU-IS</td>
@@ -63,14 +64,15 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td width=100 colspan=2>DUT-OMRON</td>
  </tr>
  <tr>
-<td>ave-F</td><td>MAE</td>
-<td>ave-F</td><td>MAE</td>
-<td>ave-F</td><td>MAE</td>
-<td>ave-F</td><td>MAE</td>
-<td>ave-F</td><td>MAE</td>
+<td>max-F</td><td>MAE</td>
+<td>max-F</td><td>MAE</td>
+<td>max-F</td><td>MAE</td>
+<td>max-F</td><td>MAE</td>
+<td>max-F</td><td>MAE</td>
  </tr>
  <tr>
-<td>DHSNet</td>
+<td rowspan=2>DHSNet</td>
+<td>orig.</td>
 <td>.822</td><td>.064</td>
 <td>.919</td><td>.036</td>
 <td>.902</td><td>.031</td>
@@ -78,7 +80,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.756</td><td>.056</td>
  </tr>
  <tr>
-<td>Amulet</td>
+<td>ours</td>
+<td>.822</td><td>.064</td>
+<td>.919</td><td>.036</td>
+<td>.902</td><td>.031</td>
+<td>.826</td><td>.039</td>
+<td>.756</td><td>.056</td>
+ </tr>
+ <tr>
+<td rowspan=2>Amulet</td>
+<td>orig.</td>
 <td>.816</td><td>.070</td>
 <td>.911</td><td>.041</td>
 <td>.895</td><td>.034</td>
@@ -86,7 +97,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.741</td><td>.058</td>
  </tr>
  <tr>
-<td>NLDF</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>NLDF</td>
+<td>orig.</td>
 <td>.821</td><td>.064</td>
 <td>.916</td><td>.036</td>
 <td>.898</td><td>.032</td>
@@ -94,7 +114,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.745</td><td>.060</td>
  </tr>
  <tr>
-<td>SRM</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>SRM</td>
+<td>orig.</td>
 <td>.809</td><td>.072</td>
 <td>.898</td><td>.045</td>
 <td>.877</td><td>.040</td>
@@ -102,7 +131,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.731</td><td>.062</td>
  </tr>
  <tr>
-<td>DSS</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>DSS</td>
+<td>orig.</td>
 <td>.790</td><td>.085</td>
 <td>.889</td><td>.050</td>
 <td>.877</td><td>.041</td>
@@ -110,7 +148,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.729</td><td>.064</td>
  </tr>
  <tr>
-<td>BASNet</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>BASNet</td>
+<td>orig.</td>
 <td>.818</td><td>.072</td>
 <td>.914</td><td>.037</td>
 <td>.908</td><td>.031</td>
@@ -118,7 +165,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.774</td><td>.058</td>
  </tr>
  <tr>
-<td>CPD</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>CPD</td>
+<td>orig.</td>
 <td>.837</td><td>.062</td>
 <td>.923</td><td>.035</td>
 <td>.909</td><td>.031</td>
@@ -126,7 +182,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.776</td><td>.053</td>
  </tr>
  <tr>
-<td>PoolNet</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>PoolNet</td>
+<td>orig.</td>
 <td>.833</td><td>.062</td>
 <td>.924</td><td>.033</td>
 <td>.906</td><td>.030</td>
@@ -134,7 +199,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.765</td><td>.057</td>
  </tr>
  <tr>
-<td>EGNet</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>EGNet</td>
+<td>orig.</td>
 <td>.828</td><td>.063</td>
 <td>.917</td><td>.036</td>
 <td>.902</td><td>.031</td>
@@ -142,7 +216,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.762</td><td>.059</td>
  </tr>
  <tr>
-<td>SCRN</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>SCRN</td>
+<td>orig.</td>
 <td>.835</td><td>.061</td>
 <td>.923</td><td>.034</td>
 <td>.907</td><td>.031</td>
@@ -150,7 +233,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.771</td><td>.057</td>
  </tr>
  <tr>
-<td>F3Net</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>F3Net</td>
+<td>orig.</td>
 <td>.844</td><td>.055</td>
 <td>.922</td><td>.032</td>
 <td>.911</td><td>.029</td>
@@ -158,7 +250,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.775</td><td>.056</td>
  </tr>
  <tr>
-<td>GCPA</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>GCPA</td>
+<td>orig.</td>
 <td>.832</td><td>.066</td>
 <td>.925</td><td>.033</td>
 <td>.910</td><td>.030</td>
@@ -166,7 +267,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.773</td><td>.059</td>
  </tr>
  <tr>
-<td>ITSD</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>ITSD</td>
+<td>orig.</td>
 <td>.812</td><td>.073</td>
 <td>.913</td><td>.039</td>
 <td>.902</td><td>.033</td>
@@ -174,7 +284,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.765</td><td>.065</td>
  </tr>
  <tr>
-<td>MINet</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>MINet</td>
+<td>orig.</td>
 <td>.834</td><td>.062</td>
 <td>.924</td><td>.035</td>
 <td>.909</td><td>.029</td>
@@ -182,7 +301,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.769</td><td>.054</td>
  </tr>
  <tr>
-<td>LDF</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>LDF</td>
+<td>orig.</td>
 <td>.843</td><td>.056</td>
 <td>.924</td><td>.032</td>
 <td>.906</td><td>.029</td>
@@ -190,7 +318,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.764</td><td>.056</td>
  </tr>
  <tr>
-<td>GateNet</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>GateNet</td>
+<td>orig.</td>
 <td>.825</td><td>.069</td>
 <td>.920</td><td>.036</td>
 <td>.908</td><td>.031</td>
@@ -198,7 +335,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.770</td><td>.057</td>
  </tr>
  <tr>
-<td>PFSNet</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>PFSNet</td>
+<td>orig.</td>
 <td>.838</td><td>.060</td>
 <td>.926</td><td>.033</td>
 <td>.910</td><td>.029</td>
@@ -206,7 +352,16 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.770</td><td>.055</td>
  </tr>
  <tr>
-<td>CTDNet</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>CTDNet</td>
+<td>orig.</td>
 <td>.849</td><td>.056</td>
 <td>.925</td><td>.033</td>
 <td>.910</td><td>.030</td>
@@ -214,12 +369,29 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 <td>.775</td><td>.053</td>
  </tr>
  <tr>
-<td>EDN</td>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
+ </tr>
+ <tr>
+<td rowspan=2>EDN</td>
+<td>orig.</td>
 <td>.848</td><td>.058</td>
 <td>.924</td><td>.031</td>
 <td>.917</td><td>.027</td>
 <td>.860</td><td>.032</td>
 <td>.793</td><td>.055</td>
+ </tr>
+ <tr>
+<td>ours</td>
+<td>.816</td><td>.070</td>
+<td>.911</td><td>.041</td>
+<td>.895</td><td>.034</td>
+<td>.813</td><td>.042</td>
+<td>.741</td><td>.058</td>
  </tr>
 </table>
 
