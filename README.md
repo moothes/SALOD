@@ -252,11 +252,11 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
  </tr>
  <tr>
 <td>ours</td>
-<td>.873</td><td>.067</td>
-<td>.944</td><td>.040</td>
-<td>.932</td><td>.033</td>
-<td>.888</td><td>.043</td>
-<td>.808</td><td>.067</td>
+<td>.871</td><td>.063</td>
+<td>.947</td><td>.037</td>
+<td>.934</td><td>.032</td>
+<td>.895</td><td>.039</td>
+<td>.813</td><td>.063</td>
  </tr>
  <tr>
 <td rowspan=2>F3Net</td>
