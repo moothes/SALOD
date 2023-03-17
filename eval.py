@@ -34,7 +34,7 @@ def main():
         vals = config['vals'].split(',')
         
     for val in vals:
-        img_path = '{}/FS-SCFNet-R50/{}/'.format(config['pre_path'], val)
+        img_path = '{}/scrn/{}/'.format(config['pre_path'], val)
         if not os.path.exists(img_path):
             continue
         test_set = Test_Dataset(name=val, config=config)

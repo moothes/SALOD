@@ -12,12 +12,12 @@ base_sgd_config = {
     'optim': 'SGD',
     'lr': 5e-3,
     'agg_batch': 8,
-    'epoch': 30,
+    'epoch': 40,
     }
 def base_sgd(optimizer, current_iter, total_iter, config):
-    if (current_iter / total_iter) < 0.66:
+    if (current_iter / total_iter) < 0.5:
         factor = 1
-    elif (current_iter / total_iter) < 0.83:
+    elif (current_iter / total_iter) < 0.75:
         factor = 0.1
     else:
         factor = 0.01
@@ -25,15 +25,34 @@ def base_sgd(optimizer, current_iter, total_iter, config):
     optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
     optimizer.param_groups[1]['lr'] = factor * config['lr']
 
+# Base SGD poly
+sgd_poly_config = {
+    'optim': 'SGD',
+    'lr': 1e-3,
+    'agg_batch': 8,
+    'epoch': 40,
+    }
+def sgd_poly(optimizer, current_iter, total_iter, config):
+    factor = pow(1 - (current_iter / total_iter), 0.9)
+        
+    optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
+    optimizer.param_groups[1]['lr'] = factor * config['lr']
+
 # Base Adam
 base_adam_config = {
     'optim': 'Adam',
-    'lr': 1e-5,
+    'lr': 1e-4,
     'agg_batch': 8,
-    'epoch': 30,
+    'epoch': 40,
 }
 def base_adam(optimizer, current_iter, total_iter, config):
-    factor = 1 if (current_iter / total_iter) < 0.66 else 0.1
+    if (current_iter / total_iter) < 0.5:
+        factor = 1
+    elif (current_iter / total_iter) < 0.75:
+        factor = 0.1
+    else:
+        factor = 0.01
+        
     optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
     optimizer.param_groups[1]['lr'] = factor * config['lr']
 
@@ -58,6 +77,18 @@ sche_f3net_config = {
     'epoch': 40,
     }
 def sche_f3net(optimizer, current_iter, total_iter, config):
+    factor = (1 - abs(current_iter / total_iter * 2 - 1))
+    optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
+    optimizer.param_groups[1]['lr'] = factor * config['lr']
+
+# F3Net
+sche_pfsnet_config = {
+    'optim': 'SGD',
+    'lr': 5e-2,
+    'agg_batch': 20,
+    'epoch': 50,
+    }
+def sche_pfsnet(optimizer, current_iter, total_iter, config):
     factor = (1 - abs(current_iter / total_iter * 2 - 1))
     optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
     optimizer.param_groups[1]['lr'] = factor * config['lr']
@@ -154,7 +185,8 @@ def Strategy(model, config):
                 encoder.append(param[1])
             else:
                 others.append(param[1])
-                
+        if len(encoder) == 0:
+            print("Warning: parameters in encoder not found!")
         module_lr = [{'params' : encoder, 'lr' : config['lr']*0.1}, {'params' : others, 'lr' : config['lr']}]
         
     optim = config['optim']

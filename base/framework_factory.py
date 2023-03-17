@@ -12,12 +12,12 @@ def build_network(net_name, config):
     else:
         encoder = timm.create_model(config['backbone'], features_only=True, pretrained=True)
         fl = encoder.feature_info.channels()
-        model = importlib.import_module('methods.{}.model'.format(net_name)).Network(config, encoder, fl)
+        model = importlib.import_module('methods.{}'.format(net_name)).Network(config, encoder, fl)
         return model
 
 def load_framework(net_name):
     # Load Configure
-    config = importlib.import_module('methods.{}.config'.format(net_name)).get_config()
+    config = importlib.import_module('base.config').base_config(net_name)
     #print(config)
     os.environ["CUDA_VISIBLE_DEVICES"] = config['gpus']
     
@@ -31,7 +31,7 @@ def load_framework(net_name):
         params = np.sum([p.numel() for p in model.parameters()]).item()
         print('MACs: {:.2f} G, Params: {:.2f} M.'.format(macs / 1e9, params / 1e6))
         
-    loss = importlib.import_module('base.loss').Loss_factory(config['loss'])
+    loss = importlib.import_module('base.loss').Loss_factory(config)
     
     # Loading Saver if it exists
     if config['save'] and os.path.exists('methods/{}/saver.py'.format(net_name)):

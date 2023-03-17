@@ -4,15 +4,16 @@ import time
 import random
 
 #from thop import profile
-from progress.bar import Bar
-from collections import OrderedDict
-from util import *
-from PIL import Image
-from data import get_loader, Test_Dataset
-from test import test_model
 import torch
 from torch.nn import utils
+from progress.bar import Bar
+from collections import OrderedDict
+from PIL import Image
+
 from base.framework_factory import load_framework
+from base.util import *
+from base.data import get_loader, Test_Dataset
+from test import test_model
 
 torch.set_printoptions(precision=5)
 
@@ -30,6 +31,7 @@ def main():
     # batch: batch size when loading to gpus. Decided by the GPU memory.
     print(sorted(config.items()))
     
+    print(f"Training {config['model_name']} with {config['backbone']} backbone using {config['strategy']} strategy on GPU: {config['gpus']}.")
     
     # Loading datasets
     train_loader = get_loader(config)
@@ -125,16 +127,20 @@ def main():
             bar.next()
 
         bar.finish()
-        weight_path = os.path.join(config['weight_path'], '{}_{}_{}_{}.pth'.format(config['model_name'], config['backbone'], config['sub'], epoch))
-        torch.save(model.state_dict(), weight_path)
         
-        
-        if trset in ('DUTS-TR', 'MSB-TR', 'COD-TR') and epoch > num_epoch - 10:
+        if epoch > num_epoch - 10:
+            weight_path = os.path.join(config['weight_path'], '{}_{}_{}_{}.pth'.format(config['model_name'], config['backbone'], config['sub'], epoch))
+            torch.save(model.state_dict(), weight_path)
             test_model(model, test_sets, config, epoch)
+        
+        
+        #if trset in ('DUTS-TR', 'MSB-TR', 'COD-TR') and epoch > num_epoch - 10:
+        #if epoch > num_epoch - 5:
+        #    test_model(model, test_sets, config, epoch)
         #test_model(model, test_sets, config, epoch)
             
-    if trset != 'DUTS-TR':
-        test_model(model, test_sets, config, epoch)
+    #if trset != 'DUTS-TR':
+    #    test_model(model, test_sets, config, epoch)
 
 if __name__ == "__main__":
     main()

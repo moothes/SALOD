@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 from torch.nn import functional as F
-from util import *
+from .util import *
 
 from math import exp
 
@@ -167,7 +167,7 @@ class loss_worker(nn.Module):
         assert len(losses) == len(lws)
         self.loss_casket = []
         for loss_tag, lw in zip(losses, lws):
-            self.loss_casket.append([loss_dict[loss_tag], lw])
+            self.loss_casket.append([loss_dict[loss_tag], int(lw)])
             loss_formula.append(loss_tag + '*' + str(lw))
             
         self.loss_print = '+'.join(loss_formula)
@@ -182,14 +182,19 @@ class loss_worker(nn.Module):
         return loss
 
 class Loss_factory(nn.Module):
-    def __init__(self, loss_config):
+    def __init__(self, config):
         super(Loss_factory, self).__init__()
+        loss_config = config['loss']
         
         self.loss_cluster = {}
-        for out_name, loss_casket in loss_config.items():
-            self.loss_cluster[out_name] = loss_worker(loss_casket[0], loss_casket[1:])
-            print('{} loss for output \"{}\".'.format(self.loss_cluster[out_name].loss_print, out_name))
-        
+        if isinstance(loss_config, dict):
+            for out_name, loss_casket in loss_config.items():
+                self.loss_cluster[out_name] = loss_worker(loss_casket[0], loss_casket[1:])
+                print('{} loss for output \"{}\".'.format(self.loss_cluster[out_name].loss_print, out_name))
+        if isinstance(loss_config, str):
+            self.loss_cluster['sal'] = loss_worker(loss_config, config['lw'].split(','))
+            print('{} loss for output \"{}\".'.format(self.loss_cluster['sal'].loss_print, 'sal'))
+            
     def forward(self, preds, target, config):
         loss = 0
         for out_tag, worker in self.loss_cluster.items():
