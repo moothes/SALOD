@@ -1,6 +1,5 @@
 import sys
 import importlib
-from data import Test_Dataset
 #from data_esod import ESOD_Test
 import torch
 import time
@@ -9,11 +8,12 @@ import os
 from collections import OrderedDict
 import cv2
 from PIL import Image
-from util import *
 import numpy as np
 
 from base.framework_factory import load_framework
+from base.data import Test_Dataset
 from base.metric import *
+from base.util import *
 
 
 def test_model(model, test_sets, config, saver=None):
@@ -76,6 +76,7 @@ def main():
         return
     
     config, model, _, _, _, saver = load_framework(net_name)
+    print(config)
     
     #model.load_state_dict(torch.load(config['weight'], map_location='cpu'))
     saved_model = torch.load(config['weight'], map_location='cpu')
