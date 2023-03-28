@@ -4,7 +4,7 @@ Welcome to The Alchemist's Hut. Here is the SALOD benchmark ([paper link](https:
 
 We have re-implemented over 20 SOD methods using the same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Some other networks are debugging now, it is welcome for your contributions on these models.
 
-*Our new unsupervised SOD method [A2S-v2 framework](https://github.com/moothes/A2S-v2) is public available now!*
+*Our new unsupervised SOD method [A2S-v2 framework](https://github.com/moothes/A2S-v2) was accepted by CVPR 2023!*
 
 **You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
 
