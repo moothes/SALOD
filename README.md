@@ -47,7 +47,6 @@ GateNet | 128.6  | 96     | 25.9 | .912  | .882  | .870 | .037 | .906 | .934
 PFSNet  | 31.2   | 37.5   | 21.7 | .912  | .879  | .865 | .038 | .904 | .931 
 CTDNet  | 24.6   | 10.2   | 64.2 | .918  | .887  | .880 | .033 | .913 | .940  
 EDN     | 35.1   | 16.1   | 27.4 | .916  | .883  | .875 | .036 | .910 | .934  
-SCFNet  | 26.1   | 10.9   | 73.7 | .914  | .893  | .886 | .032 | .909 | .945  
 
 
 ## Conventional SOD results
@@ -418,7 +417,6 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 
  Methods | Publish. | Paper | Src Code
  ----    | -----    | ----- | ------ 
- SCFNet | -- | [Arxiv](https://arxiv.org/abs/2208.02178)|  [Paddle](https://github.com/zhangjinCV/KD-SCFNet)
  EDN  | TIP 2022 | [TIP](https://ieeexplore.ieee.org/abstract/document/9756227/)|  [Pytorch](https://github.com/yuhuan-wu/EDN)
  CTDNet  | ACM MM 2021 | [ACM](https://dl.acm.org/doi/abs/10.1145/3474085.3475494?casa_token=eKn8q7l2hJEAAAAA%3A4YGBXBpC6cCcFdpekxbaZncgBEru_mi69kNixfZSPeFRhD2gkeKpXIZyuiIW1bH80IuNV9ANmBw)|  [Pytorch](https://github.com/zhaozhirui/CTDNet)
  PFSNet  | AAAI 2021 | [AAAI.org](https://ojs.aaai.org/index.php/AAAI/article/view/16331)|  [Pytorch](https://github.com/iCVTEAM/PFSNet)
