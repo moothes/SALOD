@@ -1,6 +1,6 @@
 
 # SALOD
-Welcome to The Alchemist's Hut. Here is the SALOD benchmark ([paper link](https://arxiv.org/abs/2202.02925)) for SOD task.  
+Here is a SALient Object Detection (SALOD) benchmark ([paper link](https://arxiv.org/abs/2202.02925)).  
 
 We have re-implemented over 20 SOD methods using the same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Some other networks are debugging now, it is welcome for your contributions on these models.
 
