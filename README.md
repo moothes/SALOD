@@ -458,14 +458,6 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
  python3 eval.py --pre_path=path_to_maps
  ```
  
-# Create New Model
-
-To create a new model, you can copy the template folder and modify it as you want.
-```
-cp -r ./methods/template ./methods/new_name
-```
-More details please refer to python files in template folder.
-
 # Loss Factory
 
 We supply a **Loss Factory** for an easier way to tune the loss functions.
