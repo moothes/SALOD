@@ -479,7 +479,7 @@ python train.py basnet --loss=bsid --lw=0.3,0.1,0.5,0.2
 
 # Update Log
 2023/03/17:  
-* Re-organize the structure of our benchmark. 
+* Re-organize the structure of our code. 
 
 2022/12/07:  
 * Update conventional SOD results and weights.
@@ -493,12 +493,7 @@ python train.py basnet --loss=bsid --lw=0.3,0.1,0.5,0.2
 * Remove loss.py for each method. The loss functions are defined in config.py now.  
 * Weights are uploaded to Baidu Disk.
 
-2022/08/09:  
-* Update the trend figure.  
-* New model: SCFNet (ECCV 2022?).
-
 2022/06/14: 
-* Add performance trend figure.  
 * New model: EDN (TIP 2022).
 
 2022/05/25:    
