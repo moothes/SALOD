@@ -11,7 +11,7 @@ import torch.optim.lr_scheduler as sche
 base_sgd_config = {
     'optim': 'SGD',
     'lr': 5e-3,
-    'agg_batch': 8,
+    'agg_batch': 32,
     'epoch': 40,
     }
 def base_sgd(optimizer, current_iter, total_iter, config):
@@ -29,7 +29,7 @@ def base_sgd(optimizer, current_iter, total_iter, config):
 sgd_poly_config = {
     'optim': 'SGD',
     'lr': 1e-3,
-    'agg_batch': 8,
+    'agg_batch': 32,
     'epoch': 40,
     }
 def sgd_poly(optimizer, current_iter, total_iter, config):
@@ -42,7 +42,7 @@ def sgd_poly(optimizer, current_iter, total_iter, config):
 base_adam_config = {
     'optim': 'Adam',
     'lr': 1e-4,
-    'agg_batch': 8,
+    'agg_batch': 32,
     'epoch': 40,
 }
 def base_adam(optimizer, current_iter, total_iter, config):
