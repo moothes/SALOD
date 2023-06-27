@@ -417,6 +417,7 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 
  Methods | Publish. | Paper | Src Code
  ----    | -----    | ----- | ------ 
+ MENet | CVPR 2023 | [openaccess](https://openaccess.thecvf.com/content/CVPR2023/html/Wang_Pixels_Regions_and_Objects_Multiple_Enhancement_for_Salient_Object_Detection_CVPR_2023_paper.html) | [PyTorch](https://github.com/yiwangtz/MENet)
  EDN  | TIP 2022 | [TIP](https://ieeexplore.ieee.org/abstract/document/9756227/)|  [Pytorch](https://github.com/yuhuan-wu/EDN)
  CTDNet  | ACM MM 2021 | [ACM](https://dl.acm.org/doi/abs/10.1145/3474085.3475494?casa_token=eKn8q7l2hJEAAAAA%3A4YGBXBpC6cCcFdpekxbaZncgBEru_mi69kNixfZSPeFRhD2gkeKpXIZyuiIW1bH80IuNV9ANmBw)|  [Pytorch](https://github.com/zhaozhirui/CTDNet)
  PFSNet  | AAAI 2021 | [AAAI.org](https://ojs.aaai.org/index.php/AAAI/article/view/16331)|  [Pytorch](https://github.com/iCVTEAM/PFSNet)
@@ -478,6 +479,9 @@ python train.py basnet --loss=bsid --lw=0.3,0.1,0.5,0.2
 ```
 
 # Update Log
+2023/06/27:  
+* MENet (CVPR 2023) is available, but need more time for achiveving SOTA performance.
+*  
 2023/03/17:  
 * Re-organize the structure of our code. 
 
