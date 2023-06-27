@@ -8,6 +8,9 @@ We have re-implemented over 20 SOD methods using the same settings, including in
 
 **You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
 
+# Latest Update - 2023/06/27:  
+* MENet (CVPR 2023) is available, but not guaranteed to achiveve SOTA performance.
+  
 # Datasets
 Our SALOD dataset can be downloaded from: [SALOD](https://drive.google.com/file/d/1kxhUoWUAnFhOE_ZoA1www8msG2pKHg3_/view?usp=sharing).   
 Original SOD datasets from: [SOD](https://drive.google.com/file/d/17X4SiSVuBmqkvQJe_ScVARKPM_vgvCOi/view?usp=sharing), including DUTS-TR,DUTS-TE,ECSSD,SOD,PASCAL-S,HKU-IS,DUT-OMRON.  
@@ -481,7 +484,7 @@ python train.py basnet --loss=bsid --lw=0.3,0.1,0.5,0.2
 # Update Log
 2023/06/27:  
 * MENet (CVPR 2023) is available, but need more time for achiveving SOTA performance.
-*  
+  
 2023/03/17:  
 * Re-organize the structure of our code. 
 
