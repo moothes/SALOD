@@ -10,6 +10,7 @@ We have re-implemented over 20 SOD methods using the same settings, including in
 
 # Latest Update - 2023/06/27:  
 * MENet (CVPR 2023) is available, but not guaranteed to achiveve SOTA performance.
+* New loss_factory formatting style. See base/loss.py for details.
   
 # Datasets
 Our SALOD dataset can be downloaded from: [SALOD](https://drive.google.com/file/d/1kxhUoWUAnFhOE_ZoA1www8msG2pKHg3_/view?usp=sharing).   
@@ -464,21 +465,27 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
  
 # Loss Factory
 
-We supply a **Loss Factory** for an easier way to tune the loss functions.
-You can set --loss and --lw parameters to use it.
+We supply a **Loss Factory** for an easier way to tune the loss functions.  
+loss are defined by ```--loss=loss1,loss2,loss3```, where each loss is formated as ```name_type#weight```.  
+'name' is one of keys in loss_dict, 'type' usuallly is one of ('sal', 'edge'), 'weight' is a float number.  
 
 Here are some examples:
 ```
 loss_dict = {'b': BCE, 's': SSIM, 'i': IOU, 'd': DICE, 'e': Edge, 'c': CTLoss}
 
-python train.py basnet --loss=bd
-# loss = 1 * bce_loss + 1 * dice_loss
+python train.py basnet --loss=b_sal,d
+# For saliency prediction
+# loss = 1 * bce_loss + 1 * dice_loss 
 
-python train.py basnet --loss=bs --lw=0.3,0.7
+python train.py basnet --loss=b_sal#0.3,s_sal#0.7
+# For saliency prediction
 # loss = 0.3 * bce_loss + 0.7 * ssim_loss
 
-python train.py basnet --loss=bsid --lw=0.3,0.1,0.5,0.2
-# loss = 0.3 * bce_loss + 0.1 * ssim_loss + 0.5 * iou_loss + 0.2 * dice_loss
+python train.py basnet --loss=b#0.3,s#0.1,i#0.5,b_edge#0.2
+# For saliency prediction
+# loss = 0.3 * bce_loss + 0.1 * ssim_loss + 0.5 * iou_loss
+# For edge prediction
+# loss = 0.2 * bce_loss
 ```
 
 # Update Log
