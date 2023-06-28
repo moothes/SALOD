@@ -467,7 +467,7 @@ The weights of these models can be downloaded from: [Baidu Disk](https://pan.bai
 
 We supply a **Loss Factory** for an easier way to tune the loss functions.  
 loss are defined by ```--loss=loss1,loss2,loss3```, where each loss is formated as ```name_type#weight```.  
-'name' is one of keys in loss_dict, 'type' usuallly is one of ('sal', 'edge'), 'weight' is a float number.  
+'name' is one of keys in loss_dict, 'type' usually is one of ('sal', 'edge'), 'weight' is a float number.  
 
 Here are some examples:
 ```
