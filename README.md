@@ -6,7 +6,7 @@ We have re-implemented over 20 SOD methods using the same settings, including in
 
 *Our new unsupervised SOD method [A2S-v2 framework](https://github.com/moothes/A2S-v2) was accepted by CVPR 2023!*
 
-**You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn**  
+You can contact me through the official email: zhouhj26@mail2.sysu.edu.cn  
 
 # Latest Update - 2023/06/27:  
 * MENet (CVPR 2023) is available, but not guaranteed to achiveve SOTA performance. You may need to setup its loss function and training strategy.
