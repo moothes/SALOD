@@ -323,7 +323,7 @@ class Network(nn.Module):
                                     nn.ReLU(inplace=True), nn.Conv2d(64, 1, kernel_size=3, padding=1))
 
 
-    def forward(self, x, shape=None):
+    def forward(self, x, phase='test'):
         out1, out2, out3, out4, out5 = self.encoder(x)
 
         # Backbone Encoder
@@ -343,8 +343,8 @@ class Network(nn.Module):
         g4, a4 = self.eencoder3(out3)
         outg4, outa4, out4 = self.me_module(g1, a1, g4, a4, g3, a3)
 
-        if shape is None:
-            shape = x.size()[2:]
+        #if shape is None:
+        shape = x.size()[2:]
         out1 = F.interpolate(self.linear(out1), size=shape, mode='bilinear')
         outg1 = F.interpolate(self.linearg(outg1), size=shape, mode='bilinear')
 
@@ -357,10 +357,10 @@ class Network(nn.Module):
         out4 = F.interpolate(self.linear(out4), size=shape, mode='bilinear')
         outg4 = F.interpolate(self.linearg(outg4), size=shape, mode='bilinear')
 
-        return outg1, out1, outg2, out2, outg3, out3, outg4, out4
         
         out_dict = {}
         out_dict['sal'] = [out1, out2, out3, out4]
         out_dict['edge'] = [outg1, outg2, outg3, outg4]
         out_dict['final'] = out4
 
+        return out_dict
