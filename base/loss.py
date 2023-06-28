@@ -181,11 +181,48 @@ class loss_worker(nn.Module):
                 loss += ls(pred, tar, config) * lw
         return loss
 
+def loss_to_dict(loss_config):
+    loss_cluster = {}
+    loss_terms = loss_config.split(',')
+    for term in loss_terms:
+        ts = term.split('#')
+        if len(ts) == 1:
+            ltag = ts[0]
+            weight = 1
+        elif len(ts) == 2:
+            ltag, weight = ts
+        else:
+            print('Can not convert {} to a valid loss.'.format(term))
+            return
+        
+        tag = ltag.split('_')
+        if len(tag) == 1:
+            loss_name = tag[0]
+            ltype = 'sal'
+        elif len(ts) == 2:
+            loss_name, ltype = tag
+        else:
+            print('Can not convert {} to a valid loss.'.format(term))
+            return
+        
+        if ltype not in loss_cluster.keys():
+            loss_cluster[ltype] = []
+            
+        loss_cluster[ltype].append([loss_dict[loss_name], weight])
+        
+    return loss_cluster
+
+
+# loss are defined by --loss=loss1,loss2,loss3, where loss1 is formated as 'name_type#weight'.
+# 'name' is one of keys in loss_dict, 'type' usuallly is one of ('sal', 'edge'), 'weight' is a float number.
 class Loss_factory(nn.Module):
     def __init__(self, config):
         super(Loss_factory, self).__init__()
-        loss_config = config['loss']
+        self.loss_cluster = loss_to_dict(config['loss'])
+        #self.loss_cluster['sal'] = loss_worker(loss_config, config['lw'].split(','))
+        print(self.loss_cluster)
         
+        '''
         self.loss_cluster = {}
         if isinstance(loss_config, dict):
             for out_name, loss_casket in loss_config.items():
@@ -194,15 +231,16 @@ class Loss_factory(nn.Module):
         if isinstance(loss_config, str):
             self.loss_cluster['sal'] = loss_worker(loss_config, config['lw'].split(','))
             print('{} loss for output \"{}\".'.format(self.loss_cluster['sal'].loss_print, 'sal'))
+        '''
             
     def forward(self, preds, target, config):
         loss = 0
-        for out_tag, worker in self.loss_cluster.items():
-            if out_tag in preds.keys():
-                if out_tag == 'edge':
-                    tar = label_edge_prediction(target)
-                else:
-                    tar = target
-                loss += worker(preds[out_tag], tar, config)
-        
+        for out_tag, loss_list in self.loss_cluster.items():
+            if out_tag == 'edge':
+                tar = label_edge_prediction(target)
+            else:
+                tar = target
+            for pred in preds[out_tag]:
+                for l_term, weight in loss_list:
+                    loss += l_term(pred, tar, config) * weight
         return loss
