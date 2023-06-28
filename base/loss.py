@@ -38,7 +38,7 @@ def _ssim(img1, img2, window, window_size, channel, size_average = True):
     else:
         return ssim_map.mean(1).mean(1).mean(1)
 
-def SSIM(preds, target, config, window_size=11):
+def ssim(preds, target, config, window_size=11):
     pred = torch.sigmoid(preds)
     
     c = pred.size()[1]
@@ -46,12 +46,12 @@ def SSIM(preds, target, config, window_size=11):
     ssim_loss = 1 - _ssim(pred, target, window, window_size, c)
     return ssim_loss
 
-def BCE(preds, target, config):
+def bce(preds, target, config):
     bce = nn.BCEWithLogitsLoss()
     loss = bce(preds, target)
     return loss
 
-def CTLoss(preds, target, config):
+def ctloss(preds, target, config):
     bce = nn.BCEWithLogitsLoss(reduction='none')
     
     pred = torch.sigmoid(preds)
@@ -62,7 +62,7 @@ def CTLoss(preds, target, config):
     loss = (bce(preds, target) * wm).mean()
     return loss
 
-def IOU(preds, target, config):
+def iou(preds, target, config):
     pred = torch.sigmoid(preds)
 
     inter = torch.sum(target * pred, dim=(1, 2, 3))
@@ -70,7 +70,7 @@ def IOU(preds, target, config):
     iou_loss = 1 - (inter / union).mean()
     return iou_loss
 
-def DICE(preds, target, config):
+def dice(preds, target, config):
     pred = torch.sigmoid(preds)
 
     ab = torch.sum(pred * target, dim=(1, 2, 3))
@@ -101,13 +101,7 @@ def boundary_dice_loss(pred, mask, config):
     dice          = torch.mean(1 - dice)
     return dice
 
-    
-def Edge(preds, target, config):
-    bce = nn.BCEWithLogitsLoss()
-    loss = bce(preds, label_edge_prediction(target))
-    return loss
-
-def Fscore(preds, target, config):
+def fscore(preds, target, config):
     pred = torch.sigmoid(preds)
     tp = pred * target
     
@@ -116,70 +110,11 @@ def Fscore(preds, target, config):
     
     return loss
     
-def wFs(preds, target, config):
-    #wm = F.avg_pool2d(label_edge_prediction(target), 3, stride=1, padding=1) * 0.9 + 0.1
-    wm = F.avg_pool2d(label_edge_prediction(target), 3, stride=1, padding=1) * 0.8 + 0.2
-    pred = torch.sigmoid(preds)
-    tp = wm * pred * target
-    pred = wm * pred
-    target = wm * target
-    
-    fs = 1.3 * tp.sum(dim=(1, 2, 3)) / (pred.sum(dim=(1, 2, 3)) + target.sum(dim=(1, 2, 3)) * 0.3)
-    loss = 1 - fs.mean()
-    
-    return loss
-    
-
-def Focal(preds, target, config):
-    bce = nn.BCEWithLogitsLoss(reduction='none')
-    
-    pred = torch.sigmoid(preds)
-    wm = torch.pow(target - pred, 2) * 100
-    #wm = ((wm - torch.min(wm)) / (torch.max(wm) - torch.min(wm))) * 0.8 + 0.2
-    
-    loss = (bce(preds, target) * wm).mean()
-    return loss
-
 def mse(preds, target, config):
     mse = nn.MSELoss(reduction='none')
-    
     pred = torch.sigmoid(preds)
-    #wm = torch.abs(target - pred)
-    #kernel = torch.ones((1, 1, 13, 13)).cuda()
-    #wm = F.conv2d(wm, kernel, padding=6)
-    #wm = (wm - torch.min(wm)) / (torch.max(wm) - torch.min(wm))
-    #wm = F.avg_pool2d(label_edge_prediction(target), 3, stride=1, padding=1) * 4 + 1
-    
     loss = mse(pred, target).mean()
     return loss
-    
-    
-
-loss_dict = {'b': BCE, 's': SSIM, 'i': IOU, 'd': DICE, 'e': Edge, 'a': boundary_dice_loss,\
-             'c': CTLoss, 'f': Fscore, 'w': wFs, 'o': Focal, 'm': mse}
-
-class loss_worker(nn.Module):
-    def __init__(self, losses, lws):
-        super(loss_worker, self).__init__()
-        
-        loss_formula = []
-        
-        assert len(losses) == len(lws)
-        self.loss_casket = []
-        for loss_tag, lw in zip(losses, lws):
-            self.loss_casket.append([loss_dict[loss_tag], int(lw)])
-            loss_formula.append(loss_tag + '*' + str(lw))
-            
-        self.loss_print = '+'.join(loss_formula)
-    
-    def forward(self, preds, target, config):
-        loss = 0
-        for pred in preds:
-            for loss_term in self.loss_casket:
-                ls, lw = loss_term
-                tar = nn.functional.interpolate(target, size=pred.size()[2:], mode='bilinear')
-                loss += ls(pred, tar, config) * lw
-        return loss
 
 def loss_to_dict(loss_config):
     loss_cluster = {}
@@ -208,7 +143,8 @@ def loss_to_dict(loss_config):
         if ltype not in loss_cluster.keys():
             loss_cluster[ltype] = []
             
-        loss_cluster[ltype].append([loss_dict[loss_name], weight])
+        #loss_cluster[ltype].append([loss_dict[loss_name], float(weight)])
+        loss_cluster[ltype].append([eval(loss_name), float(weight)])
         
     return loss_cluster
 
@@ -222,17 +158,6 @@ class Loss_factory(nn.Module):
         #self.loss_cluster['sal'] = loss_worker(loss_config, config['lw'].split(','))
         print(self.loss_cluster)
         
-        '''
-        self.loss_cluster = {}
-        if isinstance(loss_config, dict):
-            for out_name, loss_casket in loss_config.items():
-                self.loss_cluster[out_name] = loss_worker(loss_casket[0], loss_casket[1:])
-                print('{} loss for output \"{}\".'.format(self.loss_cluster[out_name].loss_print, out_name))
-        if isinstance(loss_config, str):
-            self.loss_cluster['sal'] = loss_worker(loss_config, config['lw'].split(','))
-            print('{} loss for output \"{}\".'.format(self.loss_cluster['sal'].loss_print, 'sal'))
-        '''
-            
     def forward(self, preds, target, config):
         loss = 0
         for out_tag, loss_list in self.loss_cluster.items():
