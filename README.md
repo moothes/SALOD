@@ -471,17 +471,15 @@ loss are defined by ```--loss=loss1,loss2,loss3```, where each loss is formated 
 
 Here are some examples:
 ```
-loss_dict = {'b': BCE, 's': SSIM, 'i': IOU, 'd': DICE, 'e': Edge, 'c': CTLoss}
-
-python train.py basnet --loss=b_sal,d
+python train.py basnet --loss=bce_sal,dice
 # For saliency prediction
 # loss = 1 * bce_loss + 1 * dice_loss 
 
-python train.py basnet --loss=b_sal#0.3,s_sal#0.7
+python train.py basnet --loss=bce_sal#0.3,ssim_sal#0.7
 # For saliency prediction
 # loss = 0.3 * bce_loss + 0.7 * ssim_loss
 
-python train.py basnet --loss=b#0.3,s#0.1,i#0.5,b_edge#0.2
+python train.py basnet --loss=bce#0.3,ssim#0.1,iou#0.5,bce_edge#0.2
 # For saliency prediction
 # loss = 0.3 * bce_loss + 0.1 * ssim_loss + 0.5 * iou_loss
 # For edge prediction
