@@ -8,13 +8,13 @@ import torch.optim.lr_scheduler as sche
 
 
 # Base SGD
-base_sgd_config = {
+sgd_base_config = {
     'optim': 'SGD',
     'lr': 5e-3,
     'agg_batch': 32,
     'epoch': 40,
     }
-def base_sgd(optimizer, current_iter, total_iter, config):
+def sgd_base(optimizer, current_iter, total_iter, config):
     if (current_iter / total_iter) < 0.5:
         factor = 1
     elif (current_iter / total_iter) < 0.75:
@@ -39,13 +39,13 @@ def sgd_poly(optimizer, current_iter, total_iter, config):
     optimizer.param_groups[1]['lr'] = factor * config['lr']
 
 # Base Adam
-base_adam_config = {
+adam_base_config = {
     'optim': 'Adam',
     'lr': 1e-4,
     'agg_batch': 32,
     'epoch': 40,
 }
-def base_adam(optimizer, current_iter, total_iter, config):
+def adam_base(optimizer, current_iter, total_iter, config):
     if (current_iter / total_iter) < 0.5:
         factor = 1
     elif (current_iter / total_iter) < 0.75:
@@ -56,65 +56,39 @@ def base_adam(optimizer, current_iter, total_iter, config):
     optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
     optimizer.param_groups[1]['lr'] = factor * config['lr']
 
-
-# DHSNet
-sche_1_config = {
-    'optim': 'SGD',
-    'lr': 0.015,
-    'agg_batch': 12,
-    'epoch': 40,
-    }
-def sche_1(optimizer, current_iter, total_iter, config):
-    factor = 1. / pow(2, (10 * current_iter) // total_iter)
-    optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
-    optimizer.param_groups[1]['lr'] = factor * config['lr']
-
 # F3Net
-sche_f3net_config = {
+sgd_f3net_config = {
     'optim': 'SGD',
     'lr': 5e-2,
     'agg_batch': 32,
     'epoch': 40,
     }
-def sche_f3net(optimizer, current_iter, total_iter, config):
+def sgd_f3net(optimizer, current_iter, total_iter, config):
     factor = (1 - abs(current_iter / total_iter * 2 - 1))
     optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
     optimizer.param_groups[1]['lr'] = factor * config['lr']
 
 # F3Net
-sche_pfsnet_config = {
+sgd_pfsnet_config = {
     'optim': 'SGD',
     'lr': 5e-2,
     'agg_batch': 20,
     'epoch': 50,
     }
-def sche_pfsnet(optimizer, current_iter, total_iter, config):
+def sgd_pfsnet(optimizer, current_iter, total_iter, config):
     factor = (1 - abs(current_iter / total_iter * 2 - 1))
     optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
     optimizer.param_groups[1]['lr'] = factor * config['lr']
-
-# F3Net
-sche_test_config = {
-    'optim': 'SGD',
-    'lr': 2e-2,
-    'agg_batch': 32,
-    'epoch': 40,
-    }
-def sche_test(optimizer, current_iter, total_iter, config):
-    factor = (1 - abs(current_iter / total_iter * 2 - 1))
-    optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
-    optimizer.param_groups[1]['lr'] = factor * config['lr']
-
 
 # New test
-sche_scfnet_config = {
+sgd_scfnet_config = {
     'optim': 'SGD',
     'lr': 6.4e-2,
     'agg_batch': 128,
     'epoch': 69,
     'warmup': 5,
 }
-def sche_scfnet(optimizer, current_iter, total_iter, config):
+def sgd_scfnet(optimizer, current_iter, total_iter, config):
     min_lr = 6.4e-4
     max_lr = 6.4e-2
     mum_step = config['iter_per_epoch'] * config['warmup']
@@ -165,6 +139,18 @@ sche_new_config = {
 }
 def sche_new(optimizer, current_iter, total_iter, config):
     factor = pow((1 - 1.0 * current_iter / total_iter), 0.9)
+    optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
+    optimizer.param_groups[1]['lr'] = factor * config['lr']
+
+
+sgd_menet_config = {
+    'optim': 'SGD',
+    'lr': 2.5e-2,
+    'agg_batch': 24,
+    'epoch': 40,
+}
+def sgd_menet(optimizer, current_iter, total_iter, config):
+    factor = (1-abs((current_iter+1)/(total_iter+1)*2-1))
     optimizer.param_groups[0]['lr'] = factor * config['lr'] * 0.1
     optimizer.param_groups[1]['lr'] = factor * config['lr']
 
