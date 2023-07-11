@@ -11,6 +11,7 @@ import timm
 
 custom_config = {'base'      : {'strategy': 'base_adam',
                                 'batch': 8,
+                                'loss': 'bce,iou,structure,pr,bce_edge'
                                },
                  'customized': {'--abc': {'type': float, 'default': 0},
                                 '--abc_true': {'action': 'store_true'},
