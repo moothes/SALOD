@@ -518,10 +518,13 @@ python train.py basnet --loss=bce#0.3,ssim#0.1,iou#0.5,bce_edge#0.2
 
 Thanks for citing our work
 ```xml
-@article{salod,
-  title={Benchmarking Deep Models for Salient Object Detection},
+@article{zhou2024benchmarking,
+  title={Benchmarking deep models on salient object detection},
   author={Zhou, Huajun and Lin, Yang and Yang, Lingxiao and Lai, Jianhuang and Xie, Xiaohua},
-  journal={arXiv preprint arXiv:2202.02925},
-  year={2022}
+  journal={Pattern Recognition},
+  volume={145},
+  pages={109951},
+  year={2024},
+  publisher={Elsevier}
 }
 ```
