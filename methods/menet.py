@@ -9,7 +9,7 @@ import torch.nn.functional as F
 import timm
 
 
-custom_config = {'base'      : {'strategy': 'base_adam',
+custom_config = {'base'      : {'strategy': 'adam_base',
                                 'batch': 8,
                                 'loss': 'bce,iou,structure,pr,bce_edge'
                                },
