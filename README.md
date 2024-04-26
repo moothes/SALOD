@@ -1,6 +1,6 @@
 
 # SALOD
-Here is the SALient Object Detection (SALOD) benchmark ([paper link](https://arxiv.org/abs/2202.02925)).  
+Here is the SALient Object Detection (SALOD) benchmark ([paper link](https://www.sciencedirect.com/science/article/pii/S0031320323006490)), published in Pattern Recognition.  
 
 We have re-implemented over 20 SOD methods using the same settings, including input size, data loader and evaluation metrics (thanks to [Metrics](https://github.com/lartpang/Py-SOD-VOS-EvalToolkit)). Some other networks are debugging now, it is welcome for your contributions on these models.
 
