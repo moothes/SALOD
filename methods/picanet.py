@@ -3,7 +3,7 @@ from torch import nn
 from torch.nn import functional as F
 
     
-custom_config = {'base'      : {'strategy': 'base_adam',
+custom_config = {'base'      : {'strategy': 'adam_base',
                                 'batch': 8,
                                },
                  'customized': {'--ws': {'type': list, 'default': [0.5, 0.5, 0.5, 0.8, 0.8, 1.]},
