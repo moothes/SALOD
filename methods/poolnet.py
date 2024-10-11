@@ -5,7 +5,7 @@ import torch.nn.functional as F
 config_vgg = {'convert': [[128,256,512,512,512],[64,128,256,512,512]], 'deep_pool': [[512, 512, 256, 128], [512, 256, 128, 128], [True, True, True, False], [True, True, True, False]], 'score': 128}  # no convert layer, no conv6
 config_resnet = {'convert': [[64,256,512,1024,2048],[128,256,256,512,512]], 'deep_pool': [[512, 512, 256, 256, 128], [512, 256, 256, 128, 128], [False, True, True, True, False], [True, True, True, True, False]], 'score': 128}
 
-custom_config = {'base'      : {'strategy': 'base_adam',
+custom_config = {'base'      : {'strategy': 'adam_base',
                                 'batch': 8,
                                },
                  'customized': {'--abc': {'type': float, 'default': 0},
