@@ -42,7 +42,7 @@ def base_config(net_name):
     parser.add_argument('--train_split', default=10000, type=int, help='Use for SALOD dataset')
     
     # Construct loss by loss_factory. More details in base/loss.py.
-    parser.add_argument('--loss', default='bi', type=str, help='Losses for networks')
+    parser.add_argument('--loss', default='bce,iou', type=str, help='Losses for networks')
     parser.add_argument('--lw', default='1,1', type=str, help='Weights for losses')
     
     # Customized arguments
