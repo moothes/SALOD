@@ -4,8 +4,7 @@ from torch.nn import functional as F
 
 custom_config = {'base'      : {'strategy': 'sgd_f3net',
                                 'batch': 8,
-                                'loss': 'bi',
-                                'lw': '1,1',
+                                'loss': 'bce,iou',
                                },
                  'customized': {'--abc': {'type': float, 'default': 0},
                                 '--abc_true': {'action': 'store_true'},
